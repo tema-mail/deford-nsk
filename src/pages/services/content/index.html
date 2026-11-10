@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Дзен и ВКонтакте – Дефорд Новосибирск</title>
+<style>/*KIT*/</style>
+<style>
+/* Доп. элементы прототипа – только серые */
+.d-crumbs { font-size: 13.5px; color: var(--muted); }
+.d-crumbs a { color: var(--muted); }
+.d-eyebrow { font-size: 15px; font-weight: 600; color: var(--muted); }
+.d-lead { font-size: 19px; font-weight: 600; }
+.d-price { border: 2px solid var(--ink); padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.d-price b { font-size: 20px; }
+.d-two { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.d-two > div { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; align-content: start; }
+.d-two ul, .w-card ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+.d-links { display: flex; flex-wrap: wrap; gap: 8px 18px; }
+.d-msgr { display: flex; flex-wrap: wrap; gap: 10px; }
+.d-foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
+.d-foot a, .d-foot span.d-li { display: block; margin-top: 4px; }
+.d-tag { display: inline-block; border: 1px solid var(--ink); padding: 0 8px; font-size: 13px; font-weight: 600; justify-self: start; }
+.d-quiz fieldset { border: 1px solid var(--line); padding: 14px; display: grid; gap: 8px; margin: 0; min-width: 0; }
+.d-quiz legend { font-weight: 700; padding: 0 6px; }
+.d-quiz label { display: flex; gap: 8px; align-items: flex-start; }
+.d-result { border: 2px dashed var(--ink); padding: 14px; display: grid; gap: 8px; background: var(--fill2); }
+.d-timeline { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.d-timeline li { display: grid; grid-template-columns: 150px 1fr; gap: 14px; border-left: 3px solid var(--ink); padding: 10px 0 14px 16px; }
+.d-timeline li b:first-child { font-size: 15px; }
+.d-chat { border: 1px solid var(--line); padding: 14px; display: grid; gap: 10px; background: var(--fill2); }
+.d-chat p { border: 1px solid var(--line); background: var(--paper); padding: 8px 10px; }
+.d-chat p.q { justify-self: end; max-width: 80%; }
+@media (max-width: 760px) {
+  .d-two { grid-template-columns: 1fr; }
+  .d-foot { grid-template-columns: 1fr 1fr; }
+  .d-timeline li { grid-template-columns: 1fr; gap: 4px; }
+}
+</style>
+</head>
+<body>
+<div class="w-bar"><div class="w-wrap">
+  <b>Прототип · Дефорд Новосибирск · Контент · v1 11.11.2026</b>
+  <label><input type="checkbox" id="t-logic"> Логика блоков</label>
+  <label><input type="checkbox" id="t-notes"> Комментарии дизайнеру</label>
+  <label><input type="checkbox" id="t-seo"> SEO страницы</label>
+  <label><input type="checkbox" id="t-success"> После отправки</label>
+  <span>Меток «запросить»: <b id="ask-count">0</b></span>
+</div></div>
+<script type="application/json" id="w-seo">{"title": "Ведение Дзена и ВКонтакте для бизнеса в Новосибирске | Дефорд", "description": "Ведём Дзен и ВКонтакте через ситуации ваших клиентов: темы из реальных вопросов, план на месяц, отчёт в дочитываниях и заявках. SMM без пустых постов.", "h1": "Ведение Дзена и ВКонтакте для бизнеса в Новосибирске", "zapros": "smm продвижение (53), продвижение в вк (51) – Wordstat НСК 10.11.2026", "schema": "Service (areaServed: Новосибирск) + BreadcrumbList", "links": ["/deford-nsk/services/video/ – ролики для клипов", "/deford-nsk/services/ads/vk-ads/ – реклама ВКонтакте", "/deford-nsk/services/ai-search/ – статьи как источник для нейросетей", "/deford-nsk/cases/?usluga=content – кейсы", "/deford-nsk/prices/#content – цена"]}</script>
+<div class="w-seo" id="w-seo-box"></div>
+<header class="w-header w-block" data-n="0" data-name="Шапка" data-question="Где я и как связаться?" data-proof="меню, телефон, кнопка разбора">
+  <div class="w-wrap">
+    <a class="w-logo" href="/deford-nsk/" style="text-decoration:none">Дефорд</a>
+    <span class="w-descr">Рекламное агентство · Новосибирск</span>
+    <span class="w-contacts-top"><a href="tel:+79537777891">+7 953 777-78-91</a><span class="w-muted"><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></span></span>
+    <a class="w-btn ghost" href="#zayavka">Получить разбор</a>
+  </div>
+  <nav class="w-wrap w-nav"><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></nav>
+</header>
+
+<main>
+  <section class="w-block" data-n="1" data-name="Первый экран" data-question="Будут ли посты приводить клиентов, а не просто висеть?" data-proof="контент через ситуацию клиента, а не «о нас»" data-next="Почему мои посты не читают?">
+    <div class="w-wrap w-stack">
+      <nav class="d-crumbs"><a href="/deford-nsk/">Главная</a> / <a href="/deford-nsk/services/">Услуги</a> / <span>Дзен и ВКонтакте</span></nav>
+      <div class="w-hero">
+        <div class="w-stack">
+          <h1>Ведение Дзена и ВКонтакте для бизнеса в Новосибирске</h1>
+          <p class="d-lead">Без «поздравляем с праздником» и постов ради постов. Пишем о ситуациях, в которые попадают ваши клиенты, – и в конце предлагаем выход.</p>
+          <div class="w-actions"><a class="w-btn" href="#zayavka">Получить 5 тем для вашего канала</a></div>
+          <p class="w-hint">На разборе покажем 5 тем из вопросов ваших клиентов и спроса в поиске.</p>
+        </div>
+        <div class="w-media" data-alt="Статья в Дзене канала TEYES Sibir">Статья из канала dzen.ru/teyes_sibir в ленте Дзена: заголовок-ситуация, обложка с машиной <span class="w-ask">[запросить: можно ли показывать канал и его цифры]</span></div>
+      </div>
+      <p class="w-note">Обещание «5 тем на разборе» – проверить у Артёма, готов ли он давать темы до оплаты.</p>
+    </div>
+  </section>
+  <section class="w-block" data-n="2" data-name="Почему не читают" data-question="Почему мои посты не читают?" data-proof="три типа пустых постов" data-next="Что значит «через ситуацию клиента»?">
+    <div class="w-wrap w-stack">
+      <h2>Посты не читают, когда они про вас, а не про читателя</h2>
+      <div class="w-grid" style="--cols:3;--cols-m:1">
+        <article class="w-card"><h3>«Мы лучшие»</h3><p>Никто не ищет компанию, которая рассказывает о себе. Ищут решение своей проблемы.</p></article>
+        <article class="w-card"><h3>Праздники и картинки</h3><p>Лайк от знакомых, ноль заявок. Лента их пролистывает.</p></article>
+        <article class="w-card"><h3>Нет следующего шага</h3><p>Дочитали – и не знают, куда написать и что спросить.</p></article>
+      </div>
+    </div>
+  </section>
+  <section class="w-block" data-n="3" data-name="Через ситуацию" data-question="Что значит «через ситуацию клиента»?" data-proof="пример темы было / стало" data-next="Что я получу за месяц?">
+    <div class="w-wrap w-stack">
+      <h2>Одна и та же тема – как пишут обычно и как пишем мы</h2>
+      <div class="d-two">
+        <div><b>Обычно</b><p>«Устанавливаем мультимедиа Teyes. Большой выбор, гарантия, звоните!»</p></div>
+        <div><b>Через ситуацию</b><p>«Купили Камри с рук, а камера заднего хода не работает. Три причины и что делать в каждой» – в конце: «Проверим за 15 минут, запишитесь».</p></div>
+      </div>
+      <p>Человек узнаёт свою ситуацию, дочитывает и пишет тому, кто в ней разобрался. Темы берём из вопросов, которые вам задают по телефону, и из того, что ищут в Яндексе.</p>
+      <div class="w-actions"><a class="w-btn ghost" href="#zayavka">Получить 5 тем для вашего канала</a></div>
+      <p class="w-note">Пример – из ниши TEYES Sibir (контент через ситуацию – главная идея канала). Время «15 минут» – иллюстрация, заменить реальным из TEYES или убрать.</p>
+    </div>
+  </section>
+  <section class="w-block" data-n="4" data-name="План на месяц" data-question="Что я получу за месяц?" data-proof="что входит в месяц" data-next="Как понять, что контент работает?">
+    <div class="w-wrap w-stack">
+      <h2>Что вы получаете за месяц</h2>
+      <ol class="w-steps" style="--cols:4">
+        <li><b>План тем</b><span>Темы на месяц из вопросов клиентов и спроса. Согласуете до публикаций.</span></li>
+        <li><b>Статьи в Дзен</b><span><span class="w-ask">[запросить: сколько статей в месяц]</span></span></li>
+        <li><b>Посты и клипы ВКонтакте</b><span><span class="w-ask">[запросить: сколько постов и клипов]</span>. Ролики – с <a href="/deford-nsk/services/video/">видео</a>.</span></li>
+        <li><b>Публикуем после «да»</b><span>Ничего не выходит без вашего согласия.</span></li>
+      </ol>
+      <div class="d-price"><span><b>от 35 000 ₽ в месяц</b> <span class="w-ask">[запросить: подтвердить цену ведения]</span></span><a href="/deford-nsk/prices/#content">Все цены и что входит</a></div>
+    </div>
+  </section>
+  <section class="w-block" data-n="5" data-name="Как считаем" data-question="Как понять, что контент работает?" data-proof="дочитывания, переходы, заявки; кейс канала" data-next="Как начать?">
+    <div class="w-wrap w-stack">
+      <h2>Считаем не лайки, а дочитывания и заявки</h2>
+      <div class="w-grid" style="--cols:3;--cols-m:1">
+        <article class="w-card"><h3>Дочитывания</h3><p>Сколько людей дошло до конца статьи. Низко – переписываем начало.</p></article>
+        <article class="w-card"><h3>Переходы</h3><p>Сколько перешли на сайт или в сообщения после поста.</p></article>
+        <article class="w-card"><h3>Заявки</h3><p>Заявки с Дзена и ВКонтакте – в <a href="/deford-nsk/services/websites/client-cabinet/">кабинете заявок</a> с меткой источника.</p></article>
+      </div>
+      <article class="w-card"><span class="d-tag">Контент</span><h3><span class="w-ask">[запросить: кейс канала dzen.ru/teyes_sibir: подписчики, дочитывания, заявки с Дзена, срок]</span></h3><a href="/deford-nsk/cases/?usluga=content">Все кейсы по контенту</a></article>
+    </div>
+  </section>
+  <section class="w-block" id="zayavka" data-n="6" data-name="Заявка" data-question="Как начать?" data-proof="разбор канала и 5 тем">
+    <div class="w-wrap">
+      <div class="w-grid" style="--cols:2;--cols-m:1;align-items:start">
+        <div class="w-stack">
+          <h2>Получите 5 тем для вашего канала</h2>
+          <p>Оставьте телефон и ссылку на Дзен или ВКонтакте, если уже ведёте. Посмотрим, что читают, и предложим 5 тем из вопросов ваших клиентов.</p>
+          <b>Удобнее написать?</b>
+          <div class="d-msgr"><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a><a class="w-btn ghost" href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Написать в Макс</a></div>
+          <b>Удобнее позвонить?</b>
+          <a href="tel:+79537777891">+7 953 777-78-91</a>
+        </div>
+        <form class="w-form" onsubmit="event.preventDefault()">
+          <label class="w-field">Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" data-mask></label>
+          <label class="w-field">Сайт или соцсеть (необязательно)<input name="site" placeholder="ссылка"></label>
+          <input type="hidden" name="usluga" value="content">
+          <label class="w-check"><input type="checkbox" data-agree> <span>Согласен на обработку персональных данных по <a href="/deford-nsk/privacy-policy/">политике конфиденциальности</a></span></label>
+          <button class="w-btn" type="submit" disabled>Получить 5 тем для канала</button>
+          <p class="w-hint">Перезвоним и договоримся о времени: 20 минут по телефону или в Telegram.</p>
+          <div class="w-success">
+            <p><b>Заявка у нас.</b></p>
+            <p>Перезвоним за <span class="w-ask">[запросить: срок ответа]</span> и договоримся о времени разбора.</p>
+            <p>Срочно – <a href="tel:+79537777891">+7 953 777-78-91</a>, <a href="https://t.me/Artem1Galimov">Telegram</a> или <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>.</p>
+            <p>К разбору: 3–5 вопросов, которые клиенты задают вам чаще всего.</p>
+          </div>
+        </form>
+      </div>
+      <p class="w-note">Телефон с маской, галочка согласия пустая, кнопка неактивна до отметки. Скрытое поле «usluga» – с какой страницы заявка, уходит в кабинет заявок вместе с источником. Срок ответа – только от Артёма.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="w-footer"><div class="w-wrap w-stack">
+  <div class="d-foot">
+    <div class="w-stack"><b class="w-logo" style="justify-self:start">Дефорд</b>
+      <span>Рекламное и маркетинговое агентство из Новосибирска: реклама, сайты на коде, поиск, карты, нейросети, видео и автоматизация. Работа – от 35 000 ₽.</span>
+      <a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>
+      <a href="https://deford.ru/">Портфолио сайтов – deford.ru</a>
+    </div>
+    <div><b>Разделы</b><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/reviews/">Отзывы</a><a href="/deford-nsk/contacts/">Контакты</a></div>
+    <div><b>Направления</b><a href="/deford-nsk/services/ads/">Реклама</a><a href="/deford-nsk/services/websites/">Сайты</a><a href="/deford-nsk/services/seo/">Поиск</a><a href="/deford-nsk/services/content/">Контент</a><a href="/deford-nsk/services/automation/">Автоматизация</a></div>
+    <div><b>Документы</b><a href="/deford-nsk/privacy-policy/">Политика конфиденциальности</a><span class="d-li">Реквизиты: <span class="w-ask">[запросить: реквизиты]</span></span></div>
+  </div>
+  <p class="w-note">Подвал общий для всех страниц, без H2. Ссылка на deford.ru – «Портфолио сайтов»; как ещё связываем с deford.ru – решает Артём (логика v2).</p>
+</div></footer>
+
+<div class="w-sticky"><a class="w-btn" href="#zayavka">Получить разбор</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a></div>
+
+<script>
+document.querySelectorAll('.w-block').forEach(function (b) {
+  var d = b.dataset, el = document.createElement('div');
+  el.className = 'w-logic';
+  el.innerHTML = '<b>Блок ' + (d.n || '?') + ' · ' + (d.name || '') + '</b><br>Вопрос клиента: ' + (d.question || '–') + '<br>Опора: ' + (d.proof || '–') + (d.next ? '<br>Дальше спросит: ' + d.next : '');
+  if (b.tagName === 'HEADER') b.prepend(el); else (b.querySelector('.w-wrap') || b).prepend(el);
+});
+['logic', 'notes', 'seo', 'success'].forEach(function (k) {
+  document.getElementById('t-' + k).addEventListener('change', function (e) { document.body.classList.toggle('show-' + k, e.target.checked); });
+});
+(function () {
+  var src = document.getElementById('w-seo'), box = document.getElementById('w-seo-box');
+  if (!src || !box) return;
+  var d = JSON.parse(src.textContent), esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var len = function (t, max) { return ' <span class="' + (t.length > max ? 'bad' : '') + '">(' + t.length + ' / ' + max + ')</span>'; };
+  var heads = [].map.call(document.querySelectorAll('main h1, main h2'), function (h) { return '<li>' + h.tagName + ' – ' + esc(h.textContent.replace(/\s+/g, ' ').trim()) + '</li>'; }).join('');
+  var alts = [].map.call(document.querySelectorAll('[data-alt]'), function (m) { return '<li>' + esc(m.dataset.alt) + '</li>'; }).join('');
+  box.innerHTML = '<table><tr><td>title</td><td>' + esc(d.title) + len(d.title, 65) + '</td></tr><tr><td>description</td><td>' + esc(d.description) + len(d.description, 160) +
+    '</td></tr><tr><td>запрос</td><td>' + esc(d.zapros || '–') + '</td></tr><tr><td>заголовки</td><td><ul>' + heads + '</ul></td></tr><tr><td>alt</td><td><ul>' + (alts || '<li>–</li>') +
+    '</ul></td></tr><tr><td>разметка</td><td>' + esc(d.schema || '–') + '</td></tr><tr><td>ссылки</td><td><ul>' + (d.links || []).map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></td></tr></table>';
+})();
+document.getElementById('ask-count').textContent = document.querySelectorAll('.w-ask').length;
+document.querySelectorAll('form').forEach(function (f) {
+  var a = f.querySelector('[data-agree]'), btn = f.querySelector('button[type="submit"], button:not([type])');
+  if (a && btn) a.addEventListener('change', function () { btn.disabled = !a.checked; });
+});
+// Маска телефона +7 (___) ___-__-__
+document.querySelectorAll('input[data-mask]').forEach(function (inp) {
+  inp.addEventListener('input', function () {
+    var d = inp.value.replace(/\D/g, '');
+    if (d[0] === '8' || d[0] === '7') d = d.slice(1);
+    d = d.slice(0, 10);
+    var r = '+7';
+    if (d.length) r += ' (' + d.slice(0, 3);
+    if (d.length >= 3) r += ') ' + d.slice(3, 6);
+    if (d.length >= 6) r += '-' + d.slice(6, 8);
+    if (d.length >= 8) r += '-' + d.slice(8, 10);
+    inp.value = d.length ? r : '';
+  });
+});
+</script>
+</body>
+</html>

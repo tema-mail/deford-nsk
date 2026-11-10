@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Прототип – Реклама в 2ГИС</title>
+<style>/*KIT*/</style>
+<style>
+.d-crumbs { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.d-crumbs a { color: var(--muted); }
+.d-price-line { border: 2px solid var(--ink); padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.d-price-line b { font-size: 20px; }
+.d-tag { display: inline-block; border: 1px solid var(--ink); padding: 2px 8px; font-size: 13px; }
+.d-big { font-size: 26px; font-weight: 700; line-height: 1.2; }
+.d-sosedi { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 15px; }
+.d-foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
+.d-foot a, .d-foot span { display: block; margin-top: 4px; }
+.d-yes, .d-no { border-width: 2px; }
+.d-no { border-style: dashed; }
+@media (max-width: 760px) {
+  .d-foot { grid-template-columns: 1fr 1fr; }
+  .d-big { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="w-bar"><div class="w-wrap">
+  <b>Прототип · Дефорд Новосибирск · Реклама в 2ГИС · версия 11.11.2026</b>
+  <label><input type="checkbox" id="t-logic"> Логика блоков</label>
+  <label><input type="checkbox" id="t-notes"> Комментарии дизайнеру</label>
+  <label><input type="checkbox" id="t-seo"> SEO страницы</label>
+  <label><input type="checkbox" id="t-success"> После отправки</label>
+  <span>Меток «запросить»: <b id="ask-count">0</b></span>
+</div></div>
+<script type="application/json" id="w-seo">{"title": "Реклама в 2ГИС в Новосибирске – карточка и показы | Дефорд", "description": "Оформим карточку в 2ГИС и поднимем её рекламой над конкурентами в рубрике. Звонки из 2ГИС – в кабинете заявок. Бесплатная проверка карточки.", "h1": "Реклама в 2ГИС в Новосибирске", "zapros": "реклама в 2гис 44, стоимость рекламы в 2гис 3 (Wordstat, Новосибирск, 10.11.2026)", "schema": "Service, BreadcrumbList", "links": ["/deford-nsk/services/ads/ – хаб", "/deford-nsk/services/maps/ – карты целиком", "/deford-nsk/prices/#2gis", "/deford-nsk/services/ads/yandex-business/", "/deford-nsk/services/ads/yandex-direct/"]}</script>
+<div class="w-seo" id="w-seo-box"></div>
+<header class="w-header w-block" data-n="0" data-name="Шапка" data-question="Где я и как связаться?" data-proof="меню разделов, телефон, кнопка разбора">
+  <div class="w-wrap">
+    <a class="w-logo" href="/deford-nsk/" style="text-decoration:none">Дефорд</a>
+    <span class="w-descr">Реклама в 2ГИС · Новосибирск</span>
+    <span class="w-contacts-top"><a href="tel:+79537777891">+7 953 777-78-91</a><span class="w-muted"><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></span></span>
+    <a class="w-btn ghost" href="#zayavka">Получить разбор</a>
+  </div>
+  <nav class="w-wrap w-nav"><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></nav>
+</header>
+<main>
+  <section class="w-block" data-n="1" data-name="Первый экран" data-question="Куда я попал и решат ли мою задачу?" data-proof="2ГИС – родом из Новосибирска" data-next="Почему в Новосибирске без 2ГИС нельзя?">
+    <div class="w-wrap">
+      <div class="w-hero">
+        <div class="w-stack">
+          <nav class="d-crumbs" aria-label="Хлебные крошки"><a href="/deford-nsk/">Главная</a> / <a href="/deford-nsk/services/">Услуги</a> / <a href="/deford-nsk/services/ads/">Реклама</a> / <span>2ГИС</span></nav>
+          <h1>Реклама в 2ГИС в Новосибирске</h1>
+          <p>В Сибири адрес, телефон и отзывы ищут в 2ГИС. Сначала приводим в порядок вашу карточку, потом поднимаем её рекламой над конкурентами.</p>
+          <div class="w-actions"><a class="w-btn" href="#zayavka">Получить проверку карточки в 2ГИС</a></div>
+          <p class="w-hint">Пришлите ссылку на карточку – скажем, что в ней теряет клиентов</p>
+        </div>
+        <div class="w-media" data-alt="Карточка компании в 2ГИС в Новосибирске">Экран 2ГИС на телефоне: рубрика «Автосервис» в Новосибирске, наша карточка первой с рекламной меткой, рейтинг и фото</div>
+      </div>
+    </div>
+  </section>
+  <section class="w-block" data-n="2" data-name="Почему обязательно" data-question="Почему в Новосибирске без 2ГИС нельзя?" data-proof="2ГИС создан в Новосибирске; выбор «рядом» по рейтингу" data-next="С чего начинать – с рекламы или с карточки?">
+    <div class="w-wrap w-stack">
+      <h2>2ГИС придумали в Новосибирске – здесь им пользуются вместо поиска</h2>
+      <div class="w-grid" style="--cols:3;--cols-m:1">
+        <article class="w-card"><h3>Ищут «рядом»</h3><p>Человек открывает рубрику и выбирает из ближайших по рейтингу, фото и времени работы.</p></article>
+        <article class="w-card"><h3>Решают по карточке</h3><p>Сайт часто не открывают: звонят или строят маршрут прямо из 2ГИС.</p></article>
+        <article class="w-card"><h3>Реклама – выше конкурентов</h3><p>Рекламная карточка стоит выше в рубрике и в поиске, а на карте видна заметнее.</p></article>
+      </div>
+      <p>Сколько клиентов приходит из 2ГИС у наших бизнесов в Новосибирске: <span class="w-ask">[запросить: доля звонков из 2ГИС у TEYES Sibir или EV Sibir]</span></p>
+    </div>
+  </section>
+  <section class="w-block" data-n="3" data-name="Сначала карточка" data-question="С чего начинать – с рекламы или с карточки?" data-proof="чек-лист карточки: 6 пунктов" data-next="Что входит в рекламу в 2ГИС и сколько стоит?">
+    <div class="w-wrap w-stack">
+      <h2>Сначала карточка: реклама пустой карточки сливает деньги</h2>
+      <div class="w-hero">
+        <ul>
+          <li><b>Рубрики</b> – все, по которым вас ищут, а не одна</li>
+          <li><b>Фото</b> – фасад, вход, зал, работы: чтобы нашли и доверились</li>
+          <li><b>Часы и телефон</b> – актуальные, с кнопками связи</li>
+          <li><b>Цены и услуги</b> – прайс в карточке</li>
+          <li><b>Отзывы</b> – ответ на каждый, особенно на плохие</li>
+          <li><b>Описание</b> – что делаете и для кого, без «индивидуального подхода»</li>
+        </ul>
+        <div class="w-media" data-alt="Карточка 2ГИС до и после оформления">Карточка до и после: слева 1 фото и пустой прайс, справа 12 фото, прайс и ответы на отзывы</div>
+      </div>
+      <p>Карты целиком – Яндекс Карты и 2ГИС с отзывами и рейтингом – на странице <a href="/deford-nsk/services/maps/">продвижение на картах</a>.</p>
+    </div>
+  </section>
+  <section class="w-block" data-n="4" data-name="Что входит и цена" data-question="Что входит в рекламу в 2ГИС и сколько стоит?" data-proof="состав работ, цена от, бюджет отдельно" data-next="Как начать?">
+    <div class="w-wrap w-stack">
+      <h2>Что делаем в 2ГИС за месяц</h2>
+      <ol class="w-steps" style="--cols:4;--cols-m:1">
+        <li><b>Проверка</b><span>Карточка, рубрики, конкуренты в вашем районе.</span></li>
+        <li><b>Оформление</b><span>Фото, прайс, описание, ответы на отзывы.</span></li>
+        <li><b>Реклама</b><span>Формат и районы показа <span class="w-ask">[запросить: какие рекламные форматы 2ГИС ведём]</span>.</span></li>
+        <li><b>Учёт</b><span>Звонки и заявки из 2ГИС – в кабинете заявок.</span></li>
+      </ol>
+      <div class="d-price-line"><span>Реклама в 2ГИС – <b><span class="w-ask">[запросить: цена 2ГИС от]</span></b>, рекламный пакет оплачиваете 2ГИС напрямую.</span><a class="w-btn ghost" href="/deford-nsk/prices/#2gis">Что входит в цену</a></div>
+      <div class="d-sosedi"><span>Ещё для местного бизнеса:</span><a href="/deford-nsk/services/ads/yandex-business/">Яндекс Бизнес</a><a href="/deford-nsk/services/ads/yandex-direct/">Яндекс Директ</a></div>
+    </div>
+  </section>
+  <section class="w-block" id="zayavka" data-n="5" data-name="Заявка" data-question="Как начать?" data-proof="что даёт разбор, кто перезвонит">
+    <div class="w-wrap">
+      <form class="w-form" onsubmit="event.preventDefault(); this.classList.add('sent')">
+        <h2>Проверим вашу карточку в 2ГИС</h2>
+        <label class="w-field">Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" data-mask></label>
+        <label class="w-field">Ссылка на карточку в 2ГИС (необязательно)<input name="card" inputmode="url"></label>
+        <label class="w-check"><input type="checkbox" data-agree> <span>Согласен на обработку <a href="/deford-nsk/privacy-policy/">персональных данных</a></span></label>
+        <button class="w-btn" type="submit" disabled>Получить проверку карточки</button>
+        <p class="w-hint">Перезвоним и скажем, что поправить в карточке и нужна ли вам реклама в 2ГИС</p>
+        <div class="w-success">
+          <p><b>Заявка у нас.</b></p>
+          <p>Артём перезвонит за <span class="w-ask">[запросить: срок ответа]</span> и договорится о времени разбора.</p>
+          <p>Срочно – <a href="tel:+79537777891">+7 953 777-78-91</a> или <a href="https://t.me/Artem1Galimov">Telegram</a>, <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>.</p>
+          <p>К разговору: доступ или скриншоты рекламного кабинета и сколько заявок в месяц сейчас.</p>
+        </div>
+        <p class="w-hint">Удобнее написать? <a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a> · Позвонить: <a href="tel:+79537777891">+7 953 777-78-91</a></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="w-footer"><div class="w-wrap w-stack">
+  <div class="d-foot">
+    <div><b class="w-logo">Дефорд</b><span>Рекламное агентство в Новосибирске: приводим заявки в бизнес и показываем каждую. Работа – от 35 000 ₽, рекламный бюджет – площадке напрямую.</span><a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></div>
+    <div><b>Разделы</b><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></div>
+    <div><b>Направления</b><a href="/deford-nsk/services/ads/">Реклама</a><a href="/deford-nsk/services/websites/">Сайты</a><a href="/deford-nsk/services/seo/">Поиск</a><a href="/deford-nsk/services/content/">Контент</a><a href="/deford-nsk/services/automation/">Автоматизация</a></div>
+    <div><b>Ещё</b><a href="https://deford.ru/">Портфолио сайтов – deford.ru</a><a href="/deford-nsk/privacy-policy/">Политика конфиденциальности</a></div>
+  </div>
+</div></footer>
+<div class="w-sticky"><a class="w-btn" href="tel:+79537777891">Позвонить</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a></div>
+<script>
+document.querySelectorAll('.w-block').forEach(function (b) {
+  var d = b.dataset, el = document.createElement('div');
+  el.className = 'w-logic';
+  el.innerHTML = '<b>Блок ' + (d.n || '?') + ' · ' + (d.name || '') + '</b><br>Вопрос клиента: ' + (d.question || '–') + '<br>Опора: ' + (d.proof || '–') + (d.next ? '<br>Дальше спросит: ' + d.next : '');
+  if (b.tagName === 'HEADER') b.prepend(el); else (b.querySelector('.w-wrap') || b).prepend(el);
+});
+['logic', 'notes', 'seo', 'success'].forEach(function (k) {
+  document.getElementById('t-' + k).addEventListener('change', function (e) { document.body.classList.toggle('show-' + k, e.target.checked); });
+});
+(function () {
+  var src = document.getElementById('w-seo'), box = document.getElementById('w-seo-box');
+  if (!src || !box) return;
+  var d = JSON.parse(src.textContent), esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var len = function (t, max) { return ' <span class="' + (t.length > max ? 'bad' : '') + '">(' + t.length + ' / ' + max + ')</span>'; };
+  var heads = [].map.call(document.querySelectorAll('main h1, main h2'), function (h) { return '<li>' + h.tagName + ' – ' + esc(h.textContent.trim()) + '</li>'; }).join('');
+  var alts = [].map.call(document.querySelectorAll('.w-media[data-alt]'), function (m) { return '<li>' + esc(m.dataset.alt) + '</li>'; }).join('');
+  box.innerHTML = '<table><tr><td>title</td><td>' + esc(d.title) + len(d.title, 65) + '</td></tr><tr><td>description</td><td>' + esc(d.description) + len(d.description, 160) +
+    '</td></tr><tr><td>запрос</td><td>' + esc(d.zapros || '–') + '</td></tr><tr><td>заголовки</td><td><ul>' + heads + '</ul></td></tr><tr><td>alt</td><td><ul>' + (alts || '<li>–</li>') +
+    '</ul></td></tr><tr><td>разметка</td><td>' + esc(d.schema || '–') + '</td></tr><tr><td>ссылки</td><td><ul>' + (d.links || []).map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></td></tr></table>';
+})();
+document.getElementById('ask-count').textContent = document.querySelectorAll('.w-ask').length;
+document.querySelectorAll('form').forEach(function (f) {
+  var a = f.querySelector('[data-agree]'), btn = f.querySelector('button[type="submit"]');
+  if (a && btn) a.addEventListener('change', function () { btn.disabled = !a.checked; });
+});
+// Маска телефона +7 (___) ___-__-__
+document.querySelectorAll('input[data-mask]').forEach(function (i) {
+  i.addEventListener('input', function () {
+    var d = i.value.replace(/\D/g, '').replace(/^[78]/, '').slice(0, 10), m = '+7 (';
+    if (!d.length) { i.value = ''; return; }
+    m += d.slice(0, 3); if (d.length >= 3) m += ') ' + d.slice(3, 6); if (d.length >= 6) m += '-' + d.slice(6, 8); if (d.length >= 8) m += '-' + d.slice(8, 10);
+    i.value = m;
+  });
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Прототип – Яндекс Директ</title>
+<style>/*KIT*/</style>
+<style>
+.d-crumbs { font-size: 13px; color: var(--muted); display: flex; flex-wrap: wrap; gap: 4px 8px; }
+.d-crumbs a { color: var(--muted); }
+.d-price-line { border: 2px solid var(--ink); padding: 14px 16px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; justify-content: space-between; }
+.d-price-line b { font-size: 20px; }
+.d-tag { display: inline-block; border: 1px solid var(--ink); padding: 2px 8px; font-size: 13px; }
+.d-big { font-size: 26px; font-weight: 700; line-height: 1.2; }
+.d-sosedi { display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 15px; }
+.d-foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
+.d-foot a, .d-foot span { display: block; margin-top: 4px; }
+.d-yes, .d-no { border-width: 2px; }
+.d-no { border-style: dashed; }
+@media (max-width: 760px) {
+  .d-foot { grid-template-columns: 1fr 1fr; }
+  .d-big { font-size: 22px; }
+}
+</style>
+</head>
+<body>
+<div class="w-bar"><div class="w-wrap">
+  <b>Прототип · Дефорд Новосибирск · Яндекс Директ · версия 11.11.2026</b>
+  <label><input type="checkbox" id="t-logic"> Логика блоков</label>
+  <label><input type="checkbox" id="t-notes"> Комментарии дизайнеру</label>
+  <label><input type="checkbox" id="t-seo"> SEO страницы</label>
+  <label><input type="checkbox" id="t-success"> После отправки</label>
+  <span>Меток «запросить»: <b id="ask-count">0</b></span>
+</div></div>
+<script type="application/json" id="w-seo">{"title": "Настройка Яндекс Директ в Новосибирске – ведение от 35 000 ₽", "description": "Директолог для тех, кто уже сливал бюджет: чистим запросы и РСЯ, ставки по заявкам, отчёт в рублях. Бесплатный разбор вашего кабинета.", "h1": "Настройка Яндекс Директа в Новосибирске", "zapros": "настройка яндекс директ 91, директолог 96, яндекс директ настройка рекламы 54 (Wordstat, Новосибирск, 10.11.2026)", "schema": "Service, BreadcrumbList, FAQPage", "links": ["/deford-nsk/services/ads/ – хаб", "/deford-nsk/services/websites/landing/ – страница под рекламу", "/deford-nsk/prices/#yandex-direct", "/deford-nsk/cases/?service=yandex-direct", "/deford-nsk/services/ads/vk-ads/, /2gis/, /yandex-business/ – соседи"]}</script>
+<div class="w-seo" id="w-seo-box"></div>
+<header class="w-header w-block" data-n="0" data-name="Шапка" data-question="Где я и как связаться?" data-proof="меню разделов, телефон, кнопка разбора">
+  <div class="w-wrap">
+    <a class="w-logo" href="/deford-nsk/" style="text-decoration:none">Дефорд</a>
+    <span class="w-descr">Яндекс Директ · Новосибирск</span>
+    <span class="w-contacts-top"><a href="tel:+79537777891">+7 953 777-78-91</a><span class="w-muted"><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></span></span>
+    <a class="w-btn ghost" href="#zayavka">Получить разбор</a>
+  </div>
+  <nav class="w-wrap w-nav"><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></nav>
+</header>
+<main>
+  <section class="w-block" data-n="1" data-name="Первый экран" data-question="Куда я попал и решат ли мою задачу?" data-proof="разбор старого кабинета – первым шагом" data-next="Почему мой бюджет в Директе сливается?">
+    <div class="w-wrap">
+      <div class="w-hero">
+        <div class="w-stack">
+          <nav class="d-crumbs" aria-label="Хлебные крошки"><a href="/deford-nsk/">Главная</a> / <a href="/deford-nsk/services/">Услуги</a> / <a href="/deford-nsk/services/ads/">Реклама</a> / <span>Яндекс Директ</span></nav>
+          <h1>Настройка Яндекс Директа в Новосибирске</h1>
+          <p>Если вы уже сливали бюджет – начнём с того, куда он ушёл. Покажем на вашем кабинете, а не на презентации.</p>
+          <div class="w-actions"><a class="w-btn" href="#zayavka">Получить разбор моего кабинета</a><a class="w-btn ghost" href="#sliv">Почему сливается бюджет</a></div>
+          <p class="w-hint">Разбор – 20 минут, бесплатно. Нужен гостевой доступ или скриншоты</p>
+        </div>
+        <div class="w-media" data-alt="Отчёт по поисковым запросам Яндекс Директа с мусорными фразами">Скриншот отчёта по запросам из реального кабинета (с разрешения клиента): мусорные фразы вычеркнуты маркером, рядом сумма, которую они съели</div>
+      </div>
+    </div>
+  </section>
+  <section class="w-block" id="sliv" data-n="2" data-name="Почему сливается" data-question="Почему мой бюджет в Директе сливается?" data-proof="3 причины с признаком, который можно проверить самому" data-next="Как вы будете вести, чтобы это не повторилось?">
+    <div class="w-wrap w-stack">
+      <h2>Три причины, по которым Директ съедает деньги без заявок</h2>
+      <div class="w-grid" style="--cols:3;--cols-m:1">
+        <article class="w-card"><h3>Мусорные запросы</h3><p>Реклама показывается по «вакансии», «своими руками», «бесплатно», «обучение». Платите за клик людям, которые не купят.</p><p class="w-hint">Проверьте: отчёт «Поисковые запросы» за месяц – сколько денег ушло на фразы, по которым вы не работаете.</p></article>
+        <article class="w-card"><h3>Площадки РСЯ</h3><p>Объявления крутятся в мобильных играх и приложениях: кликов много, заявок нет.</p><p class="w-hint">Проверьте: отчёт по площадкам – где больше всего кликов и сколько с них заявок.</p></article>
+        <article class="w-card"><h3>Некуда приводить</h3><p>Реклама ведёт на главную, где нужно искать услугу, или на форму из восьми полей.</p><p class="w-hint">Проверьте: откройте свою рекламу с телефона и попробуйте оставить заявку за 30 секунд.</p></article>
+      </div>
+      <p class="w-note">Без иконок-кружочков: каждая карточка – маленький скриншот отчёта, где это видно. Это главный блок страницы, тон – «вот где деньги», не «мы лучшие».</p>
+    </div>
+  </section>
+  <section class="w-block" data-n="3" data-name="Как ведём" data-question="Как вы будете вести, чтобы это не повторилось?" data-proof="4 действия против 3 причин" data-next="Как я пойму, что деньги не уходят впустую?">
+    <div class="w-wrap w-stack">
+      <h2>Как ведём Директ: против каждой причины – своё действие</h2>
+      <ol class="w-steps" style="--cols:4;--cols-m:1">
+        <li><b>Минус-слова до запуска</b><span>Собираем мусорные фразы заранее, потом чистим отчёт по запросам каждую неделю.</span></li>
+        <li><b>РСЯ отдельно</b><span>Поиск и сети – разными кампаниями; площадки без заявок отключаем.</span></li>
+        <li><b>Ставки по заявкам</b><span>Цели в Метрике на звонок и заявку, стратегия на конверсии, а не на клики.</span></li>
+        <li><b>Страница под рекламу</b><span>Нет подходящей – делаем <a href="/deford-nsk/services/websites/landing/">лендинг</a>: одно предложение, короткая форма.</span></li>
+      </ol>
+    </div>
+  </section>
+  <section class="w-block" data-n="4" data-name="Отчёт в деньгах" data-question="Как я пойму, что деньги не уходят впустую?" data-proof="кабинет заявок: заявка, источник, цена" data-next="Делали ли вы это для кого-то ещё?">
+    <div class="w-wrap w-stack">
+      <h2>Отчёт – в заявках и рублях, а не в кликах</h2>
+      <div class="w-hero">
+        <div class="w-stack">
+          <p>Каждая заявка из Директа видна в кабинете сразу: когда пришла, по какой кампании и сколько стоила. Раз в месяц – итог: потрачено, заявок, цена заявки, что меняем.</p>
+          <a class="w-btn ghost" href="/deford-nsk/#kabinet">Посмотреть демо кабинета</a>
+        </div>
+        <div class="w-media" data-alt="Кабинет заявок: заявки из Яндекс Директа с ценой">Кабинет заявок: строки «звонок · Директ, поиск · кампания „ремонт АКПП“ · 640 ₽». Подпись «пример интерфейса», цифры не выдаём за кейс</div>
+      </div>
+    </div>
+  </section>
+  <section class="w-block" data-n="5" data-name="Кейс" data-question="Делали ли вы это для кого-то ещё?" data-proof="кейс именно по Директу" data-next="Сколько стоит ведение?">
+    <div class="w-wrap w-stack">
+      <h2>Кейс: что было в кабинете и что стало</h2>
+      <article class="w-card"><h3><span class="w-ask">[запросить: кейс Яндекс Директа – ниша, город, было, что сделали, стало, срок]</span></h3><p>Формат: было (цена заявки, доля мусора) → три правки → стало. Чужие кейсы (ВКонтакте) сюда не ставим.</p></article>
+      <div class="w-actions"><a class="w-btn ghost" href="/deford-nsk/cases/?service=yandex-direct">Все кейсы по Директу</a></div>
+    </div>
+  </section>
+  <section class="w-block" data-n="6" data-name="Цена" data-question="Сколько стоит ведение?" data-proof="одна строка «от», бюджет отдельно" data-next="Что ещё спросить перед стартом?">
+    <div class="w-wrap w-stack">
+      <h2>Сколько стоит настройка и ведение Директа</h2>
+      <div class="d-price-line"><span>Настройка и ведение – <b>от 35 000 ₽</b> в месяц <span class="w-ask">[запросить: подтвердить цену]</span>. Бюджет на показы платите Яндексу напрямую.</span><a class="w-btn ghost" href="/deford-nsk/prices/#yandex-direct">Что входит в цену</a></div>
+    </div>
+  </section>
+  <section class="w-block" data-n="7" data-name="Вопросы" data-question="Что ещё спросить перед стартом?" data-proof="возражения тех, кто уже обжёгся" data-next="Как начать?">
+    <div class="w-wrap w-stack w-faq">
+      <h2>Что спрашивают те, кто уже обжёгся на Директе</h2>
+      <details><summary>Можно не переделывать всё, а поправить мой кабинет?</summary><p>Да. На разборе смотрим ваш кабинет и говорим, что оставить, а что запускать заново.</p></details>
+      <details><summary>Кабинет и статистика останутся у меня?</summary><p><span class="w-ask">[запросить: кабинет оформляем на клиента?]</span></p></details>
+      <details><summary>Какой бюджет нужен на старт?</summary><p>Считаем на разборе от цены клика в вашей нише. <span class="w-ask">[запросить: минимальный бюджет, с которым беремся]</span></p></details>
+      <details><summary>Когда пойдут заявки?</summary><p>Показы начинаются после модерации Яндекса. Первую неделю собираем статистику и чистим запросы, дальше снижаем цену заявки.</p></details>
+      <div class="d-sosedi"><span>Вас не ищут в поиске?</span><a href="/deford-nsk/services/ads/vk-ads/">Реклама ВКонтакте</a><a href="/deford-nsk/services/ads/2gis/">2ГИС</a><a href="/deford-nsk/services/ads/yandex-business/">Яндекс Бизнес</a></div>
+    </div>
+  </section>
+  <section class="w-block" id="zayavka" data-n="8" data-name="Заявка" data-question="Как начать?" data-proof="что даёт разбор, кто перезвонит">
+    <div class="w-wrap">
+      <form class="w-form" onsubmit="event.preventDefault(); this.classList.add('sent')">
+        <h2>Пришлите кабинет – покажем, куда уходит бюджет</h2>
+        <label class="w-field">Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" data-mask></label>
+        <label class="w-field">Сайт, куда ведёт реклама (необязательно)<input name="site" inputmode="url"></label>
+        <label class="w-check"><input type="checkbox" data-agree> <span>Согласен на обработку <a href="/deford-nsk/privacy-policy/">персональных данных</a></span></label>
+        <button class="w-btn" type="submit" disabled>Получить разбор моего кабинета</button>
+        <p class="w-hint">Перезвоним, попросим гостевой доступ и за 20 минут покажем, где утекают деньги</p>
+        <div class="w-success">
+          <p><b>Заявка у нас.</b></p>
+          <p>Артём перезвонит за <span class="w-ask">[запросить: срок ответа]</span> и договорится о времени разбора.</p>
+          <p>Срочно – <a href="tel:+79537777891">+7 953 777-78-91</a> или <a href="https://t.me/Artem1Galimov">Telegram</a>, <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>.</p>
+          <p>К разговору: доступ или скриншоты рекламного кабинета и сколько заявок в месяц сейчас.</p>
+        </div>
+        <p class="w-hint">Удобнее написать? <a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a> · Позвонить: <a href="tel:+79537777891">+7 953 777-78-91</a></p>
+      </form>
+    </div>
+  </section>
+</main>
+<footer class="w-footer"><div class="w-wrap w-stack">
+  <div class="d-foot">
+    <div><b class="w-logo">Дефорд</b><span>Рекламное агентство в Новосибирске: приводим заявки в бизнес и показываем каждую. Работа – от 35 000 ₽, рекламный бюджет – площадке напрямую.</span><a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></div>
+    <div><b>Разделы</b><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></div>
+    <div><b>Направления</b><a href="/deford-nsk/services/ads/">Реклама</a><a href="/deford-nsk/services/websites/">Сайты</a><a href="/deford-nsk/services/seo/">Поиск</a><a href="/deford-nsk/services/content/">Контент</a><a href="/deford-nsk/services/automation/">Автоматизация</a></div>
+    <div><b>Ещё</b><a href="https://deford.ru/">Портфолио сайтов – deford.ru</a><a href="/deford-nsk/privacy-policy/">Политика конфиденциальности</a></div>
+  </div>
+</div></footer>
+<div class="w-sticky"><a class="w-btn" href="tel:+79537777891">Позвонить</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a></div>
+<script>
+document.querySelectorAll('.w-block').forEach(function (b) {
+  var d = b.dataset, el = document.createElement('div');
+  el.className = 'w-logic';
+  el.innerHTML = '<b>Блок ' + (d.n || '?') + ' · ' + (d.name || '') + '</b><br>Вопрос клиента: ' + (d.question || '–') + '<br>Опора: ' + (d.proof || '–') + (d.next ? '<br>Дальше спросит: ' + d.next : '');
+  if (b.tagName === 'HEADER') b.prepend(el); else (b.querySelector('.w-wrap') || b).prepend(el);
+});
+['logic', 'notes', 'seo', 'success'].forEach(function (k) {
+  document.getElementById('t-' + k).addEventListener('change', function (e) { document.body.classList.toggle('show-' + k, e.target.checked); });
+});
+(function () {
+  var src = document.getElementById('w-seo'), box = document.getElementById('w-seo-box');
+  if (!src || !box) return;
+  var d = JSON.parse(src.textContent), esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var len = function (t, max) { return ' <span class="' + (t.length > max ? 'bad' : '') + '">(' + t.length + ' / ' + max + ')</span>'; };
+  var heads = [].map.call(document.querySelectorAll('main h1, main h2'), function (h) { return '<li>' + h.tagName + ' – ' + esc(h.textContent.trim()) + '</li>'; }).join('');
+  var alts = [].map.call(document.querySelectorAll('.w-media[data-alt]'), function (m) { return '<li>' + esc(m.dataset.alt) + '</li>'; }).join('');
+  box.innerHTML = '<table><tr><td>title</td><td>' + esc(d.title) + len(d.title, 65) + '</td></tr><tr><td>description</td><td>' + esc(d.description) + len(d.description, 160) +
+    '</td></tr><tr><td>запрос</td><td>' + esc(d.zapros || '–') + '</td></tr><tr><td>заголовки</td><td><ul>' + heads + '</ul></td></tr><tr><td>alt</td><td><ul>' + (alts || '<li>–</li>') +
+    '</ul></td></tr><tr><td>разметка</td><td>' + esc(d.schema || '–') + '</td></tr><tr><td>ссылки</td><td><ul>' + (d.links || []).map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></td></tr></table>';
+})();
+document.getElementById('ask-count').textContent = document.querySelectorAll('.w-ask').length;
+document.querySelectorAll('form').forEach(function (f) {
+  var a = f.querySelector('[data-agree]'), btn = f.querySelector('button[type="submit"]');
+  if (a && btn) a.addEventListener('change', function () { btn.disabled = !a.checked; });
+});
+// Маска телефона +7 (___) ___-__-__
+document.querySelectorAll('input[data-mask]').forEach(function (i) {
+  i.addEventListener('input', function () {
+    var d = i.value.replace(/\D/g, '').replace(/^[78]/, '').slice(0, 10), m = '+7 (';
+    if (!d.length) { i.value = ''; return; }
+    m += d.slice(0, 3); if (d.length >= 3) m += ') ' + d.slice(3, 6); if (d.length >= 6) m += '-' + d.slice(6, 8); if (d.length >= 8) m += '-' + d.slice(8, 10);
+    i.value = m;
+  });
+});
+</script>
+</body>
+</html>

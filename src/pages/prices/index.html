@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Прототип – Дефорд Новосибирск, цены</title>
+<style>/*KIT*/</style>
+<style>
+.d-head-r { display: flex; gap: 14px; align-items: center; }
+.d-free { border: 2px solid var(--ink); padding: 16px; display: flex; flex-wrap: wrap; gap: 10px 24px; align-items: center; justify-content: space-between; }
+.d-free .p { font-size: 32px; font-weight: 800; }
+.d-facts { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 8px; }
+.d-facts li { border: 1px solid var(--ink); padding: 6px 12px; font-size: 14.5px; font-weight: 600; }
+.d-price-table td:nth-child(2) { white-space: nowrap; font-weight: 700; }
+.d-price-table tr.dir th { background: var(--fill); font-size: 13px; text-transform: uppercase; letter-spacing: .04em; }
+.d-price-table tr:target td { outline: 2px solid var(--ink); outline-offset: -2px; }
+.d-sum { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; }
+.d-sum .eq { font-size: clamp(20px, 3vw, 28px); font-weight: 800; }
+.d-foot { display: grid; grid-template-columns: 1.3fr 1fr 1fr 1fr; gap: 20px; }
+.d-foot a { display: block; margin-top: 4px; }
+@media (max-width: 760px) {
+  .d-free .p { font-size: 26px; }
+  /* Таблица цен на телефоне – карточками, без прокрутки вбок */
+  .d-price-table, .d-price-table tbody, .d-price-table tr, .d-price-table td { display: block; width: 100%; }
+  .d-price-table thead { display: none; }
+  .d-price-table tr { border: 1px solid var(--line); padding: 8px 10px; margin-top: 8px; }
+  .d-price-table tr.dir { border: 0; padding: 12px 0 0; }
+  .d-price-table tr.dir th { display: block; background: none; padding: 0; border: 0; }
+  .d-price-table td { border: 0; padding: 2px 0; white-space: normal !important; }
+  .d-price-table td[data-l]::before { content: attr(data-l) ": "; color: var(--muted); font-weight: 400; }
+  .d-foot { grid-template-columns: 1fr 1fr; }
+}
+html[data-theme=dark] .w-note { color: #141414 !important; }
+html[data-theme=dark] .w-btn.ghost { color: #e4e4e2 !important; border-color: #e4e4e2 !important; }
+html[data-theme=dark] .w-btn:not(.ghost) { background: #e4e4e2 !important; color: #141518 !important; border-color: #e4e4e2 !important; }
+html[data-theme=dark] .d-price-table tr.dir th { background: #2a2d33 !important; }
+#tema-btn { bottom: 84px !important; }
+</style>
+</head>
+<body>
+<div class="w-bar"><div class="w-wrap">
+  <b>Прототип · Дефорд Новосибирск · /prices/ · 11.11.2026</b>
+  <label><input type="checkbox" id="t-logic"> Логика блоков</label>
+  <label><input type="checkbox" id="t-notes"> Комментарии дизайнеру</label>
+  <label><input type="checkbox" id="t-seo"> SEO страницы</label>
+  <label><input type="checkbox" id="t-success"> После отправки</label>
+  <a href="../karta/" style="color:#fff">→ Все прототипы</a>
+  <span>Меток «запросить»: <b id="ask-count">0</b></span>
+</div></div>
+
+<script type="application/json" id="w-seo">{"title":"Цены на рекламу, сайты и SEO в Новосибирске – Дефорд","description":"Цены агентства Дефорд: реклама в Директе и ВКонтакте, сайты, интернет-магазины, SEO и карты. Разбор – 0 ₽, первый взнос от 35 000 ₽, бюджет площадки отдельно.","h1":"Цены на рекламу, сайты и продвижение","zapros":"сколько стоит сайт (450, НСК 03.11); seo продвижение цены (22); контекстная реклама цена (11); стоимость рекламы в 2гис (3)","schema":"Service + Offer (price, priceCurrency RUB, только подтверждённые цены) на каждую строку; BreadcrumbList; FAQPage – вопросы блока 4","links":["/services/<услуга>/ – из каждой строки таблицы","/services/audit/ – строка «Разбор 0 ₽»","/tools/ads-calculator/ – блок 3","https://deford.ru/ – подвал «Портфолио сайтов»"]}</script>
+<div class="w-seo" id="w-seo-box"></div>
+
+<header class="w-header w-block" data-n="0" data-name="Шапка" data-question="Где я и как связаться?" data-proof="меню, телефон, Telegram, Макс">
+  <div class="w-wrap">
+    <a class="w-logo" href="/deford-nsk/" style="text-decoration:none">Дефорд</a>
+    <span class="w-descr">Рекламное агентство · Новосибирск</span>
+    <div class="d-head-r">
+      <span class="w-contacts-top"><a href="tel:+79537777891">+7 953 777-78-91</a><span class="w-muted"><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></span></span>
+      <a class="w-btn ghost w-hide-m" href="#zayavka">Получить разбор</a>
+    </div>
+  </div>
+  <nav class="w-wrap w-nav"><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/" aria-current="page"><b>Цены</b></a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></nav>
+</header>
+
+<main>
+  <section class="w-block" data-n="1" data-name="Первый экран" data-question="Сколько стоит начать?" data-proof="разбор 0 ₽ первой строкой, первый взнос от 35 000 ₽, бюджет площадки отдельно" data-next="Сколько стоит именно моя услуга и что в неё входит?">
+    <div class="w-wrap w-stack">
+      <h1>Цены на рекламу, сайты и продвижение</h1>
+      <p>Здесь – цена нашей работы. Рекламный бюджет платите площадке напрямую, он в цены не входит. Точную сумму называем после разбора.</p>
+      <div class="d-free">
+        <div><b>Разбор бизнеса</b><br><span class="w-muted">20 минут: на каком этапе теряются заявки и с чего начать</span></div>
+        <span class="p">0 ₽</span>
+        <a class="w-btn" href="#zayavka">Получить бесплатный разбор</a>
+      </div>
+      <ul class="d-facts"><li>Первый взнос – от 35 000 ₽</li><li>Бюджет площадки – отдельно</li><li>Можно частями</li></ul>
+      <p class="w-note">Первая строка – разбор 0 ₽, крупно: самый дешёвый вход. Без демпинга и «скидок до пятницы». <a href="/deford-nsk/services/audit/">Что входит в разбор</a> – обычной ссылкой под строкой в дизайне.</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="tablica" data-n="2" data-name="Все цены" data-question="Сколько стоит именно моя услуга и что в неё входит?" data-proof="таблица «что – от – срок – что входит» по 5 направлениям, у каждой строки ссылка на услугу" data-next="Сколько всего уйдёт: работа плюс реклама?">
+    <div class="w-wrap w-stack">
+      <h2>Цена работы по каждой услуге</h2>
+      <p class="w-hint">Цены «от» – стартовые. <span class="w-ask">[запросить: подтвердить все цены и сроки]</span></p>
+      <div class="w-table-wrap"><table class="w-table d-price-table">
+        <thead><tr><th>Услуга</th><th>Цена работы</th><th>Срок</th><th>Что входит</th></tr></thead>
+        <tbody>
+          <tr id="audit"><td><a href="/deford-nsk/services/audit/">Разбор бизнеса</a></td><td data-l="Цена">0 ₽</td><td data-l="Срок">20 минут</td><td data-l="Входит">сайт, карты и прошлая реклама; где теряются заявки и с чего начать</td></tr>
+
+          <tr class="dir" id="ads"><th colspan="4">Реклама · <a href="/deford-nsk/services/ads/">все площадки</a></th></tr>
+          <tr id="yandex-direct"><td><a href="/deford-nsk/services/ads/yandex-direct/">Яндекс Директ</a></td><td data-l="Цена">от 35 000 ₽</td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">кампании, минус-слова, ставки по заявкам, отчёт в деньгах</td></tr>
+          <tr id="vk-ads"><td><a href="/deford-nsk/services/ads/vk-ads/">Реклама ВКонтакте</a></td><td data-l="Цена">от 35 000 ₽</td><td data-l="Срок">тест – 7 дней</td><td data-l="Входит">аудитории, креативы, тест связок, отчёт в деньгах</td></tr>
+          <tr id="2gis"><td><a href="/deford-nsk/services/ads/2gis/">Реклама в 2ГИС</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">карточка компании и реклама в 2ГИС</td></tr>
+          <tr id="yandex-business"><td><a href="/deford-nsk/services/ads/yandex-business/">Яндекс Бизнес</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">настройка Яндекс Бизнеса и карточки на Яндекс Картах</td></tr>
+
+          <tr class="dir" id="websites"><th colspan="4">Сайты · <a href="/deford-nsk/services/websites/">какой сайт нужен</a></th></tr>
+          <tr id="landing"><td><a href="/deford-nsk/services/websites/landing/">Лендинг под рекламу</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">одна страница под одно действие, форма, быстрая загрузка</td></tr>
+          <tr id="turnkey"><td><a href="/deford-nsk/services/websites/turnkey/">Сайт под ключ</a></td><td data-l="Цена">120 000 ₽</td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">карта сайта, прототип, дизайн, вёрстка; структура под поиск; тексты и цены правите сами</td></tr>
+          <tr id="online-store"><td><a href="/deford-nsk/services/websites/online-store/">Интернет-магазин</a></td><td data-l="Цена">от 70 000 ₽</td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">три уровня: 70 000 · 90 000 · 150 000 ₽ (с личным кабинетом) <span class="w-ask">[запросить: что входит в каждый уровень]</span></td></tr>
+          <tr id="client-cabinet"><td><a href="/deford-nsk/services/websites/client-cabinet/">Кабинет заявок и админка</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">заявки с источником и ценой, правка текстов и цен</td></tr>
+
+          <tr class="dir" id="search"><th colspan="4">Поиск</th></tr>
+          <tr id="seo"><td><a href="/deford-nsk/services/seo/">SEO-продвижение</a></td><td data-l="Цена">старт от 35 000 ₽</td><td data-l="Срок">результат – через 3–6 месяцев</td><td data-l="Входит">старт: структура и техника; дальше ведение <span class="w-ask">[запросить: цена ведения в месяц]</span></td></tr>
+          <tr id="maps"><td><a href="/deford-nsk/services/maps/">Яндекс Карты и 2ГИС</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">карточки, фото, ответы на отзывы, рейтинг</td></tr>
+          <tr id="ai-search"><td><a href="/deford-nsk/services/ai-search/">Ответы нейросетей</a></td><td data-l="Цена"><span class="w-ask">[запросить: отдельно или в SEO]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">проверка, советуют ли вас Алиса и ChatGPT; источники, откуда они берут ответ</td></tr>
+
+          <tr class="dir"><th colspan="4">Контент</th></tr>
+          <tr id="video"><td><a href="/deford-nsk/services/video/">Видео для рекламы</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">съёмка и монтаж коротких роликов под площадку</td></tr>
+          <tr id="content"><td><a href="/deford-nsk/services/content/">Дзен и ВКонтакте</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">план и посты через ситуацию клиента</td></tr>
+
+          <tr class="dir"><th colspan="4">Автоматизация</th></tr>
+          <tr id="automation"><td><a href="/deford-nsk/services/automation/">Чат-боты, ИИ-агенты, CRM</a></td><td data-l="Цена"><span class="w-ask">[запросить]</span></td><td data-l="Срок"><span class="w-ask">[запросить]</span></td><td data-l="Входит">бот отвечает сразу, заявки в одной CRM, напоминания перезвонить</td></tr>
+        </tbody>
+      </table></div>
+      <div class="w-actions"><a class="w-btn" href="#zayavka">Получить расчёт под мою задачу</a></div>
+      <p class="w-note">Таблица только здесь: на страницах услуг – одна строка «от» со ссылкой на /prices/#&lt;услуга&gt;; у каждой строки id по адресу услуги, строка по ссылке подсвечивается. Цены – текстом, не картинкой. На телефоне – карточками без прокрутки вбок. Строки без цены не прячем: «[запросить]» до ответа Артёма, в бою – «по запросу» или убрать строку.</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="3" data-name="Работа и бюджет" data-question="Сколько всего уйдёт: работа плюс реклама?" data-proof="разделение: работа агентства + бюджет площадке напрямую; пример суммы; калькулятор" data-next="Что ещё нужно знать о цене?">
+    <div class="w-wrap w-stack">
+      <h2>Работа агентства и бюджет площадки – два разных платежа</h2>
+      <div class="w-grid" style="--cols:2;--cols-m:1">
+        <div class="d-sum">
+          <span class="w-muted">Пример для рекламы</span>
+          <span class="eq">35 000 ₽ работа + 30 000 ₽ реклама = 65 000 ₽</span>
+          <p>Работу платите нам. Рекламный бюджет – площадке напрямую, мимо нас.</p>
+          <p class="w-hint">Бюджет 30 000 ₽ – пример, не норма. Сумму на проверку считаем на разборе.</p>
+        </div>
+        <div class="d-sum">
+          <span class="w-muted">Сколько заявок даст бюджет</span>
+          <p>Поставьте свой бюджет, цену перехода и средний чек – калькулятор посчитает заявки, продажи и выручку.</p>
+          <div class="w-actions"><a class="w-btn ghost" href="/deford-nsk/tools/ads-calculator/">Посчитать заявки по бюджету</a></div>
+        </div>
+      </div>
+      <p class="w-note">Пример суммы – из плана блоков 10.11 (иллюстрация шага «План и расчёт»). <span class="w-ask">[запросить: кабинет площадки оформляем на клиента?]</span></p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="4" data-name="Вопросы о цене" data-question="Что ещё нужно знать о цене?" data-proof="ответы: почему «от», частями, что не входит, договор" data-next="Как получить точную сумму?">
+    <div class="w-wrap w-stack w-faq">
+      <h2>Почему «от» и что в цену не входит</h2>
+      <div>
+        <details><summary>Почему цены «от»?</summary><p>Сумма зависит от ниши, числа страниц или кампаний и того, что уже есть: сайт, карточки, прошлая реклама. Точную цену называем после разбора, до начала работы.</p></details>
+        <details><summary>Можно платить частями?</summary><p>Да. Первый взнос – от 35 000 ₽, остальное – по этапам. <span class="w-ask">[запросить: как делятся платежи по этапам]</span></p></details>
+        <details><summary>Что не входит в цену?</summary><p>Рекламный бюджет – его платите площадке напрямую. <span class="w-ask">[запросить: домен, хостинг, фото и съёмка – входят или отдельно]</span></p></details>
+        <details><summary>Сколько стоит разбор?</summary><p>0 ₽. 20 минут: смотрим сайт, карты и прошлую рекламу, говорим, где теряются заявки. Ни к чему не обязывает.</p></details>
+        <details><summary>Работаете по договору?</summary><p><span class="w-ask">[запросить: договор, ИП или ООО, оплата по счёту]</span></p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="w-block" id="zayavka" data-n="5" data-name="Заявка" data-question="Как получить точную сумму?" data-proof="разбор 0 ₽ и расчёт под задачу, срок ответа, мессенджеры">
+    <div class="w-wrap">
+      <div class="w-grid" style="--cols:2;--cols-m:1;align-items:start">
+        <div class="w-stack">
+          <h2>Получите точную сумму под вашу задачу</h2>
+          <p>На разборе скажем, с чего начать и сколько это стоит: работа и бюджет площадки отдельно.</p>
+          <p><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a> · <a href="tel:+79537777891">+7 953 777-78-91</a></p>
+        </div>
+        <form class="w-form" onsubmit="event.preventDefault()">
+          <label class="w-field">Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__" data-mask></label>
+          <label class="w-field">Что нужно (необязательно)
+            <select name="usluga"><option value="">Пока не знаю – подскажите</option><option>Реклама</option><option>Сайт или магазин</option><option>Поиск и карты</option><option>Контент и видео</option><option>Автоматизация</option></select>
+          </label>
+          <label class="w-check"><input type="checkbox" data-agree> <span>Согласен на обработку персональных данных по <a href="/deford-nsk/privacy-policy/">политике конфиденциальности</a></span></label>
+          <button class="w-btn" type="submit" disabled>Получить расчёт и разбор</button>
+          <p class="w-hint">Перезвоним, уточним задачу и договоримся о времени разбора.</p>
+          <div class="w-success">
+            <p><b>Заявка у нас.</b></p>
+            <p>Перезвоним за <span class="w-ask">[запросить: срок]</span>.</p>
+            <p>Срочно – <a href="tel:+79537777891">+7 953 777-78-91</a> или <a href="https://t.me/Artem1Galimov">Telegram</a>.</p>
+            <p>К разговору: ссылка на сайт и примерный рекламный бюджет, если знаете.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="w-footer"><div class="w-wrap w-stack">
+  <div class="d-foot">
+    <div class="w-stack"><a class="w-logo" href="/deford-nsk/" style="justify-self:start;text-decoration:none">Дефорд</a>
+      <span>Рекламное и маркетинговое агентство из Новосибирска.</span>
+      <a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>
+    </div>
+    <div><b>Разделы</b><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/tools/ads-calculator/">Калькулятор рекламы</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></div>
+    <div><b>Направления</b><a href="/deford-nsk/services/ads/">Реклама</a><a href="/deford-nsk/services/websites/">Сайты</a><a href="/deford-nsk/services/seo/">Поиск</a><a href="/deford-nsk/services/content/">Контент</a><a href="/deford-nsk/services/automation/">Автоматизация</a></div>
+    <div><b>Ещё</b><a href="https://deford.ru/">Портфолио сайтов</a><a href="/deford-nsk/privacy-policy/">Политика конфиденциальности</a></div>
+  </div>
+</div></footer>
+
+<div class="w-sticky"><a class="w-btn" href="#zayavka">Получить разбор</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a></div>
+
+<script>
+document.querySelectorAll('.w-block').forEach(function (b) {
+  var d = b.dataset, el = document.createElement('div');
+  el.className = 'w-logic';
+  el.innerHTML = '<b>Блок ' + (d.n || '?') + ' · ' + (d.name || '') + '</b><br>Вопрос клиента: ' + (d.question || '–') + '<br>Опора: ' + (d.proof || '–') + (d.next ? '<br>Дальше спросит: ' + d.next : '');
+  if (b.tagName === 'HEADER') b.prepend(el); else (b.querySelector('.w-wrap') || b).prepend(el);
+});
+['logic', 'notes', 'seo', 'success'].forEach(function (k) {
+  document.getElementById('t-' + k).addEventListener('change', function (e) { document.body.classList.toggle('show-' + k, e.target.checked); });
+});
+(function () {
+  var src = document.getElementById('w-seo'), box = document.getElementById('w-seo-box');
+  var d = JSON.parse(src.textContent), esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var len = function (t, max) { return ' <span class="' + (t.length > max ? 'bad' : '') + '">(' + t.length + ' / ' + max + ')</span>'; };
+  var heads = [].map.call(document.querySelectorAll('main h1, main h2'), function (h) { return '<li>' + h.tagName + ' – ' + esc(h.textContent.trim()) + '</li>'; }).join('');
+  box.innerHTML = '<table><tr><td>title</td><td>' + esc(d.title) + len(d.title, 65) + '</td></tr><tr><td>description</td><td>' + esc(d.description) + len(d.description, 160) +
+    '</td></tr><tr><td>запрос</td><td>' + esc(d.zapros) + '</td></tr><tr><td>заголовки</td><td><ul>' + heads + '</ul></td></tr><tr><td>разметка</td><td>' + esc(d.schema) +
+    '</td></tr><tr><td>ссылки</td><td><ul>' + d.links.map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></td></tr></table>';
+})();
+document.getElementById('ask-count').textContent = document.querySelectorAll('.w-ask').length;
+document.querySelectorAll('form').forEach(function (f) {
+  var a = f.querySelector('[data-agree]'), btn = f.querySelector('button[type="submit"]');
+  if (a && btn) a.addEventListener('change', function () { btn.disabled = !a.checked; });
+});
+document.querySelectorAll('input[data-mask]').forEach(function (inp) {
+  inp.addEventListener('input', function () {
+    var d = inp.value.replace(/\D/g, '');
+    if (d[0] === '8' || d[0] === '7') d = d.slice(1);
+    d = d.slice(0, 10);
+    var r = '+7';
+    if (d.length) r += ' (' + d.slice(0, 3);
+    if (d.length >= 3) r += ')';
+    if (d.length > 3) r += ' ' + d.slice(3, 6);
+    if (d.length > 6) r += '-' + d.slice(6, 8);
+    if (d.length > 8) r += '-' + d.slice(8, 10);
+    inp.value = d.length ? r : '';
+  });
+});
+</script>
+</body>
+</html>
