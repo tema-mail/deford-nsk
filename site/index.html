@@ -1,0 +1,737 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Прототип – Дефорд Новосибирск, главная</title>
+<style>/* Комплект чёрно-белого прототипа (маркетолог → site-prototype).
+   Прототип показывает смысл, текст, порядок и действие – не дизайн. Цвета только серые; дизайнер делает визуал после «да» владельца.
+   Блок: <section class="w-block" data-n="1" data-name="Первый экран" data-question="вопрос клиента" data-proof="опора"> */
+:root {
+  --ink: #141414; --muted: #5f5f5f; --line: #b9b9b9; --fill: #ececec; --fill2: #f6f6f6; --paper: #ffffff;
+  --note: #fff6c8; --note-line: #c9b44a; --ask: #7a1f1f;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+  --wrap: 1180px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 var(--font); }
+img { max-width: 100%; }
+a { color: var(--ink); }
+h1, h2, h3 { margin: 0; line-height: 1.2; text-wrap: balance; }
+h1 { font-size: clamp(28px, 4.2vw, 46px); }
+h2 { font-size: clamp(22px, 3vw, 32px); }
+h3 { font-size: 18px; }
+p { margin: 0; }
+.w-wrap { max-width: var(--wrap); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.w-stack { display: grid; gap: 14px; }
+.w-muted { color: var(--muted); }
+
+/* Панель прототипа: переключатели «Логика» и «Комментарии» */
+.w-bar { position: sticky; top: 0; z-index: 50; background: var(--ink); color: #fff; font: 13px/1.3 var(--mono); }
+.w-bar .w-wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding-block: 8px; }
+.w-bar b { font-weight: 600; }
+.w-bar label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+
+/* Блок и его подпись логики */
+.w-block { border-top: 1px dashed var(--line); padding-block: 40px; position: relative; }
+.w-logic { display: none; font: 12.5px/1.45 var(--mono); background: var(--fill2); border: 1px solid var(--line); padding: 8px 10px; margin-bottom: 18px; }
+body.show-logic .w-logic { display: block; }
+.w-logic b { font-weight: 700; }
+.w-note { display: none; background: var(--note); border: 1px dashed var(--note-line); padding: 8px 10px; font-size: 13.5px; margin-top: 12px; }
+body.show-notes .w-note { display: block; }
+.w-note::before { content: "Дизайнеру: "; font-weight: 700; }
+.w-seo { display: none; font: 13px/1.5 var(--mono); background: #eef3ff; border: 1px solid #8aa0d6; padding: 12px 14px; margin: 12px auto; max-width: var(--wrap); }
+body.show-seo .w-seo { display: block; }
+.w-seo table { border-collapse: collapse; width: 100%; }
+.w-seo td { border-top: 1px solid #c9d4ee; padding: 4px 6px; vertical-align: top; }
+.w-seo td:first-child { white-space: nowrap; font-weight: 700; width: 1%; }
+.w-seo .bad { color: var(--ask); font-weight: 700; }
+.w-seo ul { margin: 0; padding-left: 18px; }
+.w-ask { color: var(--ask); font-weight: 600; background: #f7e9e9; padding: 0 4px; }
+
+/* Место под фото/видео/схему: роль, а не «картинка» */
+.w-media { background: repeating-linear-gradient(45deg, var(--fill), var(--fill) 10px, var(--fill2) 10px, var(--fill2) 20px);
+  border: 1px solid var(--line); min-height: 220px; display: grid; place-items: center; text-align: center; padding: 16px;
+  color: var(--muted); font-size: 14px; }
+.w-media::before { content: "▣ "; }
+.w-media.small { min-height: 120px; }
+
+/* Кнопки */
+.w-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 2px solid var(--ink);
+  background: var(--ink); color: #fff; font-weight: 600; text-decoration: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+.w-btn.ghost { background: transparent; color: var(--ink); }
+.w-btn[disabled] { opacity: .45; cursor: not-allowed; }
+.w-hint { font-size: 13px; color: var(--muted); }
+
+/* Шапка */
+.w-header .w-wrap { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; padding-block: 12px; }
+.w-logo { border: 2px solid var(--ink); padding: 6px 10px; font-weight: 700; }
+.w-descr { font-size: 13.5px; color: var(--muted); max-width: 34ch; }
+.w-contacts-top { display: grid; gap: 2px; font-size: 14px; text-align: right; }
+.w-nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14.5px; border-top: 1px solid var(--line); padding-block: 8px; }
+
+/* Первый экран */
+.w-hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; }
+.w-hero ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.w-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* Сетки и карточки */
+.w-grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 14px; }
+.w-card { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.w-card .w-media { min-height: 140px; }
+.w-price { font-weight: 700; }
+
+/* Этапы */
+.w-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 14px; counter-reset: st; }
+.w-steps li { border: 1px solid var(--line); padding: 14px; counter-increment: st; display: grid; gap: 6px; }
+.w-steps li::before { content: counter(st); font-weight: 700; font-size: 22px; }
+
+/* Таблица */
+.w-table-wrap { overflow-x: auto; }
+.w-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.w-table th, .w-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.w-table th { background: var(--fill2); }
+
+/* FAQ */
+.w-faq details { border: 1px solid var(--line); padding: 12px 14px; }
+.w-faq details + details { border-top: 0; }
+.w-faq summary { font-weight: 600; cursor: pointer; }
+
+/* Форма */
+.w-form { border: 2px solid var(--ink); padding: 18px; display: grid; gap: 12px; max-width: 520px; }
+.w-field { display: grid; gap: 4px; font-size: 14px; }
+.w-field input, .w-field select { min-height: 44px; border: 1px solid var(--ink); padding: 0 10px; font: inherit; background: #fff; }
+.w-check { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; }
+
+/* Полоса призыва */
+.w-cta { background: var(--fill); padding: 24px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; }
+/* Плашка призыва между блоками: section.w-block.w-cta-strip с одной строкой предложения и кнопкой или мини-формой (карточка prizyv-mezhdu-blokami) */
+.w-block.w-cta-strip { padding-block: 16px; }
+.w-cta-strip .w-cta { padding: 14px 18px; }
+.w-cta-strip .w-cta p { margin: 0; font-weight: 600; }
+
+/* Состояние формы после отправки (карточка stranica-spasibo-sleduyushchiy-shag): видно по переключателю «После отправки» */
+.w-success { display: none; border: 2px dashed var(--ink); padding: 14px; background: var(--fill); }
+.w-success p { margin: 0 0 6px; }
+body.show-success .w-success { display: block; }
+
+/* Подвал */
+.w-footer { background: var(--fill2); border-top: 1px solid var(--line); padding-block: 28px; font-size: 14px; }
+
+/* Липкая панель действий на телефоне */
+.w-sticky { display: none; }
+header.w-block { padding-block: 0; border-top: 0; }
+header.w-block > .w-logic { margin: 8px auto; max-width: var(--wrap); }
+
+@media (max-width: 760px) {
+  .w-hide-m { display: none !important; }
+  /* Мобильная шапка: логотип, короткий дескриптор и «Меню»; звонок и мессенджеры – в липкой панели снизу */
+  .w-header .w-wrap { flex-wrap: nowrap; padding-block: 8px; gap: 10px; }
+  .w-header .w-contacts-top, .w-header .w-wrap > .w-btn, .w-nav { display: none !important; }
+  .w-header .w-descr { font-size: 12px; line-height: 1.3; }
+  .w-header > div.w-wrap:has(> .w-logo)::after { content: "☰ Меню"; margin-left: auto; border: 1px solid var(--ink); padding: 6px 10px; font-size: 13px; white-space: nowrap; }
+  .w-hero .w-media, .w-block[data-n="1"] .w-media:first-of-type { min-height: 160px; }
+  .w-bar .w-wrap { padding-block: 4px; gap: 4px 10px; font-size: 11px; }
+  .w-hero { grid-template-columns: 1fr; }
+  .w-grid { grid-template-columns: repeat(var(--cols-m, 2), minmax(0, 1fr)); }
+  .w-steps { grid-template-columns: 1fr; }
+  .w-contacts-top { text-align: left; }
+  .w-block { padding-block: 28px; }
+  .w-sticky { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    padding: 8px max(12px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    background: #fff; border-top: 1px solid var(--line); }
+  body { padding-bottom: 72px; }
+}
+@media (max-width: 420px) { .w-grid.one-m { grid-template-columns: 1fr; } }
+</style>
+<style>
+/* Доп. элементы этого прототипа – только серые, дизайн делает дизайнер после «да» владельца */
+.d-head-r { display: flex; gap: 14px; align-items: center; }
+.d-menu { position: relative; }
+.d-menu > summary { list-style: none; border: 1px solid var(--ink); padding: 8px 14px; cursor: pointer; font-weight: 600; }
+.d-menu > summary::-webkit-details-marker { display: none; }
+.d-mega { position: absolute; right: 0; top: calc(100% + 8px); z-index: 30; width: min(1100px, 92vw); background: #fff; border: 2px solid var(--ink); padding: 18px; display: grid; gap: 14px; }
+.d-mega-cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; }
+.d-mega-cols p { font-weight: 700; margin-bottom: 6px; }
+.d-mega-cols a, .d-mega-cols span.d-li { display: block; font-size: 14px; margin-top: 4px; }
+.d-mega-foot { border-top: 1px solid var(--line); padding-top: 12px; display: flex; flex-wrap: wrap; gap: 8px 18px; align-items: center; font-size: 14px; }
+
+.d-hero { display: grid; grid-template-columns: 220px minmax(0, 1.25fr) minmax(0, .85fr); gap: 28px; align-items: start; }
+.d-side { border: 1px solid var(--line); padding: 14px; display: grid; gap: 10px; font-size: 14px; }
+.d-side nav { display: grid; gap: 4px; }
+.d-side ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; }
+.hero-h1 { display: grid; gap: 8px; }
+.hero-eyebrow { font-size: 15px; font-weight: 600; color: var(--muted); letter-spacing: .02em; }
+.hero-title { font-size: clamp(34px, 5vw, 60px); line-height: 1.05; }
+.d-sub { font-size: 20px; font-weight: 600; }
+.d-photo { display: grid; gap: 8px; }
+.d-photo .w-media { min-height: 460px; }
+.d-plate { border: 1px solid var(--ink); padding: 8px 12px; font-size: 14px; display: flex; justify-content: space-between; gap: 10px; }
+
+.d-dark { background: #2b2b2b; color: #fff; }
+.d-dark a { color: #fff; }
+.d-nums { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+.d-nums a { border: 1px solid #777; padding: 18px; display: grid; gap: 4px; text-decoration: none; }
+.d-nums b { font-size: clamp(30px, 4vw, 46px); line-height: 1.05; }
+.d-nums small { color: #cfcfcf; font-size: 13px; }
+
+.d-logos { display: grid; gap: 10px; overflow: hidden; }
+.d-logos div { display: flex; gap: 10px; flex-wrap: wrap; }
+.d-logos span { flex: 0 0 auto; border: 1px dashed var(--line); padding: 14px 18px; font-size: 13px; color: var(--muted); white-space: nowrap; }
+
+.d-niches { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.d-niche { border: 1px solid var(--line); background: #fff; padding: 14px; text-align: left; font: inherit; cursor: pointer; display: grid; gap: 6px; min-height: 120px; align-content: space-between; }
+.d-niche b { font-size: 16px; }
+.d-niche small { color: var(--muted); font-size: 13px; }
+dialog.d-dlg { border: 2px solid var(--ink); padding: 20px; max-width: 560px; width: calc(100% - 32px); }
+dialog.d-dlg::backdrop { background: rgba(0,0,0,.45); }
+.d-dlg ul { padding-left: 18px; margin: 0; display: grid; gap: 6px; }
+.d-dlg .d-big { font-size: 26px; font-weight: 800; }
+.d-dlg form { display: contents; }
+
+.d-case .num { font-size: 26px; font-weight: 800; line-height: 1.1; }
+.d-case .meta { font-size: 13px; color: var(--muted); }
+.d-case dl { margin: 0; display: grid; grid-template-columns: 56px 1fr; gap: 4px 8px; font-size: 15px; }
+.d-case dt { font-size: 12px; text-transform: uppercase; font-weight: 700; padding-top: 2px; }
+.d-case dd { margin: 0; }
+
+.d-orbit { display: flex; flex-wrap: wrap; gap: 8px; }
+.d-orbit span { border: 1px solid #777; border-radius: 999px; padding: 6px 12px; font-size: 14px; }
+.d-ui { border: 1px solid var(--line); background: var(--fill2); padding: 12px; display: grid; gap: 6px; font-size: 13.5px; }
+.d-ui .row { background: #fff; border: 1px solid var(--line); padding: 6px 8px; display: flex; justify-content: space-between; gap: 8px; }
+.d-ui .cap { font-size: 12px; color: var(--muted); }
+.d-ui .big { font-size: 22px; font-weight: 800; }
+
+.d-founder { display: grid; grid-template-columns: .85fr 1.15fr; gap: 28px; align-items: start; }
+.d-founder .w-media { min-height: 420px; }
+.d-points { margin: 0; padding-left: 20px; display: grid; gap: 8px; }
+.d-team { border: 1px solid var(--line); padding: 14px; display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: space-between; }
+.d-ava { display: flex; gap: 6px; }
+.d-ava i { width: 40px; height: 40px; border-radius: 50%; background: var(--fill); border: 1px solid var(--line); display: block; }
+
+.d-steps { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; counter-reset: s; }
+.d-steps > div { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; align-content: start; counter-increment: s; }
+.d-steps > div::before { content: counter(s); font-weight: 800; font-size: 24px; }
+.d-steps .itog { font-size: 14px; border-top: 1px solid var(--line); padding-top: 8px; }
+
+.d-free { border: 2px solid var(--ink); padding: 16px; display: flex; flex-wrap: wrap; gap: 12px 24px; align-items: center; justify-content: space-between; }
+.d-free b.p { font-size: 28px; }
+
+.d-calc { border: 2px solid var(--ink); padding: 18px; display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.d-calc label { display: grid; gap: 6px; font-size: 14px; }
+.d-calc input[type=range] { width: 100%; }
+.d-calc input[type=number] { min-height: 44px; border: 1px solid var(--ink); padding: 0 10px; font: inherit; }
+.d-res { display: grid; gap: 8px; }
+.d-res div { display: flex; justify-content: space-between; border-bottom: 1px solid var(--line); padding-bottom: 6px; }
+.d-res b { font-variant-numeric: tabular-nums; }
+.d-res .rev { font-size: 26px; font-weight: 800; border-bottom: 0; }
+
+.d-faq { display: grid; grid-template-columns: .7fr 1.3fr; gap: 28px; align-items: start; }
+.d-ask-box { border: 1px solid var(--line); padding: 16px; display: grid; gap: 10px; }
+
+.d-msgr { display: flex; flex-wrap: wrap; gap: 10px; }
+.d-calc-line { font-size: 14px; background: var(--fill2); border: 1px dashed var(--line); padding: 8px 10px; display: none; }
+.d-calc-line.on { display: block; }
+
+.d-foot { display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr; gap: 20px; }
+.d-foot a { display: block; margin-top: 4px; }
+.d-stories { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.d-stories .w-media { min-height: 160px; font-size: 13px; }
+
+@media (max-width: 760px) {
+  .d-hero { grid-template-columns: 1fr; gap: 16px; }
+  .hero-eyebrow { font-size: 13px; }
+  .hero-title { font-size: 34px; }
+  .d-sub { font-size: 17px; }
+  .d-answer { font-size: 15px; }
+  .d-photo .w-media { min-height: 200px; }
+  .d-nums { grid-template-columns: 1fr; gap: 8px; }
+  .d-nums a { padding: 12px 14px; }
+  .d-niches { grid-template-columns: 1fr 1fr; }
+  .d-niche { min-height: 90px; }
+  .d-scroll-m { min-width: 0; max-width: 100%; grid-auto-flow: column; grid-template-columns: none !important; grid-auto-columns: 84%; overflow-x: auto; scroll-snap-type: x mandatory; }
+  .d-scroll-m > * { scroll-snap-align: start; }
+  .d-founder, .d-faq, .d-calc { grid-template-columns: 1fr; }
+  .d-founder .w-media { min-height: 240px; }
+  .d-steps { grid-template-columns: 1fr; }
+  .d-foot { grid-template-columns: 1fr 1fr; }
+  .d-stories { grid-template-columns: 1fr 1fr; }
+  .vz-sticky > * { font-size: 11px !important; padding: 0 3px !important; }
+}
+</style>
+<link rel="stylesheet" href="https://tema-mail.github.io/vidzhety/vidzhety.css">
+<style>
+:root { --w-accent: #141414; --w-accent-2: #5f5f5f; --w-radius: 6px; --w-wa: #3d3d3d; --w-tg: #3d3d3d; --w-max: #3d3d3d; }
+body.vz-has-sticky .w-sticky { display: none !important; }
+html[data-theme=dark] .w-note { color: #141414 !important; }
+html[data-theme=dark] .w-btn.ghost { color: #e4e4e2 !important; border-color: #e4e4e2 !important; }
+html[data-theme=dark] .w-btn:not(.ghost) { background: #e4e4e2 !important; color: #141518 !important; border-color: #e4e4e2 !important; }
+#tema-btn { bottom: 84px !important; }
+/* Нижняя панель телефона: круглая кнопка разбора по центру */
+.vz-sticky { align-items: center; }
+.vz-sticky .vz-btn--main { flex: 0 0 64px !important; height: 64px; border-radius: 50% !important; margin-top: -22px; padding: 0 !important; }
+</style>
+<style data-tema-v1>
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] body{background:#141518!important;color:#e4e4e2!important}
+html[data-theme=dark] a{color:#8ab8ff}
+html[data-theme=dark] :is(.t,.box,.card,details,.kit,.nav,.code button,button,.btn,textarea,input,select){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] button.main,html[data-theme=dark] .nav a,html[data-theme=dark] .step span{background:#e4e4e2!important;color:#141518!important}
+html[data-theme=dark] :is(.chip,.int,code,th){background:#2a2d33!important;color:#e4e4e2!important}
+html[data-theme=dark] :is(.flag,.note){background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] .ready{background:#1f3320!important;color:#d6ecd0!important}
+html[data-theme=dark] .stop{background:#3b2222!important;color:#f3d6d3!important}
+html[data-theme=dark] :is(td,th,details[open] summary){border-color:#33363c!important}
+html[data-theme=dark] :is(.sub,.meta,.top,small,.ex small,details){color:#a9abb0!important}
+html[data-theme=dark] :is(h1,h2,h3,.day,dt,summary){color:#f2f2f0!important}
+html[data-theme=dark] img{filter:brightness(.92)}
+#tema-btn{position:fixed;right:14px;bottom:14px;z-index:99;width:44px;height:44px;border-radius:50%;border:1px solid #ccc;background:#fff;color:#111;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+html[data-theme=dark] #tema-btn{background:#2a2d33!important;color:#f2f2f0!important;border-color:#44474e!important}
+</style><script>(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
+if(!t){var h=new Date().getHours();t=(h>=19||h<7||(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();</script></head>
+<body>
+<div class="w-bar"><div class="w-wrap">
+  <b>Прототип · Дефорд Новосибирск · главная · 10.11.2026</b>
+  <label><input type="checkbox" id="t-logic"> Логика блоков</label>
+  <label><input type="checkbox" id="t-notes"> Комментарии дизайнеру</label>
+  <label><input type="checkbox" id="t-seo"> SEO страницы</label>
+  <label><input type="checkbox" id="t-success"> После отправки</label>
+  <a href="razbor/" style="color:#fff">→ Разбор донора</a>
+  <span>Меток «запросить»: <b id="ask-count">0</b></span>
+</div></div>
+
+<script type="application/json" id="w-seo">{"title":"Рекламное и маркетинговое агентство в Новосибирске – Дефорд","description":"Агентство полного цикла в Новосибирске: реклама в Яндексе, ВКонтакте и 2ГИС, сайты, SEO и карты. Каждая заявка – в вашем кабинете с ценой. Работа от 35 000 ₽.","h1":"Рекламное и маркетинговое агентство в Новосибирске\nПриводим заявки в ваш бизнес","zapros":"рекламное агентство новосибирск","schema":"Organization (ProfessionalService после подтверждения адреса) + WebSite + Person (Артём Галимов) + FAQPage (только вопросы с ответом); без BreadcrumbList, Review, Offer","links":["/services/ – Все услуги (блок 6, меню)","/services/ads/yandex-direct/ – Яндекс Директ (меню, левая панель, цены)","/services/ads/vk-ads/ – Реклама ВКонтакте (меню, левая панель, цены)","/services/ads/2gis/ – Реклама в 2ГИС (меню, цены)","/services/ads/yandex-business/ – Яндекс Бизнес (меню)","/services/websites/ – Сайты (блок 6 карточка 2, меню)","/services/websites/landing/ – Лендинг под рекламу (меню, цены)","/services/websites/turnkey/ – Сайт под ключ (меню, левая панель, цены)","/services/websites/online-store/ – Интернет-магазин (меню, цены)","/services/websites/client-cabinet/ – Личный кабинет и админка (меню)","/services/seo/ – SEO-продвижение (блок 6 карточка 3, левая панель, меню)","/services/maps/ – Яндекс Карты и 2ГИС (меню)","/services/ai-search/ – Ответы нейросетей (блок 6 карточка 3, меню)","/services/video/ – Видео для рекламы (блок 6 карточка 4, меню)","/services/content/ – Дзен и ВКонтакте (меню)","/services/automation/ – Чат-боты, ИИ-агенты, CRM (меню)","/services/audit/ – Подробнее о разборе (цены, блок 9)","/cases/ – Все кейсы (блок 5)","/cases/<slug>/ – кейс (блок 2, блок 5, окно ниши)","/industries/ – Все ниши (блок 4)","/industries/<niche>/ – Всё о нише (окно ниши, только при 2+ кейсах)","/reviews/ – Все отзывы (блок 7)","/team/ – Вся команда (блок 8)","/team/artem-galimov/ – Артём Галимов (первый экран, блок 8)","/how-we-work/ – Как работаем (блок 9)","/prices/ – Все цены (блок 10)","/tools/ads-calculator/ – Полный калькулятор (блок 11)","/tools/website-cost/ – Сколько стоит сайт (блок 10)","/faq/ – Все вопросы (блок 12)","/contacts/ – Контакты (шапка, подвал)","/privacy-policy/ – Политика (форма, подвал)","/about/ – О студии (подвал)","/choose-service/ – Подобрать услугу (подвал)","/tools/ – Калькуляторы (подвал)","/blog/ – Статьи (подвал)"]}</script>
+<div class="w-seo" id="w-seo-box"></div>
+
+<header class="w-header w-block" data-n="0" data-name="Шапка + мегаменю" data-question="Где я и как связаться?" data-proof="телефон, Telegram, Макс, 5 направлений">
+  <div class="w-wrap">
+    <a class="w-logo" href="/" style="text-decoration:none">Дефорд</a>
+    <span class="w-descr">Рекламное агентство · Новосибирск</span>
+    <div class="d-head-r">
+      <span class="w-contacts-top"><a href="tel:+79537777891">+7 953 777-78-91</a><span class="w-muted"><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></span></span>
+      <details class="d-menu w-hide-m">
+        <summary>Меню</summary>
+        <div class="d-mega">
+          <div class="d-mega-cols">
+            <div><p>Реклама</p><a href="/services/ads/yandex-direct/">Яндекс Директ</a><a href="/services/ads/vk-ads/">ВКонтакте</a><a href="/services/ads/2gis/">2ГИС</a><a href="/services/ads/yandex-business/">Яндекс Бизнес и Карты</a><span class="d-li">Авито <span class="w-ask">[запросить: делаем ли Авито]</span></span></div>
+            <div><p>Сайты</p><a href="/services/websites/landing/">Лендинг под рекламу</a><a href="/services/websites/turnkey/">Сайт под ключ</a><a href="/services/websites/online-store/">Интернет-магазин</a><a href="/services/websites/client-cabinet/">Личный кабинет и админка</a></div>
+            <div><p>Поиск</p><a href="/services/seo/">SEO-продвижение</a><a href="/services/maps/">Яндекс Карты и 2ГИС</a><a href="/services/ai-search/">Ответы нейросетей (Алиса, ChatGPT)</a><span class="d-li">Статьи</span></div>
+            <div><p>Контент</p><a href="/services/video/">Видео и ролики</a><a href="/services/content/">Дзен</a><a href="/services/content/">ВКонтакте</a></div>
+            <div><p>Автоматизация</p><a href="/services/automation/">Чат-боты</a><a href="/services/automation/">ИИ-агенты</a><a href="/services/automation/">CRM и учёт заявок</a></div>
+          </div>
+          <div class="d-mega-foot">
+            <span>Новосибирск, работаем по всей России и Беларуси</span>
+            <a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>
+            <a class="w-btn" href="#zayavka">Получить бесплатный разбор</a>
+          </div>
+        </div>
+      </details>
+      <a class="w-btn ghost w-hide-m" href="#zayavka">Получить бесплатный разбор</a>
+    </div>
+  </div>
+  <div class="w-wrap"><p class="w-note">Шапка-пилюля: наверху прозрачная, над тёмным блоком – тёмное стекло, над светлым – светлое (тон блока задаётся атрибутом). «Меню» открывает мегаменю на 5 направлений; заголовки колонок – не h2/h3, а обычный текст (SEO-задание). Авито и «Статьи» – без ссылок, пока нет страниц. На телефоне: логотип, «Меню» на весь экран, телефон и разбор – в нижней панели.</p></div>
+</header>
+
+<main>
+  <section class="w-block" id="start" data-n="1" data-name="Первый экран" data-question="Куда я попал и решат ли мою задачу?" data-proof="оффер, цены «от» в боковой панели, Артём с фото" data-next="Чем докажете, что умеете?">
+    <div class="w-wrap">
+      <div class="d-hero">
+        <aside class="d-side w-hide-m">
+          <nav><a href="#keysy">Кейсы</a><a href="#uslugi">Услуги</a><a href="#ceny">Цены</a><a href="#kalk">Калькулятор</a><a href="#voprosy">Вопросы</a></nav>
+          <b>Где запускаем</b>
+          <ul>
+            <li><a href="/services/ads/yandex-direct/">Яндекс Директ</a> – от 35 000 ₽</li>
+            <li><a href="/services/ads/vk-ads/">ВКонтакте</a> – от 35 000 ₽</li>
+            <li><a href="/services/websites/turnkey/">Сайт под ключ</a> – от 120 000 ₽</li>
+            <li><a href="/services/seo/">Поиск и карты</a> – от 35 000 ₽</li>
+          </ul>
+          <span class="w-ask">[запросить: подтвердить цены]</span>
+          <span class="w-muted">Точную сумму называем после разбора.</span>
+        </aside>
+        <div class="w-stack">
+          <h1 class="hero-h1">
+            <span class="hero-eyebrow">Рекламное и маркетинговое агентство в Новосибирске</span>
+            <span class="hero-title"><span>Приводим</span> <span>заявки</span> <span>в</span> <span>ваш</span> <span>бизнес</span></span>
+          </h1>
+          <p class="d-sub">И показываем каждую: откуда пришла и сколько стоила.</p>
+          <p class="d-answer">Дефорд запускает рекламу в Яндекс Директе, ВКонтакте и 2ГИС и делает то, куда она ведёт: сайт на коде, карточки на Яндекс Картах и в 2ГИС, видео. Заявки видите в своём кабинете сразу, а не в отчёте раз в месяц. Работа – от 35 000 ₽, рекламный бюджет платите площадке напрямую.</p>
+          <div class="w-actions"><a class="w-btn" href="#zayavka">Получить бесплатный разбор</a><a class="w-btn ghost" href="#nishi">Кейсы в моей нише</a></div>
+          <p class="w-hint">20 минут в Telegram или по телефону: что мешает заявкам и с чего начать. Ответим за <span class="w-ask">[запросить: срок ответа, у донора 15 минут]</span></p>
+        </div>
+        <div class="d-photo">
+          <div class="w-media" data-alt="Артём Галимов, основатель агентства Дефорд">Живое фото Артёма с эмоцией, на всю высоту экрана (не студийный портрет): доказывает, что за агентством стоит конкретный человек, с которым будет первый разговор <span class="w-ask">[запросить: живое фото с эмоцией]</span></div>
+          <div class="d-plate"><a href="/team/artem-galimov/">Артём Галимов · основатель Дефорд</a><a href="#osnovatel" aria-label="К блоку об основателе">↓</a></div>
+        </div>
+      </div>
+      <p class="w-note">Заголовок появляется по словам после загрузки шрифта: слова уже лежат в HTML (span на слово), скрипт только проявляет – без скрипта текст виден. Фото Артёма – с картой глубины и объёмным сдвигом за курсором (WebGL поверх, aria-hidden; само фото – обычный img с alt), только компьютер, рисует только при движении мыши. Мягкий параллакс и плавный скролл – только компьютер. Левая панель с ценами «от» – только компьютер; на телефоне цены есть в абзаце-ответе («от 35 000 ₽»). На 390 px порядок: малая строка, оффер, подзаголовок, абзац, кнопки, фото ниже. При «уменьшить движение» в системе вся анимация выключена.</p>
+    </div>
+  </section>
+
+  <section class="w-block d-dark" data-n="2" data-name="Три цифры" data-question="Чем докажете, что умеете?" data-proof="675 000 ₽ (кухни), +73 % (радиаторы), 3,2 млн ₽ (профориентация) – каждая ведёт в кейс" data-next="Кто уже с вами работает?">
+    <div class="w-wrap w-stack">
+      <div class="d-nums">
+        <a href="/cases/"><b>675 000 ₽</b><span>продажи за 3 недели рекламы</span><small>Кухни на заказ, Саратов · ВКонтакте (Target Factory)</small></a>
+        <a href="/cases/"><b>+73 %</b><span>к плану продаж</span><small>Дизайнерские радиаторы · <span class="w-ask">[запросить: канал и срок]</span></small></a>
+        <a href="/cases/"><b>3,2 млн ₽</b><span>с сайта без платной рекламы</span><small>Курс по профориентации</small></a>
+      </div>
+      <p class="w-note">Тёмная полоса сразу под первым экраном, продолжение первого экрана (без H2). Каждая карточка – ссылка на свой кейс /cases/&lt;slug&gt;/ (слаги задаст site-map). На телефоне карточки идут столбиком: при прокрутке тёмной становится следующая, последняя остаётся. После этого блока на телефоне появляется нижняя панель.</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="3" data-name="Логотипы" data-question="Кто уже с вами работает?" data-proof="логотипы клиентов двумя лентами" data-next="Делали ли для бизнеса как мой?">
+    <div class="w-wrap w-stack">
+      <h2>С кем работаем</h2>
+      <div class="d-logos" data-alt="Логотипы клиентов Дефорда">
+        <div><span>TEYES Sibir</span><span>EV Sibir</span><span>Milovini Flowers</span><span>Elite Rose</span><span>ALEX KROWN</span><span>Газ-маг</span></div>
+        <div><span>Пастила 1881</span><span>Balance</span><span>KitAccess</span><span>GRAFIT</span><span>Community Dealer</span><span>Evolution Car</span></div>
+      </div>
+      <p class="w-hint"><span class="w-ask">[запросить: разрешение на логотипы и кого ставить первыми]</span></p>
+      <p class="w-note">Две ленты едут навстречу друг другу, ленту можно тянуть мышью и пальцем; цветные версии грузятся заранее, серые до наведения. alt = название клиента; вторая копия ленты для бесконечной прокрутки – aria-hidden, alt="". Анимация идёт, только пока блок на экране.</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="nishi" data-n="4" data-name="Ниши" data-question="Делали ли для бизнеса как мой?" data-proof="плитки ниш с числом кейсов, окно с кейсами ниши" data-next="Что именно получилось и сколько стоило?">
+    <div class="w-wrap w-stack">
+      <h2>Кейсы в вашей нише</h2>
+      <p>Выберите сферу – покажем кейсы и цифры.</p>
+      <div class="d-niches">
+        <button class="d-niche" type="button" data-dlg="n-avto"><b>Автосервисы и техцентры</b><small>кейсов: <span class="w-ask">[запросить: сверить число кейсов]</span></small></button>
+        <button class="d-niche" type="button" data-dlg="n-ustanovka"><b>Установка мультимедиа и автозвука</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche" type="button" data-dlg="n-cvety"><b>Цветочные магазины</b><small>больше 10 сайтов</small></button>
+        <button class="d-niche" type="button" data-dlg="n-odezhda"><b>Магазины одежды</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche" type="button" data-dlg="n-kuhni"><b>Кухни и мебель</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche" type="button" data-dlg="n-byuti"><b>Бьюти и массаж</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche w-hide-m" type="button" data-dlg="n-proizvodstvo"><b>Производство</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche w-hide-m" type="button" data-dlg="n-obuchenie"><b>Обучение</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche w-hide-m" type="button" data-dlg="n-avtosalony"><b>Автосалоны и пригон авто</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche w-hide-m" type="button" data-dlg="n-finansy"><b>Страхование и финансы</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche w-hide-m" type="button" data-dlg="n-fitnes"><b>Фитнес</b><small>кейсов: <span class="w-ask">[запросить: сверить]</span></small></button>
+        <button class="d-niche w-hide-m" type="button" data-dlg="n-drugoe"><b>Другая сфера</b><small>расскажите на разборе</small></button>
+      </div>
+      <div class="w-actions"><a class="w-btn ghost" href="/industries/">Смотреть все ниши</a></div>
+
+      <dialog class="d-dlg" id="n-kuhni"><div class="w-stack"><b>Кухни и мебель</b><span class="d-big">675 000 ₽ за 3 недели</span><ul><li><a href="/cases/">Кухни на заказ, Саратов – 72 заявки по 380 ₽, продали 2 кухни и шкаф</a></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Кухни и мебель">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-byuti"><div class="w-stack"><b>Бьюти и массаж</b><span class="d-big">40 заявок за неделю</span><ul><li><a href="/cases/">LPG-массаж, Томск – 40 заявок по 243 ₽, 9 абонементов на 117 000 ₽</a></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Бьюти и массаж">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-odezhda"><div class="w-stack"><b>Магазины одежды</b><span class="d-big">135 продаж за неделю</span><ul><li><a href="/cases/">Шоурум женской одежды, Казань – 319 сообщений по 135 ₽</a></li><li><span class="w-ask">[запросить: другие кейсы ниши]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Магазины одежды">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-obuchenie"><div class="w-stack"><b>Обучение</b><span class="d-big">3,2 млн ₽ без рекламы</span><ul><li><a href="/cases/">Курс по профориентации – 3,2 млн ₽ с сайта без платной рекламы</a></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Обучение">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-avto"><div class="w-stack"><b>Автосервисы и техцентры</b><span class="d-big"><span class="w-ask">[запросить: главная цифра ниши]</span></span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши со ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Автосервисы и техцентры">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-ustanovka"><div class="w-stack"><b>Установка мультимедиа и автозвука</b><span class="d-big"><span class="w-ask">[запросить: цифры TEYES Sibir – заявок в месяц]</span></span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши со ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Установка мультимедиа и автозвука">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-cvety"><div class="w-stack"><b>Цветочные магазины</b><span class="d-big">больше 10 сайтов</span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши с цифрами и ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Цветочные магазины">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-proizvodstvo"><div class="w-stack"><b>Производство</b><span class="d-big"><span class="w-ask">[запросить: главная цифра ниши]</span></span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши со ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Производство">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-avtosalony"><div class="w-stack"><b>Автосалоны и пригон авто</b><span class="d-big"><span class="w-ask">[запросить: главная цифра ниши]</span></span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши со ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Автосалоны и пригон авто">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-finansy"><div class="w-stack"><b>Страхование и финансы</b><span class="d-big"><span class="w-ask">[запросить: главная цифра ниши]</span></span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши со ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Страхование и финансы">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-fitnes"><div class="w-stack"><b>Фитнес</b><span class="d-big"><span class="w-ask">[запросить: главная цифра ниши]</span></span><ul><li><span class="w-ask">[запросить: 3–5 кейсов ниши со ссылками]</span></li></ul><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Фитнес">Получить бесплатный разбор</a><a href="/industries/">Всё о нише</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+      <dialog class="d-dlg" id="n-drugoe"><div class="w-stack"><b>Другая сфера</b><p>Расскажите о бизнесе на разборе – покажем ближайшие кейсы и с чего начать.</p><div class="w-actions"><a class="w-btn" href="#zayavka" data-nisha="Другая сфера">Получить бесплатный разбор</a></div><button type="button" class="w-btn ghost" data-close>Закрыть</button></div></dialog>
+
+      <p class="w-note">Плитка – предмет ниши в одном стиле (свои предметы, не донора) и число кейсов. Предмет тянется за курсором до 10 px, при наведении растёт и поворачивается; на телефоне плитки «загораются» по очереди при прокрутке. Плитки ставим только там, где есть живой кейс: ниши без кейса после сверки убрать. Клик – окно ниши (dialog лежит в HTML, ссылки на кейсы видны поиску): главная цифра, 3–5 кейсов, «Получить бесплатный разбор» – ниша уходит в заявку скрытым полем (в прототипе работает, видно в форме блока 13), «Всё о нише» – только если у ниши 2+ кейса. На телефоне 6 плиток и «Смотреть все ниши».</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="keysy" data-n="5" data-name="Было → стало" data-question="Что именно получилось и сколько стоило?" data-proof="4 кейса: было, сделали, стало, ссылка" data-next="Что я получу, кроме объявлений?">
+    <div class="w-wrap w-stack">
+      <h2>Цифры из наших кейсов</h2>
+      <p>В каждом кейсе – задача, что сделали и откуда цифра.</p>
+      <div class="w-grid d-scroll-m" style="--cols:3;--cols-m:1">
+        <article class="w-card d-case"><div class="w-media small" data-alt="Кухня на заказ, Саратов – работа клиента">Готовая кухня клиента в интерьере: доказывает, что заявки превратились в проданные кухни</div><span class="meta">ВКонтакте · 3 недели</span><h3>Кухни на заказ · Саратов · ВКонтакте</h3><span class="num">72 заявки по 380 ₽</span><dl><dt>Было</dt><dd><span class="w-ask">[запросить]</span></dd><dt>Стало</dt><dd>Продали 2 кухни и шкаф на 675 000 ₽ за 3 недели; лучшая неделя – 20 заявок по 216 ₽</dd></dl><a href="/cases/">Смотреть кейс →</a></article>
+        <article class="w-card d-case"><div class="w-media small" data-alt="LPG-массаж, Томск – работа клиента">Кабинет LPG-массажа клиента: доказывает, что это живой салон, а не выдуманная ниша</div><span class="meta">ВКонтакте · неделя</span><h3>LPG-массаж · Томск · ВКонтакте</h3><span class="num">40 заявок за неделю</span><dl><dt>Стало</dt><dd>Заявка по 243 ₽; 9 абонементов на 117 000 ₽ за неделю</dd></dl><a href="/cases/">Смотреть кейс →</a></article>
+        <article class="w-card d-case"><div class="w-media small" data-alt="Шоурум женской одежды, Казань – работа клиента">Шоурум клиента с вешалками и покупательницей: доказывает продажи в офлайн-точке</div><span class="meta">ВКонтакте · неделя</span><h3>Шоурум женской одежды · Казань · ВКонтакте</h3><span class="num">135 продаж за неделю</span><dl><dt>Стало</dt><dd>319 сообщений по 135 ₽, 2–3 новых покупателя каждый день</dd></dl><a href="/cases/">Смотреть кейс →</a></article>
+        <article class="w-card d-case"><div class="w-media small" data-alt="Дизайнерские радиаторы – работа клиента">Радиатор клиента в интерьере: доказывает, что кейс про реальный товар</div><span class="meta"><span class="w-ask">[запросить: канал и срок]</span></span><h3>Дизайнерские радиаторы</h3><span class="num">+73 % к плану</span><dl><dt>Было</dt><dd><span class="w-ask">[запросить: было, что сделали, срок]</span></dd></dl><a href="/cases/">Смотреть кейс →</a></article>
+        <article class="w-card d-case"><div class="w-media small">Скрин Вебмастера или Метрики клиента: рост заявок из поиска без рекламы</div><h3>SEO-кейс</h3><span class="num"><span class="w-ask">[запросить: SEO-кейс – Артём даёт]</span></span><a href="/cases/">Смотреть кейс →</a></article>
+        <article class="w-card d-case"><div class="w-media small">Кадр из нашего ролика для рекламы клиента: доказывает, что видео снимаем сами</div><h3>Видео-кейс</h3><span class="num"><span class="w-ask">[запросить: видео-кейс – соберём свой]</span></span><a href="/cases/">Смотреть кейс →</a></article>
+      </div>
+      <p class="w-hint">Источник цифр кейсов рекламы ВКонтакте – отчёты Target Factory (партнёр Дефорда, группа ВК «Наши результаты»).</p>
+      <div class="w-actions"><a class="w-btn" href="#zayavka">Получить бесплатный разбор</a><a class="w-btn ghost" href="/cases/">Все кейсы</a></div>
+      <p class="w-note">Кейсы стопкой: карточки прилипают (sticky) и ложатся друг на друга при прокрутке, на компьютере и телефоне. Карточка: фото, ниша · город · канал (H3), крупная цифра, было / стало, «Смотреть кейс». В прототипе на телефоне – карусель, чтобы блок не растягивался на 4 экрана; в дизайне – та же стопка. Карточки SEO и видео – только когда Артём даст кейсы, иначе убрать. Фото кейсов: alt «Кухня на заказ, Саратов – работа клиента», не «картинка 1».</p>
+    </div>
+  </section>
+
+  <section class="w-block w-cta-strip" data-n="5а" data-name="Плашка призыва" data-question="Мне уже хватает – что сделать сейчас?" data-proof="цифры кейсов выше">
+    <div class="w-wrap"><div class="w-cta"><p>Бесплатный разбор: что мешает заявкам и с чего начать – 20 минут</p><a class="w-btn" href="#zayavka">Получить бесплатный разбор</a></div></div>
+  </section>
+
+  <section class="w-block" id="uslugi" data-n="6" data-name="Что вы получаете" data-question="Что я получу, кроме объявлений?" data-proof="кабинет заявок, сайт на коде, поиск и карты, видео – 4 карточки с иллюстрацией" data-next="Что говорят те, кто уже работает?">
+    <div class="w-wrap w-stack">
+      <h2>Что вы получаете, кроме рекламы</h2>
+      <div class="d-dark" style="padding:18px;display:grid;gap:12px">
+        <p class="d-sub">Реклама, сайт и поиск в одних руках</p>
+        <div class="d-orbit"><span>Директ</span><span>ВКонтакте</span><span>2ГИС</span><span>Яндекс Бизнес</span><span>Сайт</span><span>SEO</span><span>Нейросети</span><span>Видео</span><span>Кабинет заявок</span><span>CRM</span></div>
+      </div>
+      <div class="w-grid d-scroll-m" style="--cols:4;--cols-m:1">
+        <article class="w-card"><div class="d-ui" data-alt="Кабинет заявок Дефорда: список заявок с источником и ценой"><span class="cap">Живая картинка интерфейса</span><span class="big">Сегодня 7 заявок</span><div class="row"><span>Анна</span><span>Яндекс · реклама</span></div><div class="row"><span>Игорь</span><span>Яндекс · карты</span></div><div class="row"><span>Мария</span><span>Google · поиск</span></div></div><h3>Кабинет заявок</h3><p>Каждая заявка видна сразу: имя, откуда пришла – Яндекс или Google, реклама, поиск или карты – и сколько стоила. Не ждёте отчёт, смотрите сами.</p></article>
+        <article class="w-card"><div class="d-ui" data-alt="Оценка скорости сайта на коде"><span class="cap">Живая картинка интерфейса</span><span class="big">98 <span class="w-ask">[запросить: цифру с нашего демо]</span></span><div class="row"><span>Скорость загрузки</span><span>из 100</span></div></div><h3><a href="/services/websites/">Сайт, куда ведёт реклама</a></h3><p>Сайт на коде: открывается мгновенно, правильная структура для поиска с первого дня, тексты и цены правите сами в админке.</p></article>
+        <article class="w-card"><div class="d-ui" data-alt="Карточка компании на картах и ответ нейросети со ссылкой"><span class="cap">Живая картинка интерфейса</span><div class="row"><span>Карточка компании на картах</span><span>★</span></div><div class="row"><span>Ответ нейросети</span><span>ссылка на сайт</span></div></div><h3><a href="/services/seo/">Поиск</a>, карты и <a href="/services/ai-search/">нейросети</a></h3><p>Заявки, за которые не платите за клик: SEO, Яндекс Карты, 2ГИС и ответы Алисы и ChatGPT.</p></article>
+        <article class="w-card"><div class="w-media small" data-alt="Ролик для рекламы клиента">Кадр нашего ролика для рекламы клиента: доказывает, что снимаем и монтируем сами</div><h3><a href="/services/video/">Видео и контент</a></h3><p>Снимаем и монтируем ролики для рекламы, ведём Дзен и ВКонтакте. <span class="w-ask">[запросить: кейс видео]</span></p></article>
+      </div>
+      <div class="w-actions"><a class="w-btn ghost" href="/services/">Все услуги</a></div>
+      <p class="w-note">Вступление тёмное: орбита из плашек – кольца вращаются, плашки выплывают при прокрутке, только пока блок на экране; на экран целиком не растягивать (у донора съедает экран). Вместо фото в карточках – живые картинки интерфейса нашего кабинета: заявки появляются по одной с меткой источника, счётчик «Сегодня 7 заявок» растёт, оценка скорости докручивается до числа; играют только на экране. Карточка «Кабинет заявок» – страницы в карте нет, ссылку решить (SEO-задание, п. 12.2).</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="7" data-name="Отзывы" data-question="Что говорят те, кто уже работает?" data-proof="видеоотзывы, отзывы с карт с датой и ссылкой" data-next="Кто за этим стоит и можно ли ему доверять?">
+    <div class="w-wrap w-stack">
+      <h2>Отзывы клиентов</h2>
+      <p>Можно проверить: у каждого отзыва – автор, дата и ссылка на оригинал.</p>
+      <div class="w-grid d-scroll-m" style="--cols:3;--cols-m:1">
+        <article class="w-card"><div class="w-media small" data-alt="Видеоотзыв клиента Дефорда">Видеоотзыв: владелец бизнеса на своей точке говорит, что изменилось в заявках</div><span class="w-ask">[запросить: какие видеоотзывы есть]</span></article>
+        <article class="w-card"><div class="w-media small" data-alt="Видеоотзыв клиента Дефорда">Видеоотзыв: клиент, который работает с нами дольше года</div><span class="w-ask">[запросить: автор, бизнес, срок работы]</span></article>
+        <article class="w-card"><b>Отзыв с Яндекс Карт</b><p><span class="w-ask">[запросить: карточка Дефорда на картах, рейтинг]</span></p><span class="w-muted">Автор · дата · ссылка на оригинал</span></article>
+      </div>
+      <div class="w-actions"><a class="w-btn ghost" href="/reviews/">Все отзывы</a></div>
+      <p class="w-note">Видео открывается по нажатию в окне (плеер грузится только по клику). Цитата с карт – дословно, с автором, датой и ссылкой на оригинал текстом. Разметку Review о себе на главной не ставить (SEO-задание). Отзывы есть на deford.ru/reviews/ – решить, на каком домене живут (SEO-задание, п. 12.1).</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="osnovatel" data-n="8" data-name="Основатель" data-question="Кто за этим стоит и можно ли ему доверять?" data-proof="Артём: 15 лет, свои бизнесы в Новосибирске, команда" data-next="Что будет после заявки?">
+    <div class="w-wrap w-stack">
+      <div class="d-founder">
+        <div class="w-stack">
+          <div class="w-media" data-alt="Артём Галимов, основатель агентства Дефорд">Живое фото Артёма на своей точке (установочный центр TEYES Sibir или техцентр EV Sibir): доказывает, что у него свои бизнесы в Новосибирске</div>
+          <span class="w-muted">Наклейка на фото: «С 2015 года делаем из бизнеса кейсы» <span class="w-ask">[сверить год]</span></span>
+        </div>
+        <div class="w-stack">
+          <span class="w-muted">Команда</span>
+          <h2>Маркетинг, который мы сначала проверили на своём бизнесе</h2>
+          <h3><a href="/team/artem-galimov/">Артём Галимов, основатель Дефорд</a></h3>
+          <p>15 лет в маркетинге. Сам владеет бизнесами в Новосибирске – установочным центром TEYES Sibir и техцентром EV Sibir. Поэтому рекламу считает так же, как свою: в заявках и деньгах.</p>
+          <p><span class="w-ask">[запросить: личная история в 2–3 фразы – как пришёл в маркетинг]</span></p>
+          <ol class="d-points">
+            <li><b>Сначала на себе.</b> Новые площадки и связки – SEO под нейросети, Яндекс Бизнес, Дзен – проверяем на своих бизнесах, потом предлагаем клиентам.</li>
+            <li><b>Говорит с владельцем.</b> Первый разговор – с Артёмом, а не с менеджером.</li>
+            <li><b>Студии 10 лет.</b> <span class="w-ask">[запросить: число проектов – на старых КП 627/727/650+]</span> · «3+ млрд ₽ принесли клиентам» <span class="w-ask">[сверить]</span></li>
+          </ol>
+          <div class="w-actions"><a class="w-btn" href="#zayavka">Обсудить задачу с Артёмом</a><a href="#">Канал Артёма о маркетинге</a> <span class="w-ask">[запросить: Telegram или Дзен]</span></div>
+        </div>
+      </div>
+      <div class="d-team">
+        <div class="d-ava" data-alt="Команда Дефорда"><i></i><i></i><i></i><i></i><i></i></div>
+        <p>Под задачу собираем команду: директолог, таргетолог, SEO, разработчики, дизайнеры, монтажёр.</p>
+        <span class="w-muted">Денис Коротаев, реклама ВКонтакте (Target Factory) <span class="w-ask">[сверить: показывать ли Дениса как команду или партнёра]</span></span>
+        <a class="w-btn ghost" href="/team/">Вся команда</a>
+      </div>
+      <p class="w-note">Фото живое, с эмоцией; наклейка «С 2015 года…» – только после сверки года. Мягкий параллакс фото – только компьютер. Личная история – самый сильный кусок блока (у донора «работал официантом и поваром»); без неё абзац не публиковать выдуманным. Полоса команды: аватары настоящих людей, без стоковых.</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="9" data-name="Как начинаем" data-question="Что будет после заявки?" data-proof="3 шага: разбор → план и расчёт → запуск и кабинет" data-next="Сколько стоит начать?">
+    <div class="w-wrap w-stack">
+      <h2>Сначала разбираемся в бизнесе, потом тратим бюджет</h2>
+      <div class="d-steps">
+        <div><div class="d-ui" data-alt="Видеозвонок разбора бизнеса"><span class="cap">Видеозвонок · 15:24 → 16:00</span><div class="row"><span>Смотрим: сайт · карты · реклама</span><span>✓</span></div></div><h3>Разбор · 20 минут</h3><p>Рассказываете о бизнесе. Смотрим сайт, карточки на картах и прошлую рекламу.</p><p class="itog"><b>Итог:</b> что мешает заявкам и с чего начать. <a href="/services/audit/">Подробнее о разборе</a></p></div>
+        <div><div class="d-ui" data-alt="Расчёт работы и рекламного бюджета"><span class="cap">Расчёт до запуска</span><div class="row"><span>Наша работа 35 000 ₽ + реклама 30 000 ₽</span><b>= 65 000 ₽</b></div><div class="row"><span>Согласовать → Согласовано</span><span>✓</span></div></div><h3>План и расчёт</h3><p>Какую площадку запускать, сколько нужно на проверку и что подготовить.</p><p class="itog"><b>Итог:</b> сумма работы и рекламного бюджета до запуска.</p></div>
+        <div><div class="d-ui" data-alt="Первая неделя рекламы: заявки и цена заявки"><span class="cap">Первая неделя (кейс LPG-массажа)</span><div class="row"><span>40 заявок</span><b>243 ₽ за заявку</b></div><div class="row"><span>Запустить → Запущено</span><span>✓</span></div></div><h3>Запуск и кабинет</h3><p>Настраиваем рекламу, заявки сразу падают в кабинет.</p><p class="itog"><b>Итог:</b> видите каждую заявку и её цену.</p></div>
+      </div>
+      <div class="w-actions"><a class="w-btn" href="#zayavka">Получить бесплатный разбор</a><a href="/how-we-work/">Как работаем</a></div>
+      <p class="w-note">Шаги стоят лесенкой и по прокрутке выстраиваются в ряд. Живые картинки: в звонке идут часы 15:24 → 16:00, кнопки «Согласовать → Согласовано», «Запустить → Запущено» переключаются сами, когда шаг на экране. Цифры третьего шага – из кейса LPG (Томск), подпись источника оставить.</p>
+    </div>
+  </section>
+
+  <section class="w-block w-cta-strip" data-n="9а" data-name="Плашка призыва" data-question="Сколько уйдёт агентству, а сколько на рекламу?" data-proof="бюджет площадке напрямую, отдельно от работы">
+    <div class="w-wrap"><div class="w-cta"><p>Рекламный бюджет платите напрямую площадке – отдельно от нашей работы</p><a class="w-btn ghost" href="#kalk">Посчитать заявки на мой бюджет</a></div></div>
+  </section>
+
+  <section class="w-block" id="ceny" data-n="10" data-name="Цены" data-question="Сколько стоит начать?" data-proof="разбор 0 ₽, цены «от» по услугам, бюджет отдельно" data-next="Сколько заявок и денег даст мой бюджет?">
+    <div class="w-wrap w-stack">
+      <h2>Сколько стоит начать</h2>
+      <p>Цены нашей работы. Рекламный бюджет отдельно. Точная сумма – после разбора.</p>
+      <div class="d-free"><div><b>Разбор бизнеса</b><br><span class="w-muted">20 минут: что мешает заявкам и с чего начать</span></div><b class="p">0 ₽</b><a class="w-btn" href="#zayavka">Получить бесплатный разбор</a><a href="/services/audit/">Подробнее о разборе</a></div>
+      <p class="w-hint"><span class="w-ask">[запросить: подтвердить все цены]</span></p>
+      <div class="w-table-wrap"><table class="w-table">
+        <tr><th>Направление</th><th>Услуга</th><th>Цена работы</th></tr>
+        <tr><td rowspan="4">Реклама</td><td><a href="/services/ads/yandex-direct/">Яндекс Директ</a></td><td>от 35 000 ₽</td></tr>
+        <tr><td><a href="/services/ads/vk-ads/">ВКонтакте</a></td><td>от 35 000 ₽</td></tr>
+        <tr><td><a href="/services/ads/2gis/">2ГИС</a></td><td><span class="w-ask">[запросить]</span></td></tr>
+        <tr><td>Яндекс Бизнес и Карты</td><td><span class="w-ask">[запросить]</span></td></tr>
+        <tr><td rowspan="4">Сайты</td><td><a href="/services/websites/landing/">Лендинг под рекламу</a></td><td><span class="w-ask">[запросить]</span></td></tr>
+        <tr><td><a href="/services/websites/turnkey/">Сайт под ключ</a></td><td>120 000 ₽</td></tr>
+        <tr><td><a href="/services/websites/online-store/">Интернет-магазин</a></td><td>от 70 000 ₽</td></tr>
+        <tr><td>Магазин с личным кабинетом</td><td>150 000 ₽</td></tr>
+        <tr><td rowspan="2">Поиск</td><td><a href="/services/seo/">SEO и нейросети</a></td><td>старт от 35 000 ₽, дальше ведение <span class="w-ask">[запросить]</span></td></tr>
+        <tr><td>Статьи</td><td><span class="w-ask">[запросить]</span></td></tr>
+        <tr><td>Контент</td><td><a href="/services/video/">Видео для рекламы</a></td><td><span class="w-ask">[запросить]</span></td></tr>
+      </table></div>
+      <p><b>Можно частями: первый взнос от 35 000 ₽.</b> <a href="/tools/website-cost/">Сколько стоит сайт</a></p>
+      <div class="w-actions"><a class="w-btn ghost" href="/prices/">Все цены</a></div>
+      <p class="w-note">Цены – текстом в таблице, не картинкой. Строка «Разбор 0 ₽» – первой и крупно, это самый дешёвый вход. Без демпинга: вход от 35 000 ₽ одной строкой. На телефоне таблица – карточками по направлениям, без прокрутки вбок.</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="kalk" data-n="11" data-name="Калькулятор" data-question="Сколько заявок и денег даст мой бюджет?" data-proof="бюджет → переходы → заявки → продажи → выручка" data-next="Что ещё меня останавливает?">
+    <div class="w-wrap w-stack">
+      <h2>Сколько заявок даст ваш бюджет</h2>
+      <p>Сколько заявок и денег может дать бюджет. Это расчёт на примере, свои цифры поставите в <a href="/tools/ads-calculator/">полном калькуляторе</a>.</p>
+      <div class="d-calc">
+        <div class="w-stack">
+          <label>Бюджет в месяц: <b id="c-b-out">50 000 ₽</b><input type="range" id="c-b" min="15000" max="300000" step="5000" value="50000"></label>
+          <label>Средний чек, ₽<input type="number" id="c-ch" min="0" step="1000" value="20000" inputmode="numeric"></label>
+          <p class="w-hint">Пример: переход стоит 25 ₽, заявку оставляют 5 из 100 перешедших, покупают 20 из 100 оставивших заявку.</p>
+        </div>
+        <div class="d-res" aria-live="polite">
+          <div><span>Переходов</span><b id="c-k">2 000</b></div>
+          <div><span>Заявок</span><b id="c-z">100</b></div>
+          <div><span>Продаж</span><b id="c-p">20</b></div>
+          <div class="rev"><span>Выручка</span><b id="c-v">400 000 ₽</b></div>
+          <a class="w-btn" href="#zayavka" id="c-send">Разобрать мой расчёт</a>
+          <p class="w-hint">Скажем, реальны ли такие цифры в вашей нише.</p>
+        </div>
+      </div>
+      <p class="w-note">Калькулятор в прототипе рабочий: ползунок и чек пересчитывают итог, «Разобрать мой расчёт» кладёт цифры в скрытое поле заявки (видно в форме блока 13). В дизайне: цифры крутятся барабаном, изменившийся итог вспыхивает, ползунок при первом показе сам едет к примеру – показывает, что его можно двигать. Пример по умолчанию (2 000 → 100 → 20 → 400 000 ₽) лежит в HTML. Итог – в деньгах, у донора только в продажах.</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="voprosy" data-n="12" data-name="Вопросы" data-question="Что ещё меня останавливает?" data-proof="8 вопросов с ответами по кейсам" data-next="Как начать?">
+    <div class="w-wrap">
+      <div class="d-faq">
+        <div class="d-ask-box">
+          <b>Остались вопросы? Задайте их Артёму</b>
+          <a class="w-btn ghost" href="https://t.me/Artem1Galimov">Задать вопрос Артёму</a>
+          <a href="/faq/">Все вопросы</a>
+        </div>
+        <div class="w-stack w-faq">
+          <h2>Вопросы о рекламе и сайтах</h2>
+          <div>
+            <details><summary>Что будет на разборе?</summary><p>20 минут: рассказываете о бизнесе, мы смотрим сайт, карты и прошлую рекламу. Говорим, что мешает заявкам и с чего начать. Разбор ничего не стоит и ни к чему не обязывает.</p></details>
+            <details><summary>Сколько нужно на рекламу?</summary><p>Зависит от ниши и цены заявки. На разборе считаем бюджет на проверку. Бюджет площадки и наша работа – отдельно.</p></details>
+            <details><summary>Сколько стоит работа агентства?</summary><p>Первая работа – от 35 000 ₽. Сайт под ключ – 120 000 ₽, интернет-магазин – от 70 000 ₽. Разбор – 0 ₽. Рекламный бюджет – отдельно, площадке напрямую. <span class="w-ask">[запросить: подтвердить цены сайтов]</span></p></details>
+            <details><summary>Когда будут первые заявки?</summary><p>С рекламой – в первые недели: LPG-массаж в Томске получил 40 заявок за первую неделю. SEO и карты разгоняются месяцами, поэтому на старте их подпирает реклама.</p></details>
+            <details><summary>Что я увижу в кабинете?</summary><p>Каждую заявку: когда пришла, откуда (Яндекс или Google, реклама, поиск, карты) и сколько стоила.</p></details>
+            <details><summary>Можно только сайт или только рекламу?</summary><p>Да. Можно одну задачу, можно всё вместе.</p></details>
+            <details><summary>Кому принадлежат сайт и рекламный кабинет?</summary><p><span class="w-ask">[запросить: сайт и кабинеты – на клиенте?]</span></p></details>
+            <details><summary>Работаете только с Новосибирском?</summary><p>Нет, по всей России и Беларуси. Но Новосибирск знаем изнутри – здесь наши собственные бизнесы.</p></details>
+            <details><summary>Работаете по договору?</summary><p><span class="w-ask">[запросить: договор, ИП или ООО, оплата]</span></p></details>
+          </div>
+        </div>
+      </div>
+      <p class="w-note">Ответы лежат в HTML (не подгружаются по клику). В разметку FAQPage – только вопросы с готовым ответом, текст слово в слово; «Кому принадлежат…» и «По договору?» не публиковать и не размечать до ответа Артёма. Вопрос «Сколько стоит работа агентства?» добавлен по SEO-заданию (ценовые хвосты Wordstat). Раскрытие – плавное по высоте.</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="zayavka" data-n="13" data-name="Заявка" data-question="Как начать?" data-proof="что даёт разбор, срок ответа, Telegram, Макс, телефон">
+    <div class="w-wrap">
+      <div class="w-grid" style="--cols:2;--cols-m:1;align-items:start">
+        <div class="w-stack">
+          <h2>Получите разбор: что мешает заявкам</h2>
+          <p>Оставьте телефон – перезвоним и договоримся о времени. Удобнее написать – Telegram или Макс.</p>
+          <b>Удобнее написать?</b>
+          <div class="d-msgr"><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Telegram</a><a class="w-btn ghost" href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></div>
+          <b>Удобнее позвонить?</b>
+          <a href="tel:+79537777891">+7 953 777-78-91</a>
+        </div>
+        <form class="w-form" id="f-razbor" onsubmit="event.preventDefault()">
+          <label class="w-field">Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
+          <label class="w-field">Сайт или соцсеть (необязательно)<input name="site" placeholder="ссылка"></label>
+          <input type="hidden" name="nisha" id="f-nisha">
+          <input type="hidden" name="raschet" id="f-raschet">
+          <p class="d-calc-line" id="f-info"></p>
+          <label class="w-check"><input type="checkbox" data-agree> <span>Согласен на обработку персональных данных по <a href="/privacy-policy/">политике конфиденциальности</a></span></label>
+          <button class="w-btn" type="submit" disabled>Получить бесплатный разбор</button>
+          <p class="w-hint">Перезвоним и договоримся о времени разбора: 20 минут по телефону или в Telegram.</p>
+          <div class="w-success">
+            <p><b>Заявка у нас.</b></p>
+            <p>Перезвоним за <span class="w-ask">[запросить: срок]</span> и договоримся о времени разбора.</p>
+            <p>Срочно – <a href="tel:+79537777891">+7 953 777-78-91</a>, <a href="https://t.me/Artem1Galimov">Telegram</a> или <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>.</p>
+            <p>К разбору: ссылки на сайт и карточки на картах, если есть – прошлую рекламу. Пока ждёте – <a href="#keysy">цифры из наших кейсов</a>.</p>
+          </div>
+        </form>
+      </div>
+      <p class="w-note">Все кнопки «Получить бесплатный разбор» ведут в одну панель заявки (в дизайне – выезжающая панель, в прототипе – этот блок). Ниша из окна ниши и расчёт калькулятора подставляются скрытыми полями и показаны строкой над галочкой. Телефон с маской, галочка согласия пустая, кнопка неактивна до отметки. Срок ответа – только от Артёма. Виджеты страницы: нижняя панель телефона (Ниши · Кейсы · круглая «Разбор» по центру · Цены · Калькулятор), боковая панель связи на компьютере (Telegram, Макс, телефон), окно «Бесплатный разбор рекламы и сайта – 20 минут» через 40 с или на 60 % прокрутки (на телефоне – плашкой снизу, не больше трети экрана), окно на уходе с калькулятором (только компьютер). Модуль tema-mail/vidzhety, настройки – vidzhety-glavnaya.json. Почему так: одно главное действие – разбор; калькулятор – мягкий вход для тех, кто уходит; одно перекрывающее окно за визит. Нижняя панель в модуле появляется сразу, «после блока цифр» и подсветку раздела делаем при вёрстке.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="w-footer"><div class="w-wrap w-stack">
+  <div class="d-foot">
+    <div class="w-stack"><b class="w-logo" style="justify-self:start">Дефорд</b>
+      <span>Дефорд – рекламное и маркетинговое агентство из Новосибирска: реклама в Яндекс Директе, ВКонтакте и 2ГИС, сайты на коде, поиск, карты и видео. Работа – от 35 000 ₽, рекламный бюджет – площадке напрямую.</span>
+      <a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>
+      <span>Адрес: <span class="w-ask">[запросить: адрес в Новосибирске]</span></span>
+      <a class="w-btn" href="#zayavka" style="justify-self:start">Получить бесплатный разбор</a>
+    </div>
+    <div><b>Разделы</b><a href="/cases/">Кейсы</a><a href="/reviews/">Отзывы</a><a href="/team/">Команда</a><a href="/services/">Услуги</a><a href="/how-we-work/">Как работаем</a><a href="/prices/">Цены</a><a href="/tools/">Калькуляторы</a><a href="/blog/">Статьи</a><a href="/faq/">Вопросы</a><a href="/industries/">Ниши</a><a href="/contacts/">Контакты</a></div>
+    <div><b>Направления</b><a href="/services/ads/">Реклама</a><a href="/services/websites/">Сайты</a><a href="/services/seo/">Поиск</a><a href="/services/content/">Контент</a><a href="/services/automation/">Автоматизация</a><a href="/about/">О студии</a><a href="/choose-service/">Подобрать услугу</a></div>
+    <div><b>Документы</b><a href="/privacy-policy/">Политика конфиденциальности</a><span>Реквизиты: <span class="w-ask">[запросить: реквизиты]</span></span><span>Профили компании: <span class="w-ask">[запросить: ВК, Дзен, Яндекс Карты, 2ГИС]</span></span></div>
+  </div>
+  <b>Статьи Артёма</b>
+  <div class="d-stories">
+    <div class="w-media" data-alt="Статья Артёма Галимова">Обложка свежей статьи Артёма: тема крупно – доказывает, что агентство само разбирается и пишет</div>
+    <div class="w-media">Обложка статьи 2</div>
+    <div class="w-media w-hide-m">Обложка статьи 3</div>
+    <div class="w-media w-hide-m">Обложка статьи 4</div>
+  </div>
+  <p class="w-note">«Статьи Артёма» – 3–5 последних, листаются сами каждые 2,8 с, полоски сверху как в сторис, стрелки перезапускают таймер. Подвал без H2. Строка «кто мы» – та же, что в description у Organization и в llms.txt.</p>
+</div></footer>
+
+<div class="w-sticky"><a class="w-btn" href="#zayavka">Получить разбор</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a></div>
+
+<script>
+document.querySelectorAll('.w-block').forEach(function (b) {
+  var d = b.dataset, el = document.createElement('div');
+  el.className = 'w-logic';
+  el.innerHTML = '<b>Блок ' + (d.n || '?') + ' · ' + (d.name || '') + '</b><br>Вопрос клиента: ' + (d.question || '–') + '<br>Опора: ' + (d.proof || '–') + (d.next ? '<br>Дальше спросит: ' + d.next : '');
+  if (b.tagName === 'HEADER') b.prepend(el); else (b.querySelector('.w-wrap') || b).prepend(el);
+});
+['logic', 'notes', 'seo', 'success'].forEach(function (k) {
+  document.getElementById('t-' + k).addEventListener('change', function (e) { document.body.classList.toggle('show-' + k, e.target.checked); });
+});
+(function () {
+  var src = document.getElementById('w-seo'), box = document.getElementById('w-seo-box');
+  if (!src || !box) return;
+  var d = JSON.parse(src.textContent), esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var len = function (t, max) { return ' <span class="' + (t.length > max ? 'bad' : '') + '">(' + t.length + ' / ' + max + ')</span>'; };
+  var heads = [].map.call(document.querySelectorAll('main h1, main h2, header h1'), function (h) { return '<li>' + h.tagName + ' – ' + esc(h.textContent.replace(/\s+/g, ' ').trim()) + '</li>'; }).join('');
+  var alts = [].map.call(document.querySelectorAll('[data-alt]'), function (m) { return '<li>' + esc(m.dataset.alt) + '</li>'; }).join('');
+  box.innerHTML = '<table><tr><td>title</td><td>' + esc(d.title) + len(d.title, 65) + '</td></tr><tr><td>description</td><td>' + esc(d.description) + len(d.description, 160) +
+    '</td></tr><tr><td>запрос</td><td>' + esc(d.zapros || '–') + '</td></tr><tr><td>заголовки</td><td><ul>' + heads + '</ul></td></tr><tr><td>alt</td><td><ul>' + (alts || '<li>–</li>') +
+    '</ul></td></tr><tr><td>разметка</td><td>' + esc(d.schema || '–') + '</td></tr><tr><td>ссылки</td><td><ul>' + (d.links || []).map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></td></tr></table>';
+})();
+document.getElementById('ask-count').textContent = document.querySelectorAll('.w-ask').length;
+document.querySelectorAll('form').forEach(function (f) {
+  var a = f.querySelector('[data-agree]'), btn = f.querySelector('button[type="submit"], button:not([type])');
+  if (a && btn) a.addEventListener('change', function () { btn.disabled = !a.checked; });
+});
+// Окна ниш
+document.querySelectorAll('[data-dlg]').forEach(function (b) {
+  b.addEventListener('click', function () { var d = document.getElementById(b.dataset.dlg); if (d && d.showModal) d.showModal(); });
+});
+document.querySelectorAll('dialog [data-close]').forEach(function (b) { b.addEventListener('click', function () { b.closest('dialog').close(); }); });
+// Скрытые поля заявки: ниша и расчёт
+var info = document.getElementById('f-info'), nisha = document.getElementById('f-nisha'), raschet = document.getElementById('f-raschet');
+function showInfo() {
+  var t = [];
+  if (nisha.value) t.push('Ниша: ' + nisha.value);
+  if (raschet.value) t.push('Ваш расчёт: ' + raschet.value);
+  info.textContent = t.join(' · ');
+  info.classList.toggle('on', t.length > 0);
+}
+document.querySelectorAll('[data-nisha]').forEach(function (a) {
+  a.addEventListener('click', function () { nisha.value = a.dataset.nisha; var d = a.closest('dialog'); if (d) d.close(); showInfo(); });
+});
+// Калькулятор: переход 25 ₽, заявка – 5 из 100 перешедших, продажа – 20 из 100 заявок
+(function () {
+  var b = document.getElementById('c-b'), ch = document.getElementById('c-ch');
+  var fmt = function (n) { return Math.round(n).toLocaleString('ru-RU').replace(/ /g, ' '); };
+  var last = '';
+  function calc() {
+    var bud = +b.value || 0, chek = Math.max(0, +ch.value || 0);
+    var k = Math.floor(bud / 25), z = Math.round(k * 0.05), p = Math.round(z * 0.2), v = p * chek;
+    document.getElementById('c-b-out').textContent = fmt(bud) + ' ₽';
+    document.getElementById('c-k').textContent = fmt(k);
+    document.getElementById('c-z').textContent = fmt(z);
+    document.getElementById('c-p').textContent = fmt(p);
+    document.getElementById('c-v').textContent = fmt(v) + ' ₽';
+    last = 'бюджет ' + fmt(bud) + ' ₽, чек ' + fmt(chek) + ' ₽ → ' + fmt(k) + ' переходов, ' + fmt(z) + ' заявок, ' + fmt(p) + ' продаж, выручка ' + fmt(v) + ' ₽';
+  }
+  b.addEventListener('input', calc); ch.addEventListener('input', calc); calc();
+  document.getElementById('c-send').addEventListener('click', function () { raschet.value = last; showInfo(); });
+})();
+</script>
+<div data-vidzhety data-src="vidzhety-glavnaya.json"></div>
+<script src="https://tema-mail.github.io/vidzhety/vidzhety.js"></script>
+<script data-tema-v1>(function(){var b=document.createElement('button');b.id='tema-btn';b.type='button';
+function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.textContent=d?'☀':'☾';b.title=d?'Светлая тема':'Тёмная тема';b.setAttribute('aria-label',b.title)}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};
+upd();document.body.appendChild(b)})();</script></body>
+</html>
