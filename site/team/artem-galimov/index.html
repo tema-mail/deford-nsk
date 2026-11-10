@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Прототип – Артём Галимов – Дефорд Новосибирск</title>
+<style>/* Комплект чёрно-белого прототипа (маркетолог → site-prototype).
+   Прототип показывает смысл, текст, порядок и действие – не дизайн. Цвета только серые; дизайнер делает визуал после «да» владельца.
+   Блок: <section class="w-block" data-n="1" data-name="Первый экран" data-question="вопрос клиента" data-proof="опора"> */
+:root {
+  --ink: #141414; --muted: #5f5f5f; --line: #b9b9b9; --fill: #ececec; --fill2: #f6f6f6; --paper: #ffffff;
+  --note: #fff6c8; --note-line: #c9b44a; --ask: #7a1f1f;
+  --font: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --mono: ui-monospace, Menlo, Consolas, monospace;
+  --wrap: 1180px;
+}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 16px/1.55 var(--font); }
+img { max-width: 100%; }
+a { color: var(--ink); }
+h1, h2, h3 { margin: 0; line-height: 1.2; text-wrap: balance; }
+h1 { font-size: clamp(28px, 4.2vw, 46px); }
+h2 { font-size: clamp(22px, 3vw, 32px); }
+h3 { font-size: 18px; }
+p { margin: 0; }
+.w-wrap { max-width: var(--wrap); margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.w-stack { display: grid; gap: 14px; }
+.w-muted { color: var(--muted); }
+
+/* Панель прототипа: переключатели «Логика» и «Комментарии» */
+.w-bar { position: sticky; top: 0; z-index: 50; background: var(--ink); color: #fff; font: 13px/1.3 var(--mono); }
+.w-bar .w-wrap { display: flex; flex-wrap: wrap; gap: 8px 16px; align-items: center; padding-block: 8px; }
+.w-bar b { font-weight: 600; }
+.w-bar label { display: inline-flex; gap: 6px; align-items: center; cursor: pointer; }
+
+/* Блок и его подпись логики */
+.w-block { border-top: 1px dashed var(--line); padding-block: 40px; position: relative; }
+.w-logic { display: none; font: 12.5px/1.45 var(--mono); background: var(--fill2); border: 1px solid var(--line); padding: 8px 10px; margin-bottom: 18px; }
+body.show-logic .w-logic { display: block; }
+.w-logic b { font-weight: 700; }
+.w-note { display: none; background: var(--note); border: 1px dashed var(--note-line); padding: 8px 10px; font-size: 13.5px; margin-top: 12px; }
+body.show-notes .w-note { display: block; }
+.w-note::before { content: "Дизайнеру: "; font-weight: 700; }
+.w-seo { display: none; font: 13px/1.5 var(--mono); background: #eef3ff; border: 1px solid #8aa0d6; padding: 12px 14px; margin: 12px auto; max-width: var(--wrap); }
+body.show-seo .w-seo { display: block; }
+.w-seo table { border-collapse: collapse; width: 100%; }
+.w-seo td { border-top: 1px solid #c9d4ee; padding: 4px 6px; vertical-align: top; }
+.w-seo td:first-child { white-space: nowrap; font-weight: 700; width: 1%; }
+.w-seo .bad { color: var(--ask); font-weight: 700; }
+.w-seo ul { margin: 0; padding-left: 18px; }
+.w-ask { color: var(--ask); font-weight: 600; background: #f7e9e9; padding: 0 4px; }
+
+/* Место под фото/видео/схему: роль, а не «картинка» */
+.w-media { background: repeating-linear-gradient(45deg, var(--fill), var(--fill) 10px, var(--fill2) 10px, var(--fill2) 20px);
+  border: 1px solid var(--line); min-height: 220px; display: grid; place-items: center; text-align: center; padding: 16px;
+  color: var(--muted); font-size: 14px; }
+.w-media::before { content: "▣ "; }
+.w-media.small { min-height: 120px; }
+
+/* Кнопки */
+.w-btn { display: inline-flex; align-items: center; justify-content: center; min-height: 48px; padding: 0 22px; border: 2px solid var(--ink);
+  background: var(--ink); color: #fff; font-weight: 600; text-decoration: none; border-radius: 6px; cursor: pointer; font-size: 16px; }
+.w-btn.ghost { background: transparent; color: var(--ink); }
+.w-btn[disabled] { opacity: .45; cursor: not-allowed; }
+.w-hint { font-size: 13px; color: var(--muted); }
+
+/* Шапка */
+.w-header .w-wrap { display: flex; flex-wrap: wrap; gap: 10px 20px; align-items: center; justify-content: space-between; padding-block: 12px; }
+.w-logo { border: 2px solid var(--ink); padding: 6px 10px; font-weight: 700; }
+.w-descr { font-size: 13.5px; color: var(--muted); max-width: 34ch; }
+.w-contacts-top { display: grid; gap: 2px; font-size: 14px; text-align: right; }
+.w-nav { display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 14.5px; border-top: 1px solid var(--line); padding-block: 8px; }
+
+/* Первый экран */
+.w-hero { display: grid; grid-template-columns: 1.1fr .9fr; gap: 32px; align-items: center; }
+.w-hero ul { margin: 0; padding-left: 20px; display: grid; gap: 6px; }
+.w-actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+/* Сетки и карточки */
+.w-grid { display: grid; grid-template-columns: repeat(var(--cols, 3), minmax(0, 1fr)); gap: 14px; }
+.w-card { border: 1px solid var(--line); padding: 16px; display: grid; gap: 8px; align-content: start; min-width: 0; }
+.w-card .w-media { min-height: 140px; }
+.w-price { font-weight: 700; }
+
+/* Этапы */
+.w-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); gap: 14px; counter-reset: st; }
+.w-steps li { border: 1px solid var(--line); padding: 14px; counter-increment: st; display: grid; gap: 6px; }
+.w-steps li::before { content: counter(st); font-weight: 700; font-size: 22px; }
+
+/* Таблица */
+.w-table-wrap { overflow-x: auto; }
+.w-table { width: 100%; border-collapse: collapse; font-size: 15px; }
+.w-table th, .w-table td { border: 1px solid var(--line); padding: 8px 10px; text-align: left; vertical-align: top; }
+.w-table th { background: var(--fill2); }
+
+/* FAQ */
+.w-faq details { border: 1px solid var(--line); padding: 12px 14px; }
+.w-faq details + details { border-top: 0; }
+.w-faq summary { font-weight: 600; cursor: pointer; }
+
+/* Форма */
+.w-form { border: 2px solid var(--ink); padding: 18px; display: grid; gap: 12px; max-width: 520px; }
+.w-field { display: grid; gap: 4px; font-size: 14px; }
+.w-field input, .w-field select { min-height: 44px; border: 1px solid var(--ink); padding: 0 10px; font: inherit; background: #fff; }
+.w-check { display: flex; gap: 8px; align-items: flex-start; font-size: 13.5px; }
+
+/* Полоса призыва */
+.w-cta { background: var(--fill); padding: 24px; display: flex; flex-wrap: wrap; gap: 14px; align-items: center; justify-content: space-between; }
+/* Плашка призыва между блоками: section.w-block.w-cta-strip с одной строкой предложения и кнопкой или мини-формой (карточка prizyv-mezhdu-blokami) */
+.w-block.w-cta-strip { padding-block: 16px; }
+.w-cta-strip .w-cta { padding: 14px 18px; }
+.w-cta-strip .w-cta p { margin: 0; font-weight: 600; }
+
+/* Состояние формы после отправки (карточка stranica-spasibo-sleduyushchiy-shag): видно по переключателю «После отправки» */
+.w-success { display: none; border: 2px dashed var(--ink); padding: 14px; background: var(--fill); }
+.w-success p { margin: 0 0 6px; }
+body.show-success .w-success { display: block; }
+
+/* Подвал */
+.w-footer { background: var(--fill2); border-top: 1px solid var(--line); padding-block: 28px; font-size: 14px; }
+
+/* Липкая панель действий на телефоне */
+.w-sticky { display: none; }
+header.w-block { padding-block: 0; border-top: 0; }
+header.w-block > .w-logic { margin: 8px auto; max-width: var(--wrap); }
+
+@media (max-width: 760px) {
+  .w-hide-m { display: none !important; }
+  /* Мобильная шапка: логотип, короткий дескриптор и «Меню»; звонок и мессенджеры – в липкой панели снизу */
+  .w-header .w-wrap { flex-wrap: nowrap; padding-block: 8px; gap: 10px; }
+  .w-header .w-contacts-top, .w-header .w-wrap > .w-btn, .w-nav { display: none !important; }
+  .w-header .w-descr { font-size: 12px; line-height: 1.3; }
+  .w-header > div.w-wrap:has(> .w-logo)::after { content: "☰ Меню"; margin-left: auto; border: 1px solid var(--ink); padding: 6px 10px; font-size: 13px; white-space: nowrap; }
+  .w-hero .w-media, .w-block[data-n="1"] .w-media:first-of-type { min-height: 160px; }
+  .w-bar .w-wrap { padding-block: 4px; gap: 4px 10px; font-size: 11px; }
+  .w-hero { grid-template-columns: 1fr; }
+  .w-grid { grid-template-columns: repeat(var(--cols-m, 2), minmax(0, 1fr)); }
+  .w-steps { grid-template-columns: 1fr; }
+  .w-contacts-top { text-align: left; }
+  .w-block { padding-block: 28px; }
+  .w-sticky { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; position: fixed; left: 0; right: 0; bottom: 0; z-index: 40;
+    padding: 8px max(12px, env(safe-area-inset-right, 0px)) calc(8px + env(safe-area-inset-bottom, 0px)) max(12px, env(safe-area-inset-left, 0px));
+    background: #fff; border-top: 1px solid var(--line); }
+  body { padding-bottom: 72px; }
+}
+@media (max-width: 420px) { .w-grid.one-m { grid-template-columns: 1fr; } }
+</style>
+<style>
+html[data-theme=dark] .w-note { color: #141414 !important; }
+html[data-theme=dark] .w-btn.ghost { color: #e4e4e2 !important; border-color: #e4e4e2 !important; }
+html[data-theme=dark] .w-btn:not(.ghost) { background: #e4e4e2 !important; color: #141518 !important; border-color: #e4e4e2 !important; }
+#tema-btn { bottom: 84px !important; }
+</style>
+<style data-tema-v1>
+html[data-theme=dark]{color-scheme:dark}
+html[data-theme=dark] body{background:#141518!important;color:#e4e4e2!important}
+html[data-theme=dark] a{color:#8ab8ff}
+html[data-theme=dark] .w-btn:not(.ghost){background:#e4e4e2!important;color:#141518!important;border-color:#e4e4e2!important}
+html[data-theme=dark] .w-btn.ghost{background:transparent!important;color:#e4e4e2!important;border-color:#e4e4e2!important}
+html[data-theme=dark] :is(.t,.box,.card,details,.kit,.nav,.code button,button,.btn,textarea,input,select){background:#1f2125!important;color:#e4e4e2!important;border-color:#3a3c42!important}
+html[data-theme=dark] button.main,html[data-theme=dark] .nav a,html[data-theme=dark] .step span{background:#e4e4e2!important;color:#141518!important}
+html[data-theme=dark] :is(.chip,.int,code,th){background:#2a2d33!important;color:#e4e4e2!important}
+html[data-theme=dark] :is(.flag,.note){background:#3a3220!important;color:#f1e6c8!important}
+html[data-theme=dark] .ready{background:#1f3320!important;color:#d6ecd0!important}
+html[data-theme=dark] .stop{background:#3b2222!important;color:#f3d6d3!important}
+html[data-theme=dark] :is(td,th,details[open] summary){border-color:#33363c!important}
+html[data-theme=dark] :is(.sub,.meta,.top,small,.ex small,details){color:#a9abb0!important}
+html[data-theme=dark] :is(h1,h2,h3,.day,dt,summary){color:#f2f2f0!important}
+html[data-theme=dark] img{filter:brightness(.92)}
+#tema-btn{position:fixed;right:14px;bottom:14px;z-index:99;width:44px;height:44px;border-radius:50%;border:1px solid #ccc;background:#fff;color:#111;font-size:20px;cursor:pointer;box-shadow:0 2px 8px rgba(0,0,0,.15)}
+html[data-theme=dark] #tema-btn{background:#2a2d33!important;color:#f2f2f0!important;border-color:#44474e!important}
+</style><script>(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
+if(!t){var h=new Date().getHours();t=(h>=19||h<7||(matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();</script></head>
+<body>
+<div class="w-bar"><div class="w-wrap">
+  <b>Прототип · Дефорд Новосибирск · Артём Галимов · 11.11.2026</b>
+  <label><input type="checkbox" id="t-logic"> Логика блоков</label>
+  <label><input type="checkbox" id="t-notes"> Комментарии дизайнеру</label>
+  <label><input type="checkbox" id="t-seo"> SEO страницы</label>
+  <label><input type="checkbox" id="t-success"> После отправки</label>
+  <a href="/deford-nsk/karta/" style="color:#fff">→ Все прототипы</a>
+  <span>Меток «запросить»: <b id="ask-count">0</b></span>
+</div></div>
+
+<script type="application/json" id="w-seo">{"title": "Артём Галимов – маркетолог, основатель Дефорда, Новосибирск", "description": "Основатель Дефорда и владелец TEYES Sibir и EV Sibir в Новосибирске. Рекламу клиентов считает как свою – в заявках и деньгах. Разбор с Артёмом бесплатно.", "h1": "Артём Галимов – маркетолог из Новосибирска, основатель Дефорда", "zapros": "маркетолог новосибирск", "schema": "Person (jobTitle, worksFor Organization Дефорд, sameAs – только подтверждённые профили) + BreadcrumbList; ProfilePage", "links": ["/deford-nsk/services/audit/ – разбор с Артёмом (блоки 1, 6)", "/deford-nsk/about/ – студия и команда (блок 4)", "/deford-nsk/cases/ – кейсы (блок 2)", "/deford-nsk/reviews/ – отзывы (блок 4)"]}</script>
+<div class="w-seo" id="w-seo-box"></div>
+
+<header class="w-header w-block" data-n="0" data-name="Шапка" data-question="Где я и как связаться?" data-proof="меню по разделам, телефон, Telegram, Макс">
+  <div class="w-wrap">
+    <a class="w-logo" href="/deford-nsk/" style="text-decoration:none">Дефорд</a>
+    <span class="w-descr">Рекламное агентство · Новосибирск</span>
+    <span class="w-contacts-top"><a href="tel:+79537777891">+7 953 777-78-91</a><span class="w-muted"><a href="https://t.me/Artem1Galimov">Telegram</a> · <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></span></span>
+    <a class="w-btn ghost" href="#zayavka">Получить разбор</a>
+  </div>
+  <nav class="w-wrap w-nav"><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/contacts/">Контакты</a></nav>
+</header>
+
+<main>
+  <section class="w-block" data-n="1" data-name="Первый экран" data-question="Кто этот человек и почему ему можно доверить рекламу?" data-proof="свои бизнесы в Новосибирске: TEYES Sibir, EV Sibir" data-next="Что он понимает в бизнесе вроде моего?">
+    <div class="w-wrap">
+      <div class="w-hero">
+        <div class="w-stack">
+          <h1>Артём Галимов – маркетолог из Новосибирска, основатель Дефорда</h1>
+          <p>Владеет установочным центром TEYES Sibir и техцентром EV Sibir. Рекламу клиентов считает так же, как свою: в заявках и деньгах.</p>
+          <div class="w-actions"><a class="w-btn" href="#zayavka">Получить разбор у Артёма</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать Артёму в Telegram</a></div>
+          <p class="w-hint">20 минут: где теряются ваши заявки и с чего начать. Бесплатно.</p>
+        </div>
+        <div class="w-media" data-alt="Артём Галимов, маркетолог, основатель Дефорд, Новосибирск">Роль фото: Артём в своём бизнесе – в боксе TEYES Sibir у машины или у стойки приёмки. Живой кадр, не студийный портрет. Доказывает: он владелец, а не только маркетолог</div>
+      </div>
+      <p class="w-note">Это страница человека, не рекламная: спокойная подача, факты с проверкой. Не повторять донорский первый экран с объёмным фото – здесь кадр из бизнеса.</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="2" data-name="Свои бизнесы" data-question="Что он понимает в бизнесе вроде моего?" data-proof="TEYES Sibir и EV Sibir: каналы и цифры своих бизнесов" data-next="Как он пришёл в маркетинг?">
+    <div class="w-wrap w-stack">
+      <h2>Сначала проверяет на своих бизнесах, потом предлагает клиентам</h2>
+      <div class="w-grid" style="--cols:2;--cols-m:1">
+        <article class="w-card"><div class="w-media small" data-alt="Установочный центр TEYES Sibir, Новосибирск">Роль фото: TEYES Sibir снаружи или бокс с машиной</div><h3>TEYES Sibir</h3><p>Установочный центр в Новосибирске: мультимедиа, сигнализации, автозвук.</p><p>Что дал маркетинг: <span class="w-ask">[запросить: заявок в месяц, каналы, срок]</span></p></article>
+        <article class="w-card"><div class="w-media small" data-alt="Техцентр EV Sibir, Новосибирск">Роль фото: EV Sibir – электромобиль на подъёмнике</div><h3>EV Sibir</h3><p>Техцентр в Новосибирске.</p><p>Что дал маркетинг: <span class="w-ask">[запросить: заявок в месяц, каналы, срок]</span></p></article>
+      </div>
+      <p>Новые площадки и связки – поиск под нейросети, Яндекс Бизнес, Дзен – сначала запускаем у себя. Клиенту предлагаем то, что уже окупилось на своих деньгах.</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="3" data-name="Путь" data-question="Как он пришёл в маркетинг?" data-proof="личная история, год начала, студия Дефорд" data-next="Что он делает сам, а что команда?">
+    <div class="w-wrap w-stack">
+      <h2>От сайтов для чужого бизнеса – к заявкам для своего</h2>
+      <ol class="w-steps" style="--cols:3">
+        <li><b><span class="w-ask">[запросить: год]</span> – начало</b><span><span class="w-ask">[запросить: личная история в 2–3 фразы – как пришёл в маркетинг]</span></span></li>
+        <li><b><span class="w-ask">[запросить: год]</span> – студия Дефорд</b><span>Сайты для бизнеса по всей России – <a href="https://deford.ru">deford.ru</a>. Проектов: <span class="w-ask">[запросить: число проектов]</span></span></li>
+        <li><b>Свои бизнесы</b><span>TEYES Sibir и EV Sibir в Новосибирске: реклама, сайт, карты и поиск – на своих деньгах.</span></li>
+      </ol>
+      <p class="w-note">История – словами Артёма, коротко. Без регалий «эксперт №1». Фото по годам, если есть.</p>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="4" data-name="Роль" data-question="Что он делает сам, а что команда?" data-proof="первый разговор с Артёмом, команда под задачу" data-next="Где почитать, как он думает?">
+    <div class="w-wrap w-stack">
+      <h2>Первый разговор – с Артёмом, работа – с командой под задачу</h2>
+      <div class="w-grid" style="--cols:2;--cols-m:1">
+        <article class="w-card"><h3>Сам</h3><ul><li>разбор и план первого месяца</li><li>выбор площадок и бюджета</li><li>контроль цифр: заявки, их цена, продажи</li></ul></article>
+        <article class="w-card"><h3>Команда</h3><ul><li>директолог, таргетолог, SEO, разработчики, дизайнеры, монтажёр</li><li>реклама ВКонтакте – Денис Коротаев, Target Factory <span class="w-ask">[запросить: показываем как команду или партнёра]</span></li></ul><a href="/deford-nsk/about/">Студия и команда →</a></article>
+      </div>
+      <div class="w-actions"><a class="w-btn" href="#zayavka">Получить разбор у Артёма</a></div>
+    </div>
+  </section>
+
+  <section class="w-block" data-n="5" data-name="Публикации" data-question="Где почитать, как он думает?" data-proof="канал, статьи, выступления" data-next="Как поговорить с Артёмом о моём бизнесе?">
+    <div class="w-wrap w-stack">
+      <h2>Пишет о том, что проверил: статьи и разборы</h2>
+      <div class="w-grid" style="--cols:3;--cols-m:1">
+        <article class="w-card"><div class="w-media small" data-alt="Статья Артёма Галимова о рекламе">Обложка статьи: тема крупно</div><p><span class="w-ask">[запросить: статья 1 – название и ссылка]</span></p></article>
+        <article class="w-card"><div class="w-media small">Обложка статьи: тема крупно</div><p><span class="w-ask">[запросить: статья 2]</span></p></article>
+        <article class="w-card"><div class="w-media small">Обложка статьи: тема крупно</div><p><span class="w-ask">[запросить: статья 3]</span></p></article>
+      </div>
+      <p>Канал: <span class="w-ask">[запросить: Telegram или Дзен Артёма]</span> · Выступления и интервью: <span class="w-ask">[запросить: есть ли]</span></p>
+      <p class="w-note">Ссылки на профили – те же, что в sameAs у Person. Нет подтверждённых публикаций – блок убираем, не заполняем пустыми карточками.</p>
+    </div>
+  </section>
+
+  <section class="w-block" id="zayavka" data-n="6" data-name="Заявка" data-question="Как поговорить с Артёмом о моём бизнесе?" data-proof="разбор 20 минут с Артёмом, бесплатно">
+    <div class="w-wrap">
+      <div class="w-grid" style="--cols:2;--cols-m:1;align-items:start">
+        <div class="w-stack">
+          <h2>20 минут с Артёмом: где теряются ваши заявки</h2>
+          <p>Оставьте телефон – Артём перезвонит и договоритесь о времени. Или напишите сразу в <a href="https://t.me/Artem1Galimov">Telegram</a>.</p>
+          <a href="/deford-nsk/services/audit/">Что будет на разборе →</a>
+        </div>
+        <form class="w-form" onsubmit="event.preventDefault()">
+          <label class="w-field">Телефон<input type="tel" name="phone" inputmode="tel" autocomplete="tel" placeholder="+7 (___) ___-__-__"></label>
+          
+          <label class="w-check"><input type="checkbox" data-agree> <span>Согласен на обработку персональных данных по <a href="/deford-nsk/privacy-policy/">политике конфиденциальности</a></span></label>
+          <button class="w-btn" type="submit" disabled>Получить разбор у Артёма</button>
+          <p class="w-hint">Перезвоним и договоримся о времени: 20 минут по телефону или в Telegram.</p>
+          <div class="w-success">
+            <p><b>Заявка у нас.</b></p>
+            <p>Перезвоним за <span class="w-ask">[запросить: срок ответа]</span> и договоримся о времени разбора.</p>
+            <p>Срочно – <a href="tel:+79537777891">+7 953 777-78-91</a>, <a href="https://t.me/Artem1Galimov">Telegram</a> или <a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a>.</p>
+            <p>К разговору: ссылки на сайт и карточки на картах. Пока ждёте – <a href="/deford-nsk/cases/">кейсы</a>.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="w-footer"><div class="w-wrap w-stack">
+  <div class="w-grid" style="--cols:4;--cols-m:2;align-items:start">
+    <div class="w-stack"><b>Дефорд</b><span>Рекламное агентство из Новосибирска: реклама, сайты, поиск, контент и автоматизация. Работа – от 35 000 ₽, рекламный бюджет – площадке напрямую.</span>
+      <a href="tel:+79537777891">+7 953 777-78-91</a><a href="https://t.me/Artem1Galimov">Telegram</a><a href="https://max.ru/u/f9LHodD0cOKS6C3PPXRh8eHyRKrJiSTUcpsOsnbQDl6Cp3LSE-Xu-dNig7c">Макс</a></div>
+    <div class="w-stack"><b>Разделы</b><a href="/deford-nsk/services/">Услуги</a><a href="/deford-nsk/cases/">Кейсы</a><a href="/deford-nsk/prices/">Цены</a><a href="/deford-nsk/reviews/">Отзывы</a><a href="/deford-nsk/about/">О нас</a><a href="/deford-nsk/team/artem-galimov/">Артём Галимов</a><a href="/deford-nsk/services/audit/">Бесплатный разбор</a><a href="/deford-nsk/contacts/">Контакты</a></div>
+    <div class="w-stack"><b>Направления</b><a href="/deford-nsk/services/ads/">Реклама</a><a href="/deford-nsk/services/websites/">Сайты</a><a href="/deford-nsk/services/seo/">Поиск</a><a href="/deford-nsk/services/content/">Контент</a><a href="/deford-nsk/services/automation/">Автоматизация</a></div>
+    <div class="w-stack"><b>Ещё</b><a href="https://deford.ru">Портфолио сайтов – deford.ru</a><a href="/deford-nsk/privacy-policy/">Политика конфиденциальности</a><span>Реквизиты: <span class="w-ask">[запросить: реквизиты]</span></span></div>
+  </div>
+</div></footer>
+
+<div class="w-sticky"><a class="w-btn" href="#zayavka">Получить разбор</a><a class="w-btn ghost" href="https://t.me/Artem1Galimov">Написать в Telegram</a></div>
+
+<script>
+document.querySelectorAll('.w-block').forEach(function (b) {
+  var d = b.dataset, el = document.createElement('div');
+  el.className = 'w-logic';
+  el.innerHTML = '<b>Блок ' + (d.n || '?') + ' · ' + (d.name || '') + '</b><br>Вопрос клиента: ' + (d.question || '–') + '<br>Опора: ' + (d.proof || '–') + (d.next ? '<br>Дальше спросит: ' + d.next : '');
+  if (b.tagName === 'HEADER') b.prepend(el); else (b.querySelector('.w-wrap') || b).prepend(el);
+});
+['logic', 'notes', 'seo', 'success'].forEach(function (k) {
+  document.getElementById('t-' + k).addEventListener('change', function (e) { document.body.classList.toggle('show-' + k, e.target.checked); });
+});
+(function () {
+  var src = document.getElementById('w-seo'), box = document.getElementById('w-seo-box');
+  if (!src || !box) return;
+  var d = JSON.parse(src.textContent), esc = function (t) { return String(t).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+  var len = function (t, max) { return ' <span class="' + (t.length > max ? 'bad' : '') + '">(' + t.length + ' / ' + max + ')</span>'; };
+  var heads = [].map.call(document.querySelectorAll('main h1, main h2'), function (h) { return '<li>' + h.tagName + ' – ' + esc(h.textContent.replace(/\s+/g, ' ').trim()) + '</li>'; }).join('');
+  var alts = [].map.call(document.querySelectorAll('.w-media[data-alt]'), function (m) { return '<li>' + esc(m.dataset.alt) + '</li>'; }).join('');
+  box.innerHTML = '<table><tr><td>title</td><td>' + esc(d.title) + len(d.title, 65) + '</td></tr><tr><td>description</td><td>' + esc(d.description) + len(d.description, 160) +
+    '</td></tr><tr><td>запрос</td><td>' + esc(d.zapros || '–') + '</td></tr><tr><td>заголовки</td><td><ul>' + heads + '</ul></td></tr><tr><td>alt</td><td><ul>' + (alts || '<li>–</li>') +
+    '</ul></td></tr><tr><td>разметка</td><td>' + esc(d.schema || '–') + '</td></tr><tr><td>ссылки</td><td><ul>' + (d.links || []).map(function (l) { return '<li>' + esc(l) + '</li>'; }).join('') + '</ul></td></tr></table>';
+})();
+document.getElementById('ask-count').textContent = document.querySelectorAll('.w-ask').length;
+// Маска телефона +7 (___) ___-__-__
+document.querySelectorAll('input[type=tel]').forEach(function (i) {
+  i.addEventListener('input', function () {
+    var d = i.value.replace(/\D/g, '');
+    if (!d) { i.value = ''; return; }
+    if (d[0] === '8') d = '7' + d.slice(1);
+    if (d[0] !== '7') d = '7' + d;
+    d = d.slice(0, 11);
+    var r = '+7';
+    if (d.length > 1) r += ' (' + d.slice(1, 4);
+    if (d.length > 4) r += ') ' + d.slice(4, 7);
+    if (d.length > 7) r += '-' + d.slice(7, 9);
+    if (d.length > 9) r += '-' + d.slice(9, 11);
+    i.value = r;
+  });
+});
+// Галочка согласия включает кнопку; после отправки – текст «что дальше»
+document.querySelectorAll('form').forEach(function (f) {
+  var a = f.querySelector('[data-agree]'), btn = f.querySelector('button[type="submit"]');
+  if (a && btn) a.addEventListener('change', function () { btn.disabled = !a.checked; });
+  f.addEventListener('submit', function (e) { e.preventDefault(); var s = f.querySelector('.w-success'); if (s) s.style.display = 'block'; });
+});
+</script>
+<script data-tema-v1>(function(){var b=document.createElement('button');b.id='tema-btn';b.type='button';
+function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.textContent=d?'☀':'☾';b.title=d?'Светлая тема':'Тёмная тема';b.setAttribute('aria-label',b.title)}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};
+upd();document.body.appendChild(b)})();</script></body>
+</html>
