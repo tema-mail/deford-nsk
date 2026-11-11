@@ -4,6 +4,7 @@
 // Доказательства – Метрика EV Sibir и TEYES Sibir (docs/keysy/metrika-ev-teyes-2026-11-11.md). Меток «запросить» нет: чего нет – не ставим.
 import Site from '../../../../layouts/Site.astro';
 import VideoReviews from '../../../../components/VideoReviews.astro';
+import Hero from '../../../../components/Hero.astro';
 import { C, B, P } from '../../../../data/contacts';
 import '../../../../styles/poteri.css';
 const img = (n: string) => `${B}img/${n}.webp`;
@@ -29,32 +30,37 @@ const faq = [
   <a slot="cta" class="btn" href="#kalkulyator">Посчитать потери</a>
   <span slot="sheet-cta">Получить расчёт</span>
 
-  <!-- 1. Первый экран: живой счётчик по спросу в городе -->
-  <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="wrap hero-in">
-      <div class="hero-txt">
-        <button class="city-btn js-city-btn rv" type="button">Новосибирск ▾</button>
-        <h1 class="h1 rv" style="--d:.05s">Каждый день ваш автосервис <span class="b">теряет клиентов</span>, которые уже ищут ваши услуги</h1>
-        <p class="hero-lead rv" style="--d:.1s">В <b class="js-city-in">Новосибирске</b> ваши услуги ищут <b class="js-month">…</b> раз в месяц: от замены масла и кузовного до керамики, русификации и перетяжки салона. Это люди с задачей и деньгами. Нет сайта со страницей под их услугу – звонят не вам.</p>
-        <div class="btns rv" style="--d:.15s">
-          <a class="btn" href="#nishi">Сколько теряет моя ниша</a>
-          <a class="btn white" href="services/">Найти свою услугу</a>
-        </div>
-        <p class="hero-hint rv" style="--d:.2s">Расчёт – на статистике поиска по вашему городу, без звонка и регистрации</p>
-      </div>
-      <div class="hero-side">
-        <div class="counter rv" style="--d:.2s">
-          <span class="counter-l"><span id="today-l">Сегодня с 8:00</span> в <span class="js-city-in">Новосибирске</span> автобизнес без сайта в поиске упустил</span>
-          <b id="today">…</b>
-          <span class="counter-s">горячих поисков автоуслуг</span>
-          <span class="counter-live"><i></i>Счётчик идёт в течение дня</span>
-        </div>
-        <div class="trio">
-          <div class="badge rv" style="--d:.3s"><b>Горячие</b><span>ищут, кто сделает, а не «как своими руками»</span></div>
-          <div class="badge rv" style="--d:.36s"><b>Бесплатные</b><span>клиент из поиска не стоит денег за клик</span></div>
-          <div class="badge rv" style="--d:.42s"><b>Каждый день</b><span>спрос не кончается, его забирают конкуренты</span></div>
-        </div>
+  <!-- 1. Первый экран: живой счётчик по спросу в городе; четыре варианта подачи на выбор (переключатель внизу экрана) -->
+  <Hero title='Каждый день ваш автосервис <span class="b">теряет клиентов</span>, которые уже ищут ваши услуги'
+    lead='В <b class="js-city-in">Новосибирске</b> ваши услуги ищут <b class="js-month">…</b> раз в месяц: от замены масла и кузовного до керамики, русификации и перетяжки салона. Нет сайта со страницей под их услугу – звонят не вам.'
+    hint="Расчёт – на статистике поиска по вашему городу, без звонка и регистрации"
+    wide={img('gen/auto-hero')} tall={img('gen/auto-portrait')} alt="Мастер автосервиса у автомобиля на подъёмнике">
+    <button slot="top" class="city-btn js-city-btn" type="button">Новосибирск ▾</button>
+    <Fragment slot="btns">
+      <a class="btn" href="#nishi">Сколько теряет моя ниша</a>
+      <a class="btn alt" href="services/">Найти свою услугу</a>
+    </Fragment>
+    <div slot="side" class="hx-card counter">
+      <small><span class="js-today-l">Сегодня с 8:00</span> в <span class="js-city-in">Новосибирске</span> автобизнес без сайта в поиске упустил</small>
+      <b class="js-today">…</b>
+      <span>горячих поисков автоуслуг</span>
+      <span class="live"><i></i>Счётчик идёт в течение дня</span>
+    </div>
+    <div slot="visual" class="count-big">
+      <small><span class="js-today-l">Сегодня с 8:00</span> в <span class="js-city-in">Новосибирске</span> автобизнес без сайта в поиске упустил</small>
+      <b class="js-today">…</b>
+      <span>горячих поисков автоуслуг</span>
+      <span class="live"><i></i>Счётчик идёт в течение дня</span>
+    </div>
+  </Hero>
+
+  <!-- 1а. Три свойства этого спроса -->
+  <section class="trio-band">
+    <div class="wrap">
+      <div class="grid on-bg" style="--c:3">
+        <article class="card rv"><h3 class="h3">Горячие</h3><p>Ищут, кто сделает, а не «как сделать своими руками»</p></article>
+        <article class="card rv" style="--d:.06s"><h3 class="h3">Бесплатные</h3><p>Клиент из поиска не стоит денег за клик, как в Директе</p></article>
+        <article class="card rv" style="--d:.12s"><h3 class="h3">Каждый день</h3><p>Спрос не заканчивается, его забирают конкуренты</p></article>
       </div>
     </div>
   </section>
@@ -70,7 +76,7 @@ const faq = [
         <div class="src-box"><button class="city-btn light js-city-btn" type="button">Новосибирск ▾</button><span class="small js-src"></span></div>
       </div>
       <div class="niches" id="niches"></div>
-      <div class="card dark strip rv">
+      <div class="card strip rv">
         <h3 class="h3">Не нашли свою услугу? Вбейте её в поиск – покажем, сколько клиентов вы теряете именно на ней</h3>
         <a class="btn" href="services/">Все услуги и поиск</a>
       </div>
@@ -115,7 +121,7 @@ const faq = [
     <div class="wrap">
       <div class="sec-head rv"><h2 class="h2">Карты, лендинг и «просто сайт» <span class="m">не ловят поиск по услугам</span></h2></div>
       <div class="grid" style="--c:3">
-        {why.map(([t, d], i) => <article class={`card rv${i === 2 ? ' dark' : ''}`} style={`--d:${i * .06}s`}><span class="num">0{i + 1}</span><h3 class="h3">{t}</h3><p>{d}</p></article>)}
+        {why.map(([t, d], i) => <article class="card rv" style={`--d:${i * .06}s`}><span class="num">0{i + 1}</span><h3 class="h3">{t}</h3><p>{d}</p></article>)}
       </div>
       <div class="sec-head rv" style="margin-top:clamp(56px,6vw,96px)"><h2 class="h2">Страница под каждую услугу и марку – <span class="b">каждая ловит свой запрос</span></h2></div>
       <ol class="flow">
@@ -226,30 +232,23 @@ const faq = [
 </Site>
 
 <style>
-  .hero { position: relative; overflow: hidden; background: #111214; color: #fff; border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 150px 0 72px; }
-  .hero-glow { position: absolute; inset: auto -10% -45% 35%; height: 120%; background: radial-gradient(closest-side, rgba(15, 104, 255, .55), rgba(15, 104, 255, 0) 70%); pointer-events: none; }
-  .hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .9fr); gap: 48px; align-items: end; }
-  .hero .h1 { margin-top: 22px; color: #fff; font-size: clamp(38px, 5vw, 76px); }
-  .hero .h1 .b { color: #5b9bff; }
-  .hero-lead { margin-top: 24px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; color: rgba(255, 255, 255, .72); max-width: 600px; }
-  .hero-lead b { color: #fff; }
-  .hero .btns { margin-top: 32px; }
-  .hero-hint { margin-top: 14px; font-size: 13px; color: rgba(255, 255, 255, .5); }
-  .hero-side { display: grid; gap: 10px; }
-  .counter { background: rgba(255, 255, 255, .96); color: #141414; border-radius: 28px; padding: 26px; display: grid; gap: 6px; box-shadow: 0 20px 50px rgba(0, 0, 0, .35); }
-  .counter-l { font-size: 14px; color: #6b6b6b; }
-  .counter b { font-size: clamp(56px, 6vw, 92px); font-weight: 600; letter-spacing: -.06em; line-height: 1; color: var(--blue); font-variant-numeric: tabular-nums; }
-  .counter-s { font-size: 15px; font-weight: 600; }
-  .counter-live { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 13px; color: #6b6b6b; }
-  .counter-live i { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); animation: pulse 1.8s infinite; }
-  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
-  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-  .badge { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .1); border-radius: 20px; padding: 14px; display: grid; gap: 4px; }
-  .badge b { font-size: 15px; letter-spacing: -.02em; }
-  .badge span { font-size: 12.5px; line-height: 1.4; color: rgba(255, 255, 255, .6); }
-  @media (max-width: 1024px) { .hero-in { grid-template-columns: 1fr; } }
-  @media (max-width: 767px) { .hero { padding: 104px 0 32px; } .trio { grid-template-columns: 1fr; } .counter { padding: 20px; } }
-  @media (prefers-reduced-motion: reduce) { .counter-live i { animation: none; } }
+  :global(.hx) { --hx-side: 320px; }
+  .counter { padding: 22px 24px; gap: 6px; max-width: 340px; }
+  .counter b, .count-big b { font-variant-numeric: tabular-nums; }
+  .counter b { font-size: clamp(48px, 4.6vw, 68px); letter-spacing: -.06em; line-height: 1; }
+  .counter small { font-size: 13px; line-height: 1.4; }
+  .counter span { font-weight: 600; }
+  .live { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 13px; font-weight: 400 !important; color: var(--mute) !important; }
+  .live i { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; animation: pulse 1.8s infinite; }
+  @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); } 70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
+  @media (prefers-reduced-motion: reduce) { .live i { animation: none; } }
+  :global(.hx[data-hero="4"]) .counter { display: none; }
+  .count-big { height: min(560px, calc(100svh - 220px)); min-height: 420px; border-radius: var(--r-sheet); background: var(--blue-soft); padding: clamp(24px, 3vw, 44px); display: flex; flex-direction: column; justify-content: flex-end; gap: 8px; }
+  .count-big small { font-size: 15px; color: var(--mute); max-width: 340px; margin-bottom: auto; }
+  .count-big b { font-size: clamp(88px, 11vw, 168px); font-weight: 600; letter-spacing: -.07em; line-height: .9; color: var(--blue); }
+  .count-big > span:not(.live) { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
+  @media (max-width: 1024px) { .count-big { height: auto; min-height: 300px; } }
+  .trio-band { padding-top: 16px; }
 
   .src-box { display: grid; gap: 8px; justify-items: end; text-align: right; max-width: 320px; }
   @media (max-width: 900px) { .src-box { justify-items: start; text-align: left; } }

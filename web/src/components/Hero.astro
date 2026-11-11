@@ -1,0 +1,161 @@
+---
+// Первый экран в четырёх вариантах на выбор (Артём 11.11.2026: «четыре варианта, чтобы я мог переключать»).
+// Разметка одна – вид меняет атрибут data-hero у секции, поэтому тексты, id и скрипты страницы не дублируются:
+//   1 – фото во весь экран, белый текст и белые карточки поверх (как первый экран plastcor.ru);
+//   2 – светлый: текст слева, вертикальное фото справа, карточки заходят на фото;
+//   3 – светлый: заголовок и текст в две колонки, ниже широкое фото с карточками поверх;
+//   4 – светлый без фото: справа «продукт» страницы (слот visual).
+// Переключатель внизу экрана – инструмент стенда: после выбора варианта убрать его и оставить один data-hero.
+interface Props { title: string; lead: string; hint?: string; eyebrow?: string; wide: string; tall: string; alt: string; def?: number }
+const { title, lead, hint, eyebrow, wide, tall, alt, def = 1 } = Astro.props;
+const names = ['Фото во весь экран', 'Фото справа', 'Заголовок и широкое фото', 'Продукт вместо фото'];
+---
+<section class="hx" id="hero" data-hero={def}>
+  <script is:inline>
+    (function () { var s = document.currentScript.parentNode, v; try { v = new URLSearchParams(location.search).get('hero') || localStorage.getItem('hero-variant'); } catch (e) {} if (/^[1-4]$/.test(v)) s.setAttribute('data-hero', v); })();
+  </script>
+  <div class="wrap hx-in">
+    <div class="hx-text">
+      <div class="hx-t1">
+        <slot name="top">{eyebrow && <span class="eyebrow">{eyebrow}</span>}</slot>
+        <h1 class="h1" set:html={title} />
+      </div>
+      <div class="hx-t2">
+        <p class="hx-lead" set:html={lead} />
+        <div class="btns"><slot name="btns" /></div>
+        {hint && <p class="hx-hint">{hint}</p>}
+      </div>
+    </div>
+    <div class="hx-media">
+      <img class="hx-tall" src={tall} alt={alt} width="1145" height="1374" loading="lazy" decoding="async">
+      <div class="hx-visual"><slot name="visual" /></div>
+    </div>
+    <div class="hx-side"><slot name="side" /></div>
+  </div>
+  <div class="hx-wide"><div class="hx-wide-in"><img src={wide} alt={alt} width="1672" height="941" fetchpriority="high"></div></div>
+</section>
+
+<div class="hx-sw" role="group" aria-label="Варианты первого экрана">
+  <span class="hx-sw-l">Первый экран</span>
+  {names.map((n, i) => <button type="button" data-v={i + 1} title={n} aria-label={`Вариант ${i + 1}: ${n}`}>{i + 1}</button>)}
+  <em class="hx-sw-n"></em>
+</div>
+<script is:inline define:vars={{ names }}>
+  (function () {
+    var hero = document.getElementById('hero'), sw = document.querySelector('.hx-sw'), name = sw.querySelector('.hx-sw-n');
+    function paint() {
+      var v = hero.getAttribute('data-hero');
+      sw.querySelectorAll('button').forEach(function (b) { b.setAttribute('aria-pressed', b.dataset.v === v ? 'true' : 'false'); });
+      name.textContent = names[v - 1];
+    }
+    sw.addEventListener('click', function (e) {
+      var b = e.target.closest('button'); if (!b) return;
+      hero.setAttribute('data-hero', b.dataset.v); try { localStorage.setItem('hero-variant', b.dataset.v); } catch (err) {}
+      paint(); window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+    paint();
+  })();
+</script>
+
+<style is:global>
+  /* Общее */
+  .hx { position: relative; overflow: hidden; border-radius: 0 0 var(--r-sheet) var(--r-sheet); }
+  .hx-in { position: relative; z-index: 2; display: grid; gap: 32px 48px; }
+  .hx .h1 { margin-top: 20px; }
+  .hx-lead { font-size: clamp(15px, 1.2vw, 18px); line-height: 1.5; max-width: 540px; }
+  .hx .btns { margin-top: 28px; }
+  .hx-hint { margin-top: 14px; font-size: 13px; }
+  .hx-side { display: flex; flex-direction: column; gap: 10px; }
+  .hx-card { background: #fff; color: #222; border-radius: 22px; padding: 16px 20px; display: grid; gap: 2px; box-shadow: 0 10px 30px rgba(20, 20, 20, .1); }
+  .hx-card small { font-size: 12px; color: #6b6b6b; }
+  .hx-card b { font-size: 21px; font-weight: 600; letter-spacing: -.04em; line-height: 1.15; color: var(--blue); }
+  .hx-card span { font-size: 13px; color: #333; }
+  .hx-tall { width: 100%; height: 100%; object-fit: cover; object-position: center top; border-radius: var(--r-sheet); }
+  .hx-wide img { width: 100%; height: 100%; object-fit: cover; }
+
+  /* Светлая основа – для всех вариантов (у первого на телефоне тоже: фото сверху, текст на белом) */
+  .hx { background: var(--sheet); padding: 132px 0 56px; }
+  .hx-lead { color: var(--mute); }
+  .hx-hint { color: var(--mute-2); }
+  .hx .eyebrow { background: var(--card); }
+  .hx .btn.alt { background: var(--card); color: var(--ink); }
+  .hx .btn.alt:hover { background: var(--line); }
+  .hx .hx-card { background: var(--card-on-bg); color: var(--ink); }
+  .hx .hx-card small { color: var(--mute); }
+  .hx .hx-card span { color: var(--ink-2); }
+
+  /* 1 – фото во весь экран: белый текст и белые карточки поверх фото (только на широком экране) */
+  @media (min-width: 1025px) {
+    .hx[data-hero="1"] { min-height: min(860px, 100svh); display: flex; align-items: flex-end; padding: 150px 0 56px; color: #fff; }
+    .hx[data-hero="1"] .hx-wide { position: absolute; inset: 0; }
+    .hx[data-hero="1"] .hx-wide-in { height: 100%; }
+    .hx[data-hero="1"]::after { content: ''; position: absolute; inset: 0; z-index: 1; background: linear-gradient(90deg, rgba(12, 14, 18, .58) 0%, rgba(12, 14, 18, .26) 42%, rgba(12, 14, 18, 0) 66%), linear-gradient(0deg, rgba(12, 14, 18, .46) 0%, rgba(12, 14, 18, 0) 42%); }
+    .hx[data-hero="1"] .hx-in { width: 100%; grid-template-columns: minmax(0, 1fr) var(--hx-side, 232px); align-items: end; }
+    .hx[data-hero="1"] .h1 { color: #fff; max-width: 860px; }
+    .hx[data-hero="1"] .h1 .b, .hx[data-hero="1"] .h1 .m { color: #fff; }
+    .hx[data-hero="1"] .hx-lead { color: rgba(255, 255, 255, .86); }
+    .hx[data-hero="1"] .hx-lead b { color: #fff; }
+    .hx[data-hero="1"] .hx-hint { color: rgba(255, 255, 255, .66); }
+    .hx[data-hero="1"] .eyebrow { background: rgba(255, 255, 255, .16); color: #fff; backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); }
+    .hx[data-hero="1"] .eyebrow::before { background: #fff; }
+    .hx[data-hero="1"] .btn.alt { background: #fff; color: #222; }
+    .hx[data-hero="1"] .hx-card { background: #fff; color: #222; }
+    .hx[data-hero="1"] .hx-card small { color: #6b6b6b; }
+    .hx[data-hero="1"] .hx-card span { color: #333; }
+  }
+  .hx[data-hero="1"] .hx-media { display: none; }
+  .hx[data-hero="1"] .hx-lead { margin-top: 22px; }
+
+  /* 2 – фото справа */
+  .hx[data-hero="2"] .hx-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; }
+  .hx[data-hero="2"] .hx-wide, .hx[data-hero="2"] .hx-visual { display: none; }
+  .hx[data-hero="2"] .hx-lead { margin-top: 22px; }
+  .hx[data-hero="2"] .hx-media { grid-area: 1 / 2; height: min(640px, calc(100svh - 190px)); min-height: 480px; }
+  .hx[data-hero="2"] .hx-side { grid-area: 1 / 2; z-index: 2; align-self: end; justify-self: start; width: var(--hx-side, 232px); margin: 0 0 28px -56px; }
+
+  /* 3 – заголовок и широкое фото */
+  .hx[data-hero="3"] .hx-in { position: static; }
+  .hx[data-hero="3"] .hx-media { display: none; }
+  .hx[data-hero="3"] .hx-text { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 24px 64px; align-items: end; }
+  .hx[data-hero="3"] .hx-wide { max-width: calc(var(--wrap) + var(--gut) * 2); margin: 40px auto 0; padding-inline: var(--gut); }
+  .hx[data-hero="3"] .hx-wide-in { height: clamp(320px, 38vw, 520px); border-radius: var(--r-sheet); overflow: hidden; }
+  .hx[data-hero="3"] .hx-side { position: absolute; z-index: 3; left: calc(max(var(--gut), (100% - var(--wrap)) / 2) + 24px); bottom: 80px; flex-direction: row; }
+  .hx[data-hero="3"] .hx-card { min-width: 200px; }
+
+  /* 4 – продукт вместо фото */
+  .hx[data-hero="4"] .hx-in { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); align-items: center; }
+  .hx[data-hero="4"] .hx-wide, .hx[data-hero="4"] .hx-tall { display: none; }
+  .hx[data-hero="4"] .hx-lead { margin-top: 22px; }
+  .hx[data-hero="4"] .hx-media { grid-area: 1 / 2 / 3 / 3; }
+  .hx[data-hero="4"] .hx-side { flex-direction: row; }
+  .hx[data-hero="4"] .hx-card { flex: 1 1 0; background: var(--card); box-shadow: none; }
+
+  /* Планшет и телефон: всё в один столбец */
+  @media (max-width: 1024px) {
+    .hx[data-hero] .hx-in { grid-template-columns: minmax(0, 1fr); }
+    .hx { padding: 104px 0 32px; }
+    .hx[data-hero="1"] { display: flex; flex-direction: column; gap: 24px; padding-top: 0; }
+    .hx[data-hero="1"] .hx-wide { order: -1; }
+    .hx[data-hero="1"] .hx-wide-in { height: clamp(300px, 46svh, 460px); border-radius: 0 0 var(--r-sheet) var(--r-sheet); overflow: hidden; }
+    .hx[data-hero] .hx-side { position: static; flex-direction: row; flex-wrap: wrap; width: auto; margin: 0; grid-area: auto; }
+    .hx[data-hero] .hx-card { flex: 1 1 150px; min-width: 0; padding: 12px 14px; border-radius: 18px; }
+    .hx-card b { font-size: 17px; }
+    .hx[data-hero="2"] .hx-media { grid-area: auto; height: auto; min-height: 0; aspect-ratio: 4 / 3; }
+    .hx[data-hero="3"] .hx-text { grid-template-columns: minmax(0, 1fr); }
+    .hx[data-hero="3"] .hx-wide { margin-top: 0; order: 2; }
+    .hx[data-hero="3"] { display: flex; flex-direction: column; gap: 20px; }
+    .hx[data-hero="3"] .hx-in { display: contents; }
+    .hx[data-hero="3"] .hx-text, .hx[data-hero="3"] .hx-side { padding-inline: var(--gut); }
+    .hx[data-hero="3"] .hx-side { order: 3; }
+    .hx[data-hero="3"] .hx-wide-in { height: auto; aspect-ratio: 4 / 3; }
+    .hx[data-hero="4"] .hx-media { grid-area: auto; }
+  }
+
+  /* Переключатель вариантов (инструмент стенда) */
+  .hx-sw { position: fixed; z-index: 80; left: 50%; bottom: 18px; transform: translateX(-50%); display: flex; align-items: center; gap: 6px; padding: 6px 14px 6px 16px; border-radius: 99px; background: rgba(34, 34, 34, .92); color: #fff; font-size: 13px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); white-space: nowrap; }
+  .hx-sw-l { margin-right: 6px; color: rgba(255, 255, 255, .7); }
+  .hx-sw button { width: 34px; height: 34px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .12); color: #fff; font-weight: 600; cursor: pointer; }
+  .hx-sw button[aria-pressed="true"] { background: var(--blue); }
+  .hx-sw-n { font-style: normal; margin-left: 8px; color: rgba(255, 255, 255, .7); }
+  @media (max-width: 1180px) { .hx-sw { bottom: calc(92px + env(safe-area-inset-bottom)); } .hx-sw-n { display: none; } }
+</style>

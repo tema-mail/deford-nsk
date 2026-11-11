@@ -4,6 +4,7 @@
 // Чего нет в подтверждённых данных – не ставим (слово Артёма 11.11.2026): таблица спроса без чисел, замер нагрузки, срок ответа.
 import Site from '../../layouts/Site.astro';
 import VideoReviews from '../../components/VideoReviews.astro';
+import Hero from '../../components/Hero.astro';
 import { C, B, P } from '../../data/contacts';
 
 const img = (n: string) => `${B}img/${n}.webp`;
@@ -43,30 +44,26 @@ const tiers = [
   <a slot="cta" class="btn" href="#form">Показать спрос</a>
   <span slot="sheet-cta">Показать спрос в моём городе</span>
 
-  <!-- 1. Первый экран: оффер владельца, доказательство – наши каталоги на телефоне -->
-  <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
-    <div class="wrap hero-in">
-      <div class="hero-txt">
-        <span class="eyebrow on-dark rv">Сайты для цветочных магазинов</span>
-        <h1 class="h1 rv" style="--d:.05s">Делаем сайты, которые <span class="b">продают цветы</span></h1>
-        <p class="hero-lead rv" style="--d:.1s">А не просто витрины, которые висят в интернете. Продажи – с первого дня запуска интернет-магазина.</p>
-        <div class="btns rv" style="--d:.15s">
-          <a class="btn" href="#form">Показать спрос в вашем городе</a>
-          <a class="btn white" href={C.tg} target="_blank" rel="noopener">Написать в Telegram</a>
-        </div>
-        <p class="hero-hint rv" style="--d:.2s">Пришлём таблицу: что ищут в вашем городе и сколько раз в месяц. Без звонка.</p>
-      </div>
-      <div class="hero-vis" aria-label="Каталог и карточка букета в нашем цветочном магазине на телефоне">
-        <div class="phone ph1 rv" style="--d:.15s"><img src={img('milovini-catalog-m')} alt="Каталог Milovini Flowers на телефоне: две карточки букетов в ряд" width="780" height="1600" fetchpriority="high"></div>
-        <div class="phone ph2 rv" style="--d:.3s"><img src={img('milovini-product-m')} alt="Карточка букета в магазине Milovini Flowers на телефоне" width="780" height="1688"></div>
-        <div class="badges">
-          <div class="badge rv" style="--d:.35s"><small>Сделали</small><b>больше 10 сайтов</b><span>для цветочных магазинов</span></div>
-          <div class="badge rv" style="--d:.45s"><small>Можно начать</small><b>от 35 000 ₽</b><span>остальное частями</span></div>
-        </div>
-      </div>
+
+  <!-- 1. Первый экран: оффер владельца, четыре варианта подачи на выбор (переключатель внизу экрана) -->
+  <Hero eyebrow="Сайты для цветочных магазинов" title='Делаем сайты, которые <span class="b">продают цветы</span>'
+    lead="А не просто витрины, которые висят в интернете. Продажи – с первого дня запуска интернет-магазина."
+    hint="Пришлём таблицу: что ищут в вашем городе и сколько раз в месяц. Без звонка."
+    wide={img('gen/flowers-hero')} tall={img('gen/flowers-portrait')} alt="Флорист собирает букет в цветочном магазине">
+    <Fragment slot="btns">
+      <a class="btn" href="#form">Показать спрос в вашем городе</a>
+      <a class="btn alt" href={C.tg} target="_blank" rel="noopener">Написать в Telegram</a>
+    </Fragment>
+    <Fragment slot="side">
+      <div class="hx-card"><small>Сделали</small><b>больше 10 сайтов</b><span>для цветочных магазинов</span></div>
+      <div class="hx-card"><small>Можно начать</small><b>от 35 000 ₽</b><span>остальное частями</span></div>
+      <div class="hx-card"><small>Реклама</small><b>в день запуска</b><span>заказы идут сразу</span></div>
+    </Fragment>
+    <div slot="visual" class="phones" aria-label="Каталог и карточка букета в нашем цветочном магазине на телефоне">
+      <div class="phone ph1"><img src={img('milovini-catalog-m')} alt="Каталог Milovini Flowers на телефоне: две карточки букетов в ряд" width="780" height="1688" loading="lazy"></div>
+      <div class="phone ph2"><img src={img('milovini-product-m')} alt="Карточка букета в магазине Milovini Flowers на телефоне" width="780" height="1688" loading="lazy"></div>
     </div>
-  </section>
+  </Hero>
 
   <!-- 2. Ситуации: человек узнаёт себя -->
   <section class="sec">
@@ -86,17 +83,22 @@ const tiers = [
 
   <!-- 3. Спрос по поводам: чисел по городу клиента нет – вместо пустой таблицы предлагаем снять её бесплатно -->
   <section class="sheet">
-    <div class="wrap demand">
-      <div class="rv">
-        <h2 class="h2">Люди ищут цветы <span class="m">к поводу. Есть ли у вас такая страница?</span></h2>
-        <p class="lead" style="margin-top:20px">Каждый повод – отдельный запрос в поиске. Нет страницы под повод – покупатель ищет ваш букет и не доходит до вас. Спрос скачет по датам, поэтому страницу под 8 марта ставим в январе, а не 7 марта вечером.</p>
-        <div class="chips occ">{occasions.map((o, i) => <span class="chip"><b>{String(i + 1).padStart(2, '0')}</b>{o}</span>)}</div>
-      </div>
-      <div class="card dark demand-cta rv" style="--d:.1s">
-        <h3 class="h3">Спрос по вашему городу и по датам снимем бесплатно</h3>
-        <p>До любого разговора о магазине: сколько раз в месяц ищут каждый повод и для каких у вас нет страницы.</p>
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div>
+          <h2 class="h2">Люди ищут цветы <span class="m">к поводу. Есть ли у вас такая страница?</span></h2>
+          <p class="lead">Каждый повод – отдельный запрос в поиске. Нет страницы под повод – покупатель ищет ваш букет и не доходит до вас. Спрос скачет по датам, поэтому страницу под 8 марта ставим в январе, а не 7 марта вечером.</p>
+        </div>
         <a class="btn" href="#form">Прислать таблицу спроса</a>
       </div>
+      <figure class="occ rv">
+        <img src={img('gen/flowers-wide')} alt="Флорист передаёт букет курьеру у двери цветочного магазина" width="1672" height="941" loading="lazy">
+        <figcaption>
+          <h3 class="h3">Поводы, под которые нужны свои страницы</h3>
+          <div class="chips">{occasions.map((o, i) => <span class="chip"><b>{String(i + 1).padStart(2, '0')}</b>{o}</span>)}</div>
+        </figcaption>
+      </figure>
+      <p class="note rv">Спрос по вашему городу и по датам снимем бесплатно – до любого разговора о магазине.</p>
     </div>
   </section>
 
@@ -147,7 +149,7 @@ const tiers = [
       <div class="grid on-bg" style="--c:3">
         <article class="card rv"><span class="num">01</span><h3 class="h3">Яндекс Бизнес</h3><p>Карточка в Картах и Поиске: звонки, маршрут, витрина букетов. Самый быстрый канал для магазина с адресом.</p></article>
         <article class="card rv" style="--d:.06s"><span class="num">02</span><h3 class="h3">Яндекс Директ</h3><p>Объявления по запросам «доставка цветов» и «букет на день рождения» в вашем городе. Включается в день запуска.</p></article>
-        <article class="card dark rv" style="--d:.12s"><span class="num">03</span><h3 class="h3">Всё вместе к дате</h3><p>Нужен поток к 8 марта или 1 сентября – ставим и Бизнес, и Директ, и отдельные страницы заранее.</p></article>
+        <article class="card rv" style="--d:.12s"><span class="num">03</span><h3 class="h3">Всё вместе к дате</h3><p>Нужен поток к 8 марта или 1 сентября – ставим и Бизнес, и Директ, и отдельные страницы заранее.</p></article>
       </div>
       <h3 class="h3 ads-h rv">Реклама цветочных магазинов – <span class="b">цифры из кабинетов</span></h3>
       <div class="grid on-bg" style="--c:3">
@@ -179,7 +181,7 @@ const tiers = [
         {shops.map(([im, name, city, url], i) => (
           <article class="case rv" style={`--d:${i * .08}s`}>
             <figure class="shot case-shot" data-zoom={img(im)} data-alt={`${name}, ${city}`}><img src={img(im)} alt={`Интернет-магазин цветов ${name}, ${city}`} width="1440" height="820" loading="lazy"></figure>
-            <div class="case-txt"><small class="kick">Интернет-магазин цветов · {city}</small><h3 class="h3">{name}</h3><a class="link" href={url} target="_blank" rel="noopener">Перейти на сайт →</a></div>
+            <a class="case-txt" href={url} target="_blank" rel="noopener" aria-label={`Перейти на сайт ${name}`}><span><small class="kick">Интернет-магазин цветов · {city}</small><b class="h3">{name}</b></span><i class="go"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17L17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></i></a>
           </article>
         ))}
       </div>
@@ -187,7 +189,7 @@ const tiers = [
         <article class="card rv"><h3 class="h3">Перенос с конструктора на свой код</h3><p>Цветочный магазин в Самаре: перенесли с конструктора, добавили кабинет владельца. Новый цветочный собираем по этому эталону, а не с нуля.</p></article>
         <article class="card rv" style="--d:.08s"><h3 class="h3">Магазин, который продавал только через ВК</h3><p>Новосибирск: сайта не было вообще. Собрали магазин с каталогом, заказы уходят в ВК, как продавец уже привык.</p></article>
       </div>
-      <div class="card dark show rv">
+      <div class="card show rv">
         <h3 class="h3">Покажем эталонный цветочный магазин живьём и разберём ваш каталог</h3>
         <a class="btn" href="#form">Записаться на показ</a>
       </div>
@@ -200,18 +202,19 @@ const tiers = [
       <div class="sec-head rv"><h2 class="h2">Сколько стоит цветочный магазин, <span class="m">и что вы платите потом</span></h2></div>
       <div class="grid on-bg tiers" style="--c:3">
         {tiers.map(([n, p, d, hit], i) => (
-          <article class={`card tier rv${hit ? ' dark' : ''}`} style={`--d:${i * .06}s`}>
+          <article class={`card tier rv${hit ? ' hit' : ''}`} style={`--d:${i * .06}s`}>
             <h3 class="h3">{n}</h3>
             <div class="price">{p} <span>₽</span></div>
             <p>{d}</p>
           </article>
         ))}
       </div>
-      <div class="pay">
-        <div class="card blue rv">
-          <h3 class="h3">Можно начать от 35 000 ₽</h3>
-          <p>Дальше 10 000–15 000 ₽ в месяц без процентов и банка, поддержка уже внутри платежа.</p>
-          <a class="btn white" href="/sayty-agent/prototipy/deford/installment.html">Как работает рассрочка</a>
+      <div class="pay on-bg">
+        <div class="card start rv">
+          <small class="kick">Рассрочка без банка</small>
+          <h3 class="start-n">от 35 000 ₽</h3>
+          <p>Можно начать с этой суммы. Дальше 10 000–15 000 ₽ в месяц без процентов и банка, поддержка уже внутри платежа.</p>
+          <a class="btn" href="/sayty-agent/prototipy/deford/installment.html">Как работает рассрочка</a>
         </div>
         <div class="card rv" style="--d:.08s">
           <h3 class="h3">Что платите потом</h3>
@@ -280,63 +283,33 @@ const tiers = [
     </div>
   </section>
 </Site>
-
 <style>
-  .hero { position: relative; overflow: hidden; background: #111214; color: #fff; border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 150px 0 72px; }
-  .hero-glow { position: absolute; inset: auto -10% -40% 30%; height: 120%; background: radial-gradient(closest-side, rgba(15, 104, 255, .55), rgba(15, 104, 255, 0) 70%); pointer-events: none; }
-  .hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; }
-  .hero .eyebrow.on-dark { background: rgba(255, 255, 255, .1); color: #fff; }
-  .hero .h1 { margin-top: 22px; color: #fff; }
-  .hero .h1 .b { color: #5b9bff; }
-  .hero-lead { margin-top: 24px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: rgba(255, 255, 255, .72); max-width: 560px; }
-  .hero .btns { margin-top: 36px; }
-  .hero-hint { margin-top: 14px; font-size: 13px; color: rgba(255, 255, 255, .5); }
-  .hero-vis { position: relative; min-height: 600px; }
-  .hero-vis .phone { position: absolute; max-width: 270px; }
-  .ph1, .ph1.rv.in { left: 4%; top: 0; transform: rotate(-5deg); }
-  .ph2, .ph2.rv.in { left: 40%; top: 70px; transform: rotate(5deg); }
-  :global(.js) .ph1.rv:not(.in) { transform: rotate(-5deg) translateY(40px); }
-  :global(.js) .ph2.rv:not(.in) { transform: rotate(5deg) translateY(40px); }
-  .badges { position: absolute; right: 0; top: 24px; display: grid; gap: 10px; width: 210px; }
-  .badge { background: rgba(255, 255, 255, .94); color: #141414; border-radius: 20px; padding: 16px 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); display: grid; gap: 2px; }
-  .badge small { font-size: 12px; color: #6b6b6b; }
-  .badge b { font-size: 22px; letter-spacing: -.04em; line-height: 1.1; color: var(--blue); }
-  .badge span { font-size: 13px; color: #2f2f2f; }
-  @media (max-width: 1100px) { .badges { top: auto; bottom: 0; } }
-  @media (max-width: 900px) {
-    .hero { padding: 112px 0 40px; }
-    .hero-in { grid-template-columns: 1fr; gap: 24px; }
-    .hero-vis { min-height: 0; display: flex; gap: 12px; justify-content: center; padding-top: 12px; }
-    .hero-vis .phone { position: relative; left: auto; top: auto; max-width: 46%; border-radius: 30px; padding: 6px; }
-    .hero-vis .phone img { border-radius: 25px; }
-    .hero-vis .phone::before { top: 12px; width: 48px; height: 13px; margin-left: -24px; }
-    .ph2 { margin-top: 36px; }
-    .badges { position: absolute; left: 0; right: 0; bottom: -4px; width: auto; grid-template-columns: 1fr 1fr; }
-    .badge { padding: 12px 14px; }
-    .badge b { font-size: 18px; }
-  }
+  .phones { position: relative; height: min(600px, calc(100svh - 200px)); min-height: 460px; border-radius: var(--r-sheet); background: var(--blue-soft); overflow: hidden; }
+  .phones .phone { position: absolute; width: 44%; max-width: 250px; }
+  .phones .ph1 { left: 9%; top: 9%; transform: rotate(-5deg); }
+  .phones .ph2 { right: 9%; top: 20%; transform: rotate(5deg); }
+  @media (max-width: 1024px) { .phones { height: 420px; min-height: 0; } .phones .phone { border-radius: 30px; padding: 6px; } .phones .phone img { border-radius: 25px; } .phones .phone::before { top: 12px; width: 48px; height: 13px; margin-left: -24px; } }
 
-  .demand { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 32px; align-items: end; }
-  .occ { margin-top: 28px; }
-  .occ .chip { background: var(--card); }
-  .demand-cta { gap: 18px; }
-  .demand-cta .btn { align-self: flex-start; margin-top: 8px; }
-  @media (max-width: 900px) { .demand { grid-template-columns: 1fr; } }
+  .occ { position: relative; margin: 0; border-radius: var(--r-sheet); overflow: hidden; min-height: clamp(420px, 40vw, 560px); display: flex; align-items: flex-end; }
+  .occ > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+  .occ::after { content: ''; position: absolute; inset: 0; background: linear-gradient(0deg, rgba(12, 14, 18, .62) 0%, rgba(12, 14, 18, 0) 55%); }
+  .occ figcaption { position: relative; z-index: 1; padding: clamp(20px, 2.4vw, 32px); display: grid; gap: 16px; }
+  .occ figcaption .h3 { color: #fff; font-size: clamp(22px, 2.2vw, 30px); }
+  .occ .chip { background: #fff; color: #222; }
 
   .shop { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 16px; }
   .shop-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--sheet); border-radius: var(--r-sheet); padding: 16px; }
   .shop-panel .card { background: var(--card); }
-  .shop-shot { position: relative; margin: 0; border-radius: var(--r-sheet); overflow: hidden; background: #111214; padding: 28px 28px 0; display: flex; flex-direction: column; min-height: 520px; }
-  .shop-shot::before { content: ''; position: absolute; inset: auto -30% -30% -10%; height: 70%; background: radial-gradient(closest-side, rgba(15, 104, 255, .5), transparent 70%); }
-  .ss-desk { position: relative; width: 100%; border-radius: 14px; box-shadow: 0 20px 40px rgba(0, 0, 0, .35); }
+  .shop-shot { position: relative; margin: 0; border-radius: var(--r-sheet); overflow: hidden; background: var(--blue-soft); padding: 28px 28px 0; display: flex; flex-direction: column; min-height: 520px; }
+  .ss-desk { position: relative; width: 100%; border-radius: 14px; box-shadow: 0 20px 40px rgba(15, 60, 140, .16); }
   .ss-phone { position: absolute; right: 24px; bottom: -70px; width: 46%; max-width: 230px; border-radius: 34px; padding: 7px; }
   .ss-phone img { border-radius: 28px; }
-  .shop-shot figcaption { position: relative; margin-top: auto; padding: 24px 52% 28px 0; color: #fff; display: grid; gap: 4px; }
+  .shop-shot figcaption { position: relative; margin-top: auto; padding: 24px 52% 28px 0; color: var(--ink); display: grid; gap: 4px; }
   .shop-shot figcaption b { font-size: 18px; letter-spacing: -.02em; }
-  .shop-shot figcaption span { font-size: 14px; color: rgba(255, 255, 255, .6); }
-  @media (max-width: 1024px) { .shop { grid-template-columns: 1fr; } .shop-shot { min-height: 460px; } }
+  .shop-shot figcaption span { font-size: 14px; color: var(--mute); }
+  @media (max-width: 1024px) { .shop { grid-template-columns: minmax(0, 1fr); } .shop-shot { min-height: 460px; } }
   @media (max-width: 680px) { .shop-shot { padding: 16px 16px 0; min-height: 400px; } .ss-phone { right: 12px; width: 42%; } .shop-shot figcaption { padding-right: 48%; } }
-  @media (max-width: 680px) { .shop-panel { grid-template-columns: 1fr; padding: 10px; } }
+  @media (max-width: 680px) { .shop-panel { grid-template-columns: minmax(0, 1fr); padding: 10px; } }
 
   .note { margin-top: 20px; font-size: 14px; color: var(--mute); }
   .ads-h { margin: clamp(48px, 5vw, 72px) 0 20px; font-size: clamp(22px, 2vw, 30px); }
@@ -355,16 +328,14 @@ const tiers = [
   .case:hover .case-shot img { transform: scale(1.03); }
   .case-txt { display: grid; gap: 8px; }
   .case-txt p { color: var(--mute); }
-  .show { margin-top: 16px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  .show { margin-top: 16px; background: var(--card); flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
   @media (max-width: 900px) { .cases { grid-template-columns: 1fr; } }
   @media (max-width: 760px) { .show { flex-direction: column; align-items: flex-start; } }
 
   .tier { gap: 12px; }
   .price { font-size: clamp(36px, 3.6vw, 52px); font-weight: 600; letter-spacing: -.05em; line-height: 1; }
   .price span { color: var(--mute-2); }
-  .card.dark .price span { color: rgba(255, 255, 255, .5); }
   .pay { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 16px; margin-top: 16px; }
-  .pay .card.blue .btn { align-self: flex-start; margin-top: auto; }
   .pay .tbl td:first-child { color: var(--ink); font-weight: 500; }
   .pay .tbl td { color: var(--mute); }
   @media (max-width: 900px) { .pay { grid-template-columns: 1fr; } .tbl { font-size: 14px; } }
@@ -382,4 +353,14 @@ const tiers = [
   .lead-box .form { background: var(--card); }
   .lead-box .form .btn { width: 100%; margin-top: 4px; }
   @media (max-width: 900px) { .lead-box { grid-template-columns: minmax(0, 1fr); padding: 20px; } }
+  .case-txt { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+  .case-txt span { display: grid; gap: 6px; }
+  .tier.hit { box-shadow: inset 0 0 0 2px var(--blue); }
+  .tier.hit .price { color: var(--blue); }
+  .start { background: var(--blue-soft); }
+  .start-n { font-size: clamp(36px, 3.6vw, 52px); font-weight: 600; letter-spacing: -.05em; line-height: 1; color: var(--blue); }
+  .start .btn { align-self: flex-start; margin-top: auto; }
+  .lead-box { position: relative; overflow: hidden; }
+  .lead-box::before { content: 'd'; position: absolute; right: 30%; bottom: -42%; font-size: 720px; font-weight: 700; line-height: 1; letter-spacing: -.06em; color: var(--card); pointer-events: none; }
+  .lead-box > * { position: relative; }
 </style>

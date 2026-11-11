@@ -14,8 +14,8 @@
     document.querySelectorAll('.js-cur').forEach(function (e) { e.textContent = P.sign(r); });
     document.querySelector('.js-month').textContent = fmt(hot);
     // Счётчик: горячие поиски за прошедшую часть дня, которые ушли на сайты в топе.
-    $('today').textContent = fmt(hot * P.MODEL.servis.sites / 30 * dp.part);
-    $('today-l').textContent = dp.label;
+    document.querySelectorAll('.js-today').forEach(function (e) { e.textContent = fmt(hot * P.MODEL.servis.sites / 30 * dp.part); });
+    document.querySelectorAll('.js-today-l').forEach(function (e) { e.textContent = dp.label; });
   }
   function drawNiches() {
     var r = C.current(), wide = wideMq.matches;

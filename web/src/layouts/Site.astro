@@ -1,6 +1,6 @@
 ---
 // Общий каркас страниц Дефорда: шапка, подвал, таб-бар на телефоне с окном «Связаться», окно для фото, появление блоков,
-// тёмная тема (вечером 19–7 и при тёмной теме системы сама, кнопка в шапке переключает и запоминает – правило 10.11.2026).
+// тема: сайт светлый всегда (Артём 11.11.2026), тёмная – только кнопкой в подвале, выбор запоминается.
 // Стенд закрыт от поиска (noindex). Счётчиков нет – их ставим только в бою (правило 10.11.2026).
 import '@fontsource-variable/inter';
 import '../styles/site.css';
@@ -28,9 +28,8 @@ const nav = [
   <meta name="theme-color" content="#0f68ff">
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f68ff'/%3E%3Ctext x='7' y='23' font-family='Arial' font-weight='700' font-size='20' fill='white'%3Ed%3C/text%3E%3C/svg%3E">
   <style data-tema-v1>/* тема – токены в site.css */</style>
-  <script is:inline data-tema-v1>document.documentElement.classList.add('js');(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
-if(!t){var h=new Date().getHours();t=(h>=19||h<7||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
-document.documentElement.setAttribute('data-theme',t)})();</script>
+  <script is:inline data-tema-v1>document.documentElement.classList.add('js');(function(){var t;try{t=localStorage.getItem('tema-site')}catch(e){}
+document.documentElement.setAttribute('data-theme',t==='dark'?'dark':'light')})();</script>
 </head>
 <body data-policy={`${P}contacts/`}>
   <header class="hdr">
@@ -40,9 +39,6 @@ document.documentElement.setAttribute('data-theme',t)})();</script>
         <nav class="nav" aria-label="Разделы">{nav.map(([t, h]) => <a href={h}>{t}</a>)}</nav>
         <div class="hdr-r">
           <a class="hdr-tel" href={`tel:${C.tel}`}>{C.telText}</a>
-          <button class="ic-btn" type="button" id="tema-btn" aria-label="Тёмная тема">
-            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>
-          </button>
           <a class="ic-btn" href={C.tg} target="_blank" rel="noopener" aria-label="Написать в Telegram">
             <svg viewBox="0 -2 24 24" aria-hidden="true"><path fill="currentColor" d="M23.04.7L19.4 19.08s-.51 1.27-1.91.66l-8.45-6.47c1.14-1.02 9.94-8.94 10.33-9.3.6-.55.22-.88-.47-.47L5.89 11.77.87 10.08S.08 9.8 0 9.19c-.08-.61.9-.94.9-.94L21.36.22s1.68-.74 1.68.48z"/></svg>
           </a>
@@ -88,6 +84,7 @@ document.documentElement.setAttribute('data-theme',t)})();</script>
         <span>© Дефорд, 2026</span>
         <a href={`${P}contacts/`}>Политика обработки данных</a>
         <a href={`${P}contacts/`}>Согласие на обработку данных</a>
+        <button class="ftr-tema" type="button" id="tema-btn"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg><span>Тёмная тема</span></button>
       </div>
     </div>
   </footer>
@@ -116,9 +113,9 @@ document.documentElement.setAttribute('data-theme',t)})();</script>
 
   <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Фото"><button class="lb-x" type="button" aria-label="Закрыть">×</button><img alt=""></div>
 
-  <script is:inline data-tema-v1>(function(){var b=document.getElementById('tema-btn');if(!b)return;
-function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.setAttribute('aria-label',d?'Светлая тема':'Тёмная тема');b.title=b.getAttribute('aria-label');b.innerHTML=d?'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7a5 5 0 100 10 5 5 0 000-10zm0-5l1.5 3h-3zm0 20l-1.5-3h3zM2 12l3-1.5v3zm20 0l-3 1.5v-3z"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>'}
-b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};upd()})();</script>
+  <script is:inline data-tema-v1>(function(){var b=document.getElementById('tema-btn');if(!b)return;var l=b.querySelector('span');
+function upd(){l.textContent=document.documentElement.getAttribute('data-theme')==='dark'?'Светлая тема':'Тёмная тема'}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema-site',n)}catch(e){}upd()};upd()})();</script>
   <script is:inline>
     (function () {
       // появление блоков

@@ -10,7 +10,6 @@ import '../../../../../styles/poteri.css';
   <span slot="sheet-cta">Получить расчёт</span>
 
   <section class="hero">
-    <div class="hero-glow" aria-hidden="true"></div>
     <div class="wrap">
       <a class="back rv" href="../">← Потери по нишам</a>
       <h1 class="h1 rv" style="--d:.05s">Вбейте свою услугу – покажем, <span class="b">сколько клиентов вы на ней теряете</span></h1>
@@ -42,9 +41,9 @@ import '../../../../../styles/poteri.css';
         <a class="btn" href="../#form">Снять спрос по моей услуге</a>
       </div>
       <p class="small js-src" style="margin-top:20px"></p>
-      <div class="card dark strip rv">
+      <div class="card strip rv">
         <h3 class="h3">Пришлём расчёт по всем вашим услугам сразу – и покажем, кто из конкурентов забирает этих клиентов</h3>
-        <div class="btns"><a class="btn" href="../#form">Получить расчёт</a><a class="btn white" href="../#nishi">Потери по нишам</a></div>
+        <div class="btns"><a class="btn" href="../#form">Получить расчёт</a><a class="btn ghost" href="../#nishi">Потери по нишам</a></div>
       </div>
     </div>
   </section>
@@ -56,23 +55,21 @@ import '../../../../../styles/poteri.css';
 </Site>
 
 <style>
-  .hero { position: relative; overflow: hidden; background: #111214; color: #fff; border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 140px 0 56px; }
-  .hero-glow { position: absolute; inset: auto -10% -60% 35%; height: 130%; background: radial-gradient(closest-side, rgba(15, 104, 255, .5), rgba(15, 104, 255, 0) 70%); pointer-events: none; }
-  .hero .wrap { position: relative; }
-  .back { display: inline-block; font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, .6); }
-  .back:hover { color: #fff; }
-  .hero .h1 { margin-top: 18px; color: #fff; font-size: clamp(34px, 4.6vw, 68px); max-width: 1100px; }
-  .hero .h1 .b { color: #5b9bff; }
+  .hero { background: var(--sheet); border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 132px 0 48px; }
+  .back { display: inline-block; font-size: 14px; font-weight: 500; color: var(--mute); }
+  .back:hover { color: var(--blue); }
+  .hero .h1 { margin-top: 18px; font-size: clamp(32px, 4.2vw, 60px); max-width: 1000px; }
   .find { margin-top: 32px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; max-width: 760px; }
-  .find .p-search { height: 64px; border: 0; background: #fff; color: #141414; font-size: 18px; border-radius: 16px; }
+  .find .p-search { height: 64px; border: 1px solid var(--line); background: var(--card); font-size: 18px; border-radius: 16px; }
   .find .btn { min-height: 64px; padding: 0 32px; border-radius: 16px; }
   .opts { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
-  .state { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255, 255, 255, .6); }
-  .state select { height: 40px; padding: 0 12px; border-radius: 99px; border: 0; background: rgba(255, 255, 255, .12); color: #fff; font-size: 14px; font-weight: 600; max-width: 100%; }
-  .state select option { color: #141414; }
+  .opts :global(.city-btn) { background: var(--card); color: var(--ink); }
+  .opts :global(.city-btn)::before { color: var(--blue); }
+  .state { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--mute); }
+  .state select { height: 40px; padding: 0 12px; border-radius: 99px; border: 0; background: var(--card); color: var(--ink); font-size: 14px; font-weight: 600; max-width: 100%; }
   .tbl-wrap { overflow-x: auto; }
   .strip { margin-top: 40px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
   .strip .h3 { max-width: 640px; }
   @media (max-width: 900px) { .strip { flex-direction: column; align-items: flex-start; } }
-  @media (max-width: 767px) { .hero { padding: 100px 0 32px; } .find { grid-template-columns: minmax(0, 1fr); } .state { flex-wrap: wrap; } }
+  @media (max-width: 767px) { .hero { padding: 96px 0 28px; } .find { grid-template-columns: minmax(0, 1fr); } .state { flex-wrap: wrap; } }
 </style>
