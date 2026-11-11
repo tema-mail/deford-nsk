@@ -5,7 +5,7 @@ import Site from '../../../../../layouts/Site.astro';
 import { B } from '../../../../../data/contacts';
 import '../../../../../styles/poteri.css';
 ---
-<Site title="Сколько клиентов вы теряете на своей услуге – поиск по автоуслугам | Дефорд" description="Вбейте свою услугу: покажем, сколько раз её ищут в вашем городе и сколько клиентов и выручки уходит мимо без сайта в поиске.">
+<Site formHref="../#form" casesHref="../#cases" reviewsHref="../#reviews" title="Сколько клиентов вы теряете на своей услуге – поиск по автоуслугам | Дефорд" description="Вбейте свою услугу: покажем, сколько раз её ищут в вашем городе и сколько клиентов и выручки уходит мимо без сайта в поиске.">
   <a slot="cta" class="btn" href="../#form">Получить расчёт</a>
   <span slot="sheet-cta">Получить расчёт</span>
 
@@ -27,7 +27,7 @@ import '../../../../../styles/poteri.css';
     </div>
   </section>
 
-  <section class="sheet" id="cases">
+  <section class="sheet">
     <div class="wrap">
       <div class="p-sum" id="sum">…</div>
       <div class="tbl-wrap">

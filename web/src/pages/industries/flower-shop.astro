@@ -27,13 +27,19 @@ const ads = [
   ['35613666-2', 'Без сайта, только ВКонтакте', '215 обращений по 245 ₽', 'Сайта у магазина не было – две связки с чат-ботом во ВКонтакте.', 'https://vc.ru/id3572167/3150182-kak-privelch-klientov-v-tsvetochnyj-magazin-cherez-vkontakte'],
   ['63336436-1', 'Перенастройка рекламы', 'Заявка – 400 ₽ вместо 1 500–2 000 ₽', 'Разобрали группу, настроили чат-бота и воронку, протестировали аудитории.', 'https://vc.ru/marketing/3150040-reklama-vkontakte-dlya-tsvetochnogo-magazina'],
 ];
+// Живые магазины – те же, что в кейсах Target Factory (tf-flowers/ShopCases): названия и города сняты с сайтов магазинов
+const shops = [
+  ['shop-milovini', 'Milovini Flowers', 'Самара', 'https://milovinisamara.ru/'],
+  ['shop-compliment', 'Compliment', 'Брянск', 'https://compliment-32.ru/'],
+  ['shop-holiflori', 'HoliFlori', 'Сергиев Посад', 'https://holiflori.ru/'],
+];
 const tiers = [
   ['Базовый', '70 000', 'Каталог с фильтрами, карточки, корзина, доставка по дате, заказы и админка.', false],
   ['Оптимальный', '90 000', 'Плюс страницы поводов, доставки и о магазине, настройка рекламы, Метрика с целями.', true],
   ['Расширенный', '150 000', 'Плюс личный кабинет покупателя, бонусы и повторный заказ.', false],
 ];
 ---
-<Site title="Сайт для цветочного магазина – интернет-магазин, который продаёт | Дефорд" description="Делаем интернет-магазины для цветочных: каталог, доставка по дате, оплата частями, кабинет и повторный заказ. Заказы с первого дня запуска. От 35 000 ₽.">
+<Site title="Сайт для цветочного магазина – интернет-магазин, который продаёт | Дефорд" description="Делаем интернет-магазины для цветочных: каталог, доставка по дате, оплата частями, кабинет и повторный заказ. Заказы с первого дня запуска. Можно начать от 35 000 ₽.">
   <a slot="cta" class="btn" href="#form">Показать спрос</a>
   <span slot="sheet-cta">Показать спрос в моём городе</span>
 
@@ -51,9 +57,9 @@ const tiers = [
         </div>
         <p class="hero-hint rv" style="--d:.2s">Пришлём таблицу: что ищут в вашем городе и сколько раз в месяц. Без звонка.</p>
       </div>
-      <div class="hero-vis" aria-label="Каталоги наших цветочных магазинов на телефоне">
+      <div class="hero-vis" aria-label="Каталог и карточка букета в нашем цветочном магазине на телефоне">
         <div class="phone ph1 rv" style="--d:.15s"><img src={img('milovini-catalog-m')} alt="Каталог Milovini Flowers на телефоне: две карточки букетов в ряд" width="780" height="1600" fetchpriority="high"></div>
-        <div class="phone ph2 rv" style="--d:.3s"><img src={img('elite-catalog-m')} alt="Каталог Elite Rose на телефоне" width="780" height="1600"></div>
+        <div class="phone ph2 rv" style="--d:.3s"><img src={img('milovini-product-m')} alt="Карточка букета в магазине Milovini Flowers на телефоне" width="780" height="1688"></div>
         <div class="badges">
           <div class="badge rv" style="--d:.35s"><small>Сделали</small><b>больше 10 сайтов</b><span>для цветочных магазинов</span></div>
           <div class="badge rv" style="--d:.45s"><small>Можно начать</small><b>от 35 000 ₽</b><span>остальное частями</span></div>
@@ -110,7 +116,7 @@ const tiers = [
         <figure class="shop-shot rv">
           <img class="ss-desk" src={img('milovini-home')} alt="Главная интернет-магазина Milovini Flowers, Самара" width="1600" height="1000" loading="lazy" data-zoom={img('milovini-home')} data-alt="Milovini Flowers – главная">
           <div class="phone ss-phone"><img src={img('milovini-catalog-m')} alt="Каталог Milovini Flowers на телефоне" width="780" height="1600" loading="lazy"></div>
-          <figcaption><b>Milovini Flowers, Самара</b><span>Магазин на нашем коде: каталог, корзина, бонусы, кабинет</span></figcaption>
+          <figcaption><b>Milovini Flowers, Самара</b><span>Интернет-магазин на нашем коде</span></figcaption>
         </figure>
       </div>
     </div>
@@ -170,14 +176,16 @@ const tiers = [
         </div>
       </div>
       <div class="cases">
-        <article class="case rv">
-          <figure class="shot case-shot" data-zoom={img('milovini-home')} data-alt="Milovini Flowers"><img src={img('milovini-home')} alt="Milovini Flowers – главная" width="1600" height="1000" loading="lazy"></figure>
-          <div class="case-txt"><small class="kick">Самара · перенос с конструктора</small><h3 class="h3">Milovini Flowers</h3><p>Перенесли 255 карточек с конструктора на свой код, добавили кабинет владельца. Новый цветочный собираем по этому эталону, а не с нуля.</p></div>
-        </article>
-        <article class="case rv" style="--d:.08s">
-          <figure class="shot case-shot" data-zoom={img('elite-home')} data-alt="Elite Rose"><img src={img('elite-home')} alt="Elite Rose – главная" width="1600" height="1000" loading="lazy"></figure>
-          <div class="case-txt"><small class="kick">Новосибирск · продавали только через ВК</small><h3 class="h3">Elite Rose</h3><p>Сайта не было вообще. Собрали магазин с каталогом, заказы уходят в ВК, как продавец уже привык.</p></div>
-        </article>
+        {shops.map(([im, name, city, url], i) => (
+          <article class="case rv" style={`--d:${i * .08}s`}>
+            <figure class="shot case-shot" data-zoom={img(im)} data-alt={`${name}, ${city}`}><img src={img(im)} alt={`Интернет-магазин цветов ${name}, ${city}`} width="1440" height="820" loading="lazy"></figure>
+            <div class="case-txt"><small class="kick">Интернет-магазин цветов · {city}</small><h3 class="h3">{name}</h3><a class="link" href={url} target="_blank" rel="noopener">Перейти на сайт →</a></div>
+          </article>
+        ))}
+      </div>
+      <div class="grid stories" style="--c:2">
+        <article class="card rv"><h3 class="h3">Перенос с конструктора на свой код</h3><p>Цветочный магазин в Самаре: перенесли с конструктора, добавили кабинет владельца. Новый цветочный собираем по этому эталону, а не с нуля.</p></article>
+        <article class="card rv" style="--d:.08s"><h3 class="h3">Магазин, который продавал только через ВК</h3><p>Новосибирск: сайта не было вообще. Собрали магазин с каталогом, заказы уходят в ВК, как продавец уже привык.</p></article>
       </div>
       <div class="card dark show rv">
         <h3 class="h3">Покажем эталонный цветочный магазин живьём и разберём ваш каталог</h3>
@@ -193,7 +201,6 @@ const tiers = [
       <div class="grid on-bg tiers" style="--c:3">
         {tiers.map(([n, p, d, hit], i) => (
           <article class={`card tier rv${hit ? ' dark' : ''}`} style={`--d:${i * .06}s`}>
-            {hit && <span class="tag">Чаще выбирают</span>}
             <h3 class="h3">{n}</h3>
             <div class="price">{p} <span>₽</span></div>
             <p>{d}</p>
@@ -212,7 +219,7 @@ const tiers = [
             <thead><tr><th>Что</th><th>Сколько</th><th>Кому</th></tr></thead>
             <tbody>
               <tr><td>Домен и сервер</td><td>по тарифу</td><td>не нам</td></tr>
-              <tr><td>Бюджет рекламы</td><td>от 1 000 ₽ в день, держите сами</td><td>Яндексу</td></tr>
+              <tr><td>Бюджет рекламы</td><td>считаем на старте, держите сами</td><td>Яндексу</td></tr>
               <tr><td>Ведение и подготовка к датам</td><td>10 000 ₽ в месяц, по желанию</td><td>нам</td></tr>
             </tbody>
           </table>
@@ -264,6 +271,7 @@ const tiers = [
           <button class="btn" type="submit" disabled>Прислать спрос по моему городу</button>
           <div class="ok">
             <h3 class="h3">Заявка принята</h3>
+            <p class="stand">Это стенд дизайна: заявка пока никуда не отправляется.</p>
             <p>Спрос снимет Артём Галимов и пришлёт таблицу. Чтобы замер был точным, пришлите ссылку на каталог или прайс.</p>
             <p>Срочно – <a class="link" href={C.tg} target="_blank" rel="noopener">написать в Telegram</a> или <a class="link" href={C.max} target="_blank" rel="noopener">в Макс</a>.</p>
           </div>
@@ -285,12 +293,10 @@ const tiers = [
   .hero-hint { margin-top: 14px; font-size: 13px; color: rgba(255, 255, 255, .5); }
   .hero-vis { position: relative; min-height: 600px; }
   .hero-vis .phone { position: absolute; max-width: 270px; }
-  .ph1 { left: 4%; top: 0; transform: rotate(-5deg); }
-  .ph2 { left: 40%; top: 70px; transform: rotate(5deg); }
-  .ph1.rv { transform: rotate(-5deg) translateY(40px); }
-  .ph2.rv { transform: rotate(5deg) translateY(40px); }
-  .ph1.rv.in { transform: rotate(-5deg); }
-  .ph2.rv.in { transform: rotate(5deg); }
+  .ph1, .ph1.rv.in { left: 4%; top: 0; transform: rotate(-5deg); }
+  .ph2, .ph2.rv.in { left: 40%; top: 70px; transform: rotate(5deg); }
+  :global(.js) .ph1.rv:not(.in) { transform: rotate(-5deg) translateY(40px); }
+  :global(.js) .ph2.rv:not(.in) { transform: rotate(5deg) translateY(40px); }
   .badges { position: absolute; right: 0; top: 24px; display: grid; gap: 10px; width: 210px; }
   .badge { background: rgba(255, 255, 255, .94); color: #141414; border-radius: 20px; padding: 16px 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); display: grid; gap: 2px; }
   .badge small { font-size: 12px; color: #6b6b6b; }
@@ -341,7 +347,8 @@ const tiers = [
   .ad .link { margin-top: auto; font-size: 14px; }
   .src { margin-top: 16px; }
 
-  .cases { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .cases { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .stories { margin-top: 32px; }
   .case { display: grid; gap: 18px; }
   .case-shot { aspect-ratio: 16 / 10; margin: 0; }
   .case-shot img { object-position: top; transition: transform .6s; }
@@ -349,10 +356,10 @@ const tiers = [
   .case-txt { display: grid; gap: 8px; }
   .case-txt p { color: var(--mute); }
   .show { margin-top: 16px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
-  @media (max-width: 760px) { .cases { grid-template-columns: 1fr; } .show { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 900px) { .cases { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .show { flex-direction: column; align-items: flex-start; } }
 
   .tier { gap: 12px; }
-  .tag { position: absolute; top: 24px; right: 24px; padding: 6px 12px; border-radius: 99px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 600; }
   .price { font-size: clamp(36px, 3.6vw, 52px); font-weight: 600; letter-spacing: -.05em; line-height: 1; }
   .price span { color: var(--mute-2); }
   .card.dark .price span { color: rgba(255, 255, 255, .5); }

@@ -34,12 +34,12 @@
         '<a class="w-btn" href="#kalkulyator" data-pick="' + c.n.id + '">Посчитать мою</a></div></details>';
     }).join('');
   }
-  var MARK = { '': '', est: '<b class="js-mark" title="оценка: цен в прайсах города не нашли">*</b>', weak: '<b class="js-mark" title="один прайс или цена «от»">°</b>' };
+  var MARK = { '': '', est: '<b class="js-mark" title="оценка: цен в прайсах города не нашли">*</b>', weak: '<b class="js-mark" title="цена «от», только работа или один прайс – нижняя граница">°</b>' };
   function niche() { return N.filter(function (n) { return n.id === nicheSel.value; })[0]; }
   function drawChips() {
     var r = C.current(), rub = P.sign(r) === '₽', notes = niche().services.map(function (s) { return P.checkNote(s, r); });
     // чеки: средние по прайсам города, если они собраны; иначе честно «оценка по рынку»
-    $('chk-src').textContent = P.hasPrices(r) ? 'чек – средний по прайсам сервисов города, впишите свой' : 'чек – оценка по рынку, впишите свой';
+    $('chk-src').textContent = P.hasPrices(r) ? 'цена – медиана прайсов сервисов города, впишите свой средний чек' : 'чек – оценка по рынку, впишите свой';
     $('est').hidden = notes.indexOf('est') < 0; $('weak').hidden = notes.indexOf('weak') < 0;
     $('chips').innerHTML = niche().services.map(function (s) {
       var v = checks[s[0]] != null ? checks[s[0]] : P.baseCheck(s, r);
@@ -76,5 +76,10 @@
     if (P.sign(r) !== lastSign) { checks = {}; lastSign = P.sign(r); }
     drawChips(); drawAll();
   });
+  // «Как считаем» – из тех же коэффициентов, по которым идёт расчёт (calc.js), чтобы текст не расходился с цифрами
+  var M = P.MODEL.servis, S = P.STATES, pc = function (x) { return Math.round(x * 100) + '%'; };
+  $('formula').textContent = 'Горячие поиски × ' + pc(M.sites) + ' переходят на сайты (остальные – карты и агрегаторы; для «автосервис», «шиномонтаж», «автоэлектрик» – ' + pc(M.sites / 2) +
+    ') × ' + pc(M.top) + ' достаются сайту в топ-3 × ' + pc(M.conv) + ' звонят или пишут × ' + pc(M.close) + ' доезжают × средний чек. Лендинг забирает около ' + pc(S.landing.take) +
+    ' этого, сайт без продвижения около ' + pc(S.weak.take) + ', без сайта – 0.';
   drawChips(); drawAll(); setInterval(drawTop, 20000);
 })();

@@ -4,7 +4,7 @@
 // Доказательства – Метрика EV Sibir и TEYES Sibir (docs/keysy/metrika-ev-teyes-2026-11-11.md). Меток «запросить» нет: чего нет – не ставим.
 import Site from '../../../../layouts/Site.astro';
 import VideoReviews from '../../../../components/VideoReviews.astro';
-import { C, B } from '../../../../data/contacts';
+import { C, B, P } from '../../../../data/contacts';
 import '../../../../styles/poteri.css';
 const img = (n: string) => `${B}img/${n}.webp`;
 const why = [
@@ -90,7 +90,8 @@ const faq = [
           <div class="calc-step">3. Ваши услуги <small>Снимите лишние; <span id="chk-src">чек – оценка по рынку, впишите свой</span></small></div>
           <div class="p-chips" id="chips"></div>
           <p class="small" id="est" hidden>* – оценка: цен на эту услугу в прайсах города не нашли</p>
-          <p class="small" id="weak" hidden>° – цена по одному прайсу или «от»: скорее нижняя граница</p>
+          <p class="small" id="weak" hidden>° – в прайсах цена «от» или только работа без запчастей: это нижняя граница, ваш реальный чек выше</p>
+          <details class="whence"><summary>Откуда цены на услуги?</summary><p>Медиана цен из прайсов сервисов вашего города. В прайсах часто стоит цена «от» или только работа без запчастей, поэтому расчёт осторожный: впишите свой средний чек – и увидите свою цифру.</p></details>
         </div>
         <div class="calc-out rv" style="--d:.08s">
           <div class="p-res">
@@ -100,7 +101,8 @@ const faq = [
             <div style="grid-column:1/-1"><b id="r-y">…</b><span><span class="js-cur">₽</span> за год</span></div>
           </div>
           <details><summary>Как считаем</summary>
-            <p class="p-formula">Горячие поиски × 50% переходят на сайты (остальные – карты и агрегаторы; для «автосервис», «шиномонтаж», «автоэлектрик» – 25%) × 20% достаются сайту в топ-3 × 8% звонят или пишут × 60% доезжают × средний чек. Лендинг забирает около 15% этого, сайт без продвижения около 10%, без сайта – 0.</p>
+            <p class="p-formula" id="formula">Горячие поиски × доля переходов на сайты × доля сайта в топ-3 × доля звонков × доля доехавших × средний чек.</p>
+            <p class="p-formula">Это оценка, а не обещание: доли – наши допущения по рынку. Точный расчёт делаем по вашим услугам и вашим цифрам.</p>
           </details>
           <a class="btn" href="#form">Получить точный расчёт</a>
         </div>
@@ -138,7 +140,7 @@ const faq = [
       <div class="sec-head rv">
         <div>
           <h2 class="h2">Мы сами держим автосервисы <span class="m">и проверили это на себе</span></h2>
-          <p class="lead">EV Sibir и TEYES Sibir в Новосибирске – бизнесы основателя Дефорда. Цифры – из Яндекс Метрики, снято 11.11.2026.</p>
+          <p class="lead">EV Sibir и TEYES Sibir в Новосибирске – бизнесы основателя Дефорда. Цифры – из Яндекс Метрики и Вебмастера, снято 11.11.2026.</p>
         </div>
       </div>
       <div class="proof">
@@ -155,12 +157,12 @@ const faq = [
         </article>
         <article class="card rv" style="--d:.08s">
           <figure class="shot proof-shot" data-zoom={img('teyes-home')} data-alt="TEYES Sibir – сайт"><img src={img('teyes-home')} alt="Сайт TEYES Sibir – установочный центр в Новосибирске" width="1600" height="1000" loading="lazy"></figure>
-          <small class="kick">Установочный центр · страницы услуг</small>
+          <small class="kick">Установочный центр в Новосибирске</small>
           <h3 class="h3">TEYES Sibir</h3>
           <div class="stats">
-            <div><b>534 → 1 055</b><span>визитов из поиска: декабрь 2025 → октябрь 2026</span></div>
-            <div><b>1 454</b><span>страницы сайта в поиске Яндекса</span></div>
-            <div><b>12 599 → 19 282</b><span>показов в Яндексе за 4 недели, август → октябрь</span></div>
+            <div><b>534 → 1 055</b><span>визитов из поиска в месяц: декабрь 2025 → октябрь 2026</span></div>
+            <div><b>1 454</b><span>страницы сайта в поиске Яндекса на 07.10.2026</span></div>
+            <div><b>12 599 → 19 282</b><span>показов в Яндексе за 4 недели: 14.08–10.09 → 11.09–08.10</span></div>
           </div>
           <p>Октябрь – лучший поиск за год при том, что рекламы стало вчетверо меньше.</p>
         </article>
@@ -209,9 +211,9 @@ const faq = [
           <label class="field">Телефон<input name="phone" inputmode="tel" autocomplete="tel" required placeholder="+7 900 000-00-00"></label>
           <label class="field">Ниша<select id="f-niche" name="niche"></select></label>
           <label class="field">Сайт или название<input name="site"></label>
-          <label class="check"><input type="checkbox" data-agree> <span>Согласен на обработку <a href="/deford-nsk/contacts/">персональных данных</a></span></label>
+          <label class="check"><input type="checkbox" data-agree> <span>Согласен на обработку <a href={`${P}contacts/`}>персональных данных</a></span></label>
           <button class="btn" type="submit" disabled>Получить расчёт</button>
-          <div class="ok"><h3 class="h3">Заявка принята</h3><p>Пришлём расчёт в Telegram или Макс. Срочно – <a class="link" href={`tel:${C.tel}`}>позвонить</a> или <a class="link" href={C.tg} target="_blank" rel="noopener">написать в Telegram</a>.</p></div>
+          <div class="ok"><h3 class="h3">Заявка принята</h3><p class="stand">Это стенд дизайна: заявка пока никуда не отправляется.</p><p>Пришлём расчёт в Telegram или Макс. Срочно – <a class="link" href={`tel:${C.tel}`}>позвонить</a> или <a class="link" href={C.tg} target="_blank" rel="noopener">написать в Telegram</a>.</p></div>
         </form>
       </div>
     </div>
@@ -263,6 +265,9 @@ const faq = [
   @media (max-width: 1024px) { .flow { grid-template-columns: 1fr 1fr; } .flow li::after { display: none; } }
   @media (max-width: 560px) { .flow { grid-template-columns: 1fr; } }
 
+  .whence { font-size: 14px; color: var(--mute); }
+  .whence summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+  .whence p { margin-top: 8px; }
   .vs { display: grid; gap: 20px; max-width: 980px; }
   .proof { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
   .proof .card { gap: 12px; }

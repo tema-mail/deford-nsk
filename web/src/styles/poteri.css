@@ -115,5 +115,7 @@ body .c-win .w-form { gap: 12px; }
 .c-win .w-hint { font-size: 13px; color: var(--mute); }
 .c-win .w-success { display: none; }
 body .c-other.sent .w-success { display: grid; gap: 8px; }
+/* стенд: в ответе окна честно видно, что заявка пока никуда не уходит */
+.c-win .w-success .w-ask { display: inline; color: var(--mute); font-size: 13px; }
 /* строка «Расчёт пришлём: [срок]» – срока ответа пока нет, не показываем */
 .c-win .w-success p:nth-child(2) { display: none; }
