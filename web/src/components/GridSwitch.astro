@@ -1,0 +1,57 @@
+---
+// Переключатели композиционной сетки у блоков страницы (Артём 11.11.2026: «для каждого из блоков по 5 вариантов сетки»).
+// Блок помечается data-gb="ключ" data-g-title="Название" data-g-names="вид 1|вид 2|…"; вид задаёт атрибут data-g (1–5),
+// сами сетки – в styles/grids-*.css. Разметка блока одна, меняется только CSS, поэтому скрипты страницы не ломаются.
+// Выбор запоминается в браузере. Кнопка «Скопировать выбор» собирает номера по всем блокам одной строкой – прислать в чат.
+// Инструмент стенда: после выбора оставить у блоков нужный data-g, а этот компонент убрать.
+---
+<button class="gs-copy" type="button">Скопировать выбор</button>
+<script is:inline>
+  (function () {
+    var KEY = 'grid:' + location.pathname + ':', blocks = [].slice.call(document.querySelectorAll('[data-gb]'));
+    function get(k) { try { return localStorage.getItem(KEY + k); } catch (e) { return null; } }
+    function set(k, v) { try { localStorage.setItem(KEY + k, v); } catch (e) {} }
+    blocks.forEach(function (b) {
+      var names = (b.getAttribute('data-g-names') || '').split('|'), saved = get(b.getAttribute('data-gb'));
+      b.setAttribute('data-g', saved && +saved >= 1 && +saved <= names.length ? saved : '1');
+      var row = document.createElement('div'); row.className = 'gs-row' + (b.closest('.wrap') ? ' in' : '');
+      row.innerHTML = '<div class="gs" role="group" aria-label="Сетка блока «' + b.getAttribute('data-g-title') + '»"><span>Сетка</span>' +
+        names.map(function (n, i) { return '<button type="button" data-v="' + (i + 1) + '" title="' + n + '" aria-label="Вариант ' + (i + 1) + ': ' + n + '">' + (i + 1) + '</button>'; }).join('') + '<em></em></div>';
+      b.insertBefore(row, b.firstChild);
+      function paint() {
+        var v = b.getAttribute('data-g');
+        row.querySelectorAll('button').forEach(function (x) { x.setAttribute('aria-pressed', x.dataset.v === v ? 'true' : 'false'); });
+        row.querySelector('em').textContent = names[v - 1];
+      }
+      row.addEventListener('click', function (e) {
+        var x = e.target.closest('button'); if (!x) return;
+        b.setAttribute('data-g', x.dataset.v); set(b.getAttribute('data-gb'), x.dataset.v); paint();
+      });
+      paint();
+    });
+    var copy = document.querySelector('.gs-copy');
+    copy.addEventListener('click', function () {
+      var hero = document.getElementById('hero'), parts = hero && hero.getAttribute('data-hero') ? ['Первый экран ' + hero.getAttribute('data-hero')] : [];
+      blocks.forEach(function (b) { parts.push(b.getAttribute('data-g-title') + ' ' + b.getAttribute('data-g')); });
+      var text = parts.join(', '), done = function () { copy.textContent = 'Скопировано: ' + text; setTimeout(function () { copy.textContent = 'Скопировать выбор'; }, 6000); };
+      if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(text).then(done, done); else done();
+    });
+  })();
+</script>
+
+<style is:global>
+  .gs-row { display: none; }
+  .gs-copy { display: none; }
+  /* Сетки отличаются на широком экране; на телефоне и планшете блоки идут в один столбец, переключатели там скрыты */
+  @media (min-width: 1025px) {
+    .gs-row { display: flex; justify-content: flex-end; max-width: calc(var(--wrap) + var(--gut) * 2); margin: 0 auto 14px; padding-inline: var(--gut); }
+    .gs-row.in { max-width: none; padding-inline: 0; grid-column: 1 / -1; }
+    .gs { display: inline-flex; align-items: center; gap: 4px; padding: 4px 12px 4px 12px; border-radius: 99px; background: rgba(34, 34, 34, .9); color: #fff; font-size: 12px; white-space: nowrap; }
+    .gs span { margin-right: 4px; color: rgba(255, 255, 255, .65); }
+    .gs button { width: 26px; height: 26px; border-radius: 50%; border: 0; background: rgba(255, 255, 255, .12); color: #fff; font-size: 12px; font-weight: 600; cursor: pointer; }
+    .gs button[aria-pressed="true"] { background: var(--blue); }
+    .gs em { font-style: normal; margin-left: 6px; min-width: 150px; color: rgba(255, 255, 255, .75); }
+    .gs-copy { display: block; position: fixed; z-index: 80; right: 18px; bottom: 18px; max-width: 420px; padding: 12px 18px; border-radius: 18px; border: 0; background: rgba(34, 34, 34, .92); color: #fff; font-size: 13px; line-height: 1.35; text-align: left; cursor: pointer; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); }
+    .gs-copy:hover { background: var(--blue); }
+  }
+</style>

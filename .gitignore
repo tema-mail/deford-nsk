@@ -5,3 +5,4 @@ web/node_modules/
 web/.astro/
 web/scripts/_cut.mjs
 .DS_Store
+web/scripts/_*.mjs

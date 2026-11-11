@@ -5,8 +5,10 @@
 import Site from '../../../../layouts/Site.astro';
 import VideoReviews from '../../../../components/VideoReviews.astro';
 import Hero from '../../../../components/Hero.astro';
+import GridSwitch from '../../../../components/GridSwitch.astro';
 import { C, B, P } from '../../../../data/contacts';
 import '../../../../styles/poteri.css';
+import '../../../../styles/grids-auto.css';
 const img = (n: string) => `${B}img/${n}.webp`;
 const why = [
   ['Сайта нет', 'Клиент видит вас только на картах, рядом с десятком соседей. Кто ищет «керамика на авто цена» или «ремонт вариатора ниссан», попадает на сайты, где есть такая страница.'],
@@ -54,21 +56,24 @@ const faq = [
     </div>
   </Hero>
 
+  <!-- Ниже первого экрана у каждого блока 5 композиционных сеток (Артём 11.11.2026). Разметка одна, вид – data-g, сетки – styles/grids-auto.css -->
+
   <!-- 1а. Три свойства этого спроса -->
-  <section class="trio-band">
+  <section class="sec gb-trio" data-gb="trio" data-g-title="Свойства спроса" data-g-names="Три карточки в ряд|Строки с разделителями|Одна тёмная плашка|Заголовок слева, карточки справа|Крупный текст списком">
     <div class="wrap">
-      <div class="grid on-bg" style="--c:3">
-        <article class="card rv"><h3 class="h3">Горячие</h3><p>Ищут, кто сделает, а не «как сделать своими руками»</p></article>
-        <article class="card rv" style="--d:.06s"><h3 class="h3">Бесплатные</h3><p>Клиент из поиска не стоит денег за клик, как в Директе</p></article>
-        <article class="card rv" style="--d:.12s"><h3 class="h3">Каждый день</h3><p>Спрос не заканчивается, его забирают конкуренты</p></article>
+      <h2 class="h2 g-title">Это не просмотры, <span class="m">а люди с задачей</span></h2>
+      <div class="trio">
+        <article class="card rv"><span class="num">01</span><h3 class="h3">Горячие</h3><p>Ищут, кто сделает, а не «как сделать своими руками»</p></article>
+        <article class="card rv" style="--d:.06s"><span class="num">02</span><h3 class="h3">Бесплатные</h3><p>Клиент из поиска не стоит денег за клик, как в Директе</p></article>
+        <article class="card rv" style="--d:.12s"><span class="num">03</span><h3 class="h3">Каждый день</h3><p>Спрос не заканчивается, его забирают конкуренты</p></article>
       </div>
     </div>
   </section>
 
   <!-- 2. Потери по нишам: карточки рисует скрипт -->
-  <section class="sheet" id="nishi">
+  <section class="sheet gb-nishi" id="nishi" data-gb="nishi" data-g-title="Ниши" data-g-names="Заголовок сверху, 3 колонки|Заголовок слева, 2 колонки|4 колонки компактно|Строки-таблица|Главная ниша крупно">
     <div class="wrap">
-      <div class="sec-head rv">
+      <div class="g-head sec-head rv">
         <div>
           <h2 class="h2">Сколько клиентов и денег <span class="m">проходит мимо – по нишам</span></h2>
           <p class="lead">Найдите свою нишу. В карточке – три самые искомые услуги, «Смотреть все» покажет до десяти. Сумма – сколько в месяц уходит тем, у кого сайт в топе, если у вас сайта нет.</p>
@@ -84,15 +89,15 @@ const faq = [
   </section>
 
   <!-- 3. Калькулятор: своя ниша, свои услуги и свой чек -->
-  <section class="sec" id="kalkulyator">
+  <section class="sec gb-calc" id="kalkulyator" data-gb="calc" data-g-title="Калькулятор" data-g-names="Ввод слева, итог справа|Итог слева, ввод справа|Итог полосой сверху|Заголовок и итог слева|Три колонки">
     <div class="wrap">
-      <div class="sec-head rv"><h2 class="h2">Посчитайте <span class="b">по своим услугам</span> <span class="m">и своему чеку</span></h2></div>
       <div class="calc">
+        <div class="g-head sec-head rv"><h2 class="h2">Посчитайте <span class="b">по своим услугам</span> <span class="m">и своему чеку</span></h2></div>
+        <div class="calc-set rv">
+          <label class="calc-step">1. Ниша<select id="niche"></select></label>
+          <label class="calc-step">2. Что у вас сейчас<select id="state"><option value="none">Сайта нет</option><option value="landing">Есть лендинг на одну страницу</option><option value="weak">Сайт есть, но не продвигается</option></select></label>
+        </div>
         <div class="calc-in rv">
-          <div class="calc-row">
-            <label class="calc-step">1. Ниша<select id="niche"></select></label>
-            <label class="calc-step">2. Что у вас сейчас<select id="state"><option value="none">Сайта нет</option><option value="landing">Есть лендинг на одну страницу</option><option value="weak">Сайт есть, но не продвигается</option></select></label>
-          </div>
           <div class="calc-step">3. Ваши услуги <small>Снимите лишние; <span id="chk-src">чек – оценка по рынку, впишите свой</span></small></div>
           <div class="p-chips" id="chips"></div>
           <p class="small" id="est" hidden>* – оценка: цен на эту услугу в прайсах города не нашли</p>
@@ -104,7 +109,7 @@ const faq = [
             <div><b id="r-m">…</b><span><span class="js-cur">₽</span> в месяц выручки проходит мимо вас</span></div>
             <div><b id="r-cl">…</b><span>клиентов в месяц уходят к другим</span></div>
             <div><b id="r-d">…</b><span><span class="js-cur">₽</span> в день</span></div>
-            <div style="grid-column:1/-1"><b id="r-y">…</b><span><span class="js-cur">₽</span> за год</span></div>
+            <div><b id="r-y">…</b><span><span class="js-cur">₽</span> за год</span></div>
           </div>
           <details><summary>Как считаем</summary>
             <p class="p-formula" id="formula">Горячие поиски × доля переходов на сайты × доля сайта в топ-3 × доля звонков × доля доехавших × средний чек.</p>
@@ -116,61 +121,80 @@ const faq = [
     </div>
   </section>
 
-  <!-- 4–5. Почему не работает то, что есть, и как сайт забирает этих клиентов -->
-  <section class="sheet">
+  <!-- 4. Почему не работает то, что есть -->
+  <section class="sheet gb-why" data-gb="why" data-g-title="Почему не работает" data-g-names="Три карточки в ряд|Заголовок слева, строки справа|Одна крупная и две малые|Колонки без подложек|Фото и карточки">
     <div class="wrap">
-      <div class="sec-head rv"><h2 class="h2">Карты, лендинг и «просто сайт» <span class="m">не ловят поиск по услугам</span></h2></div>
-      <div class="grid" style="--c:3">
+      <div class="g-head sec-head rv"><h2 class="h2">Карты, лендинг и «просто сайт» <span class="m">не ловят поиск по услугам</span></h2></div>
+      <figure class="g-photo rv"><img src={img('gen/auto-hero')} alt="Мастер автосервиса с планшетом у машины на подъёмнике" width="1536" height="864" loading="lazy"></figure>
+      <div class="why">
         {why.map(([t, d], i) => <article class="card rv" style={`--d:${i * .06}s`}><span class="num">0{i + 1}</span><h3 class="h3">{t}</h3><p>{d}</p></article>)}
       </div>
-      <div class="sec-head rv" style="margin-top:clamp(56px,6vw,96px)"><h2 class="h2">Страница под каждую услугу и марку – <span class="b">каждая ловит свой запрос</span></h2></div>
+    </div>
+  </section>
+
+  <!-- 5. Как сайт забирает этих клиентов -->
+  <section class="sec gb-flow" data-gb="flow" data-g-title="Как работает" data-g-names="Четыре шага в ряд|Заголовок слева, шаги лентой|Сетка 2×2|Шкала с точками|Шаги и фото">
+    <div class="wrap">
+      <div class="g-head sec-head rv"><h2 class="h2">Страница под каждую услугу и марку – <span class="b">каждая ловит свой запрос</span></h2></div>
       <ol class="flow">
         {steps.map(([t, d], i) => <li class="rv" style={`--d:${i * .06}s`}><span class="num">0{i + 1}</span><b>{t}</b><span>{d}</span></li>)}
       </ol>
+      <figure class="g-photo rv"><img src={img('gen/auto-portrait')} alt="Мастер отдаёт ключи клиенту" width="819" height="1024" loading="lazy"></figure>
     </div>
   </section>
 
   <!-- 6. Поиск против рекламы -->
-  <section class="sec">
+  <section class="sheet gb-vs" data-gb="vs" data-g-title="Поиск и реклама" data-g-names="Текст во всю ширину|Заголовок слева, текст справа|Тёмная плашка|Текст на фото|Сравнение двух карточек">
     <div class="wrap">
       <div class="vs rv">
-        <h2 class="h2">В рекламе за этого клиента <span class="m">платите каждый раз.</span> <span class="b">Из поиска он приходит бесплатно</span></h2>
-        <p class="lead">Реклама нужна для быстрого старта, пока сайт растёт: заявки с первой недели. Но каждый клик в ней оплачивается снова. Сайт в топе приводит тех же людей без оплаты за клик – месяц за месяцем.</p>
+        <figure class="g-photo"><img src={img('gen/auto-hero')} alt="" width="1536" height="864" loading="lazy"></figure>
+        <div class="vs-in">
+          <h2 class="h2">В рекламе за этого клиента <span class="m">платите каждый раз.</span> <span class="b">Из поиска он приходит бесплатно</span></h2>
+          <p class="lead">Реклама нужна для быстрого старта, пока сайт растёт: заявки с первой недели. Но каждый клик в ней оплачивается снова. Сайт в топе приводит тех же людей без оплаты за клик – месяц за месяцем.</p>
+        </div>
+        <div class="vs-cmp">
+          <article class="card"><small class="kick">Реклама</small><h3 class="h3">Платите за каждый клик</h3><p>Заявки с первой недели – хорошо для старта, пока сайт растёт.</p></article>
+          <article class="card blue"><small class="kick">Сайт в топе</small><h3 class="h3">Клиент приходит бесплатно</h3><p>Те же люди без оплаты за клик – месяц за месяцем.</p></article>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- 7. Доказательства: свои автосервисы, цифры Метрики -->
-  <section class="sheet" id="cases">
+  <section class="sec gb-proof" id="cases" data-gb="proof" data-g-title="Доказательства" data-g-names="Два кейса рядом|Кейсы строками: снимок и цифры|Строки вперемешку|Заголовок слева, кейсы справа|Сначала цифры, снимок внизу">
     <div class="wrap">
-      <div class="sec-head rv">
+      <div class="g-head sec-head rv">
         <div>
           <h2 class="h2">Мы сами держим автосервисы <span class="m">и проверили это на себе</span></h2>
           <p class="lead">EV Sibir и TEYES Sibir в Новосибирске – бизнесы основателя Дефорда. Цифры – из Яндекс Метрики и Вебмастера, снято 11.11.2026.</p>
         </div>
       </div>
       <div class="proof">
-        <article class="card rv">
+        <article class="card case rv">
           <figure class="shot proof-shot" data-zoom={img('ev-home')} data-alt="EV Sibir – сайт"><img src={img('ev-home')} alt="Сайт EV Sibir – сервис китайских электромобилей и гибридов" width="1600" height="1000" loading="lazy"></figure>
-          <small class="kick">Сервис электро и гибридов · новый сайт с 09.10.2026</small>
-          <h3 class="h3">EV Sibir</h3>
-          <div class="stats">
-            <div><b>15 → 222</b><span>визита из поиска: сентябрь → октябрь</span></div>
-            <div><b>1 → 15</b><span>заявок с сайта в месяц</span></div>
-            <div><b>1,2% → 2,8%</b><span>конверсия в заявку</span></div>
+          <div class="case-b">
+            <small class="kick">Сервис электро и гибридов · новый сайт с 09.10.2026</small>
+            <h3 class="h3">EV Sibir</h3>
+            <div class="stats">
+              <div><b>15 → 222</b><span>визита из поиска: сентябрь → октябрь</span></div>
+              <div><b>1 → 15</b><span>заявок с сайта в месяц</span></div>
+              <div><b>1,2% → 2,8%</b><span>конверсия в заявку</span></div>
+            </div>
+            <p>Рост пошёл через неделю после переезда на новый сайт, в основном из Google.</p>
           </div>
-          <p>Рост пошёл через неделю после переезда на новый сайт, в основном из Google.</p>
         </article>
-        <article class="card rv" style="--d:.08s">
+        <article class="card case rv" style="--d:.08s">
           <figure class="shot proof-shot" data-zoom={img('teyes-home')} data-alt="TEYES Sibir – сайт"><img src={img('teyes-home')} alt="Сайт TEYES Sibir – установочный центр в Новосибирске" width="1600" height="1000" loading="lazy"></figure>
-          <small class="kick">Установочный центр в Новосибирске</small>
-          <h3 class="h3">TEYES Sibir</h3>
-          <div class="stats">
-            <div><b>534 → 1 055</b><span>визитов из поиска в месяц: декабрь 2025 → октябрь 2026</span></div>
-            <div><b>1 454</b><span>страницы сайта в поиске Яндекса на 07.10.2026</span></div>
-            <div><b>12 599 → 19 282</b><span>показов в Яндексе за 4 недели: 14.08–10.09 → 11.09–08.10</span></div>
+          <div class="case-b">
+            <small class="kick">Установочный центр в Новосибирске</small>
+            <h3 class="h3">TEYES Sibir</h3>
+            <div class="stats">
+              <div><b>534 → 1 055</b><span>визитов из поиска в месяц: декабрь 2025 → октябрь 2026</span></div>
+              <div><b>1 454</b><span>страницы сайта в поиске Яндекса на 07.10.2026</span></div>
+              <div><b>12 599 → 19 282</b><span>показов в Яндексе за 4 недели: 14.08–10.09 → 11.09–08.10</span></div>
+            </div>
+            <p>Октябрь – лучший поиск за год при том, что рекламы стало вчетверо меньше.</p>
           </div>
-          <p>Октябрь – лучший поиск за год при том, что рекламы стало вчетверо меньше.</p>
         </article>
       </div>
       <div class="card blue strip rv">
@@ -181,32 +205,35 @@ const faq = [
   </section>
 
   <!-- 8–9. Цена и вопросы -->
-  <section class="sec">
-    <div class="wrap price-faq">
-      <div class="card dark rv">
-        <h2 class="h2" style="font-size:clamp(28px,3vw,42px)">Сайт с продвижением окупается одним-двумя заказами в месяц</h2>
-        <ul class="dots on-d">
-          <li>Страницы под ваши услуги и марки по спросу вашего города</li>
-          <li>Кабинет заявок: откуда пришёл клиент</li>
-          <li>Карты и реклама – заявки с первых недель</li>
-          <li>Ведение и рост позиций</li>
-        </ul>
-        <div class="entry"><span>Вход</span><b>от 35 000 ₽</b></div>
-        <a class="btn" href="#form">Получить расчёт</a>
-      </div>
-      <div class="faq rv" style="--d:.08s">
-        <h2 class="h2" style="font-size:clamp(28px,3vw,42px)">Что спрашивают владельцы</h2>
-        {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+  <section class="sheet gb-price" data-gb="price" data-g-title="Цена и вопросы" data-g-names="Цена слева, вопросы справа|Вопросы слева, цена справа|Цена полосой, вопросы в 2 колонки|Заголовок слева, вопросы справа, цена внизу|Вопросы карточками">
+    <div class="wrap">
+      <div class="price-faq">
+        <div class="card dark price rv">
+          <h2 class="h2 price-h">Сайт с продвижением окупается одним-двумя заказами в месяц</h2>
+          <ul class="dots on-d">
+            <li>Страницы под ваши услуги и марки по спросу вашего города</li>
+            <li>Кабинет заявок: откуда пришёл клиент</li>
+            <li>Карты и реклама – заявки с первых недель</li>
+            <li>Ведение и рост позиций</li>
+          </ul>
+          <div class="entry"><span>Вход</span><b>от 35 000 ₽</b></div>
+          <a class="btn" href="#form">Получить расчёт</a>
+        </div>
+        <h2 class="h2 faq-h rv">Что спрашивают владельцы</h2>
+        <div class="faq rv" style="--d:.08s">
+          {faq.map(([q, a]) => <details open><summary>{q}</summary><p>{a}</p></details>)}
+        </div>
       </div>
     </div>
   </section>
 
-  <VideoReviews count={4} />
+  <VideoReviews count={4} gb="reviews" />
 
   <!-- 10. Заявка -->
-  <section class="sec" id="form">
+  <section class="sheet gb-form" id="form" data-gb="form" data-g-title="Заявка" data-g-names="Текст слева, форма справа|Форма слева, текст справа|По центру|Фото и форма|Форма в одну строку">
     <div class="wrap">
       <div class="lead-box">
+        <figure class="g-photo"><img src={img('gen/auto-portrait')} alt="" width="819" height="1024" loading="lazy"></figure>
         <div class="lead-l rv">
           <h2 class="h2">Получите расчёт: <span class="b">сколько клиентов уходит от вас</span></h2>
           <p class="lead">Ваши услуги, марки и район – и кто из конкурентов забирает этих клиентов. Пришлём в Telegram или Макс.</p>
@@ -224,6 +251,8 @@ const faq = [
       </div>
     </div>
   </section>
+
+  <GridSwitch />
 
   <script is:inline src={`${B}poteri/data.js`}></script>
   <script is:inline src={`${B}poteri/calc.js`}></script>
@@ -248,58 +277,4 @@ const faq = [
   .count-big b { font-size: clamp(88px, 11vw, 168px); font-weight: 600; letter-spacing: -.07em; line-height: .9; color: var(--blue); }
   .count-big > span:not(.live) { font-size: 18px; font-weight: 600; letter-spacing: -.02em; }
   @media (max-width: 1024px) { .count-big { height: auto; min-height: 300px; } }
-  .trio-band { padding-top: 16px; }
-
-  .src-box { display: grid; gap: 8px; justify-items: end; text-align: right; max-width: 320px; }
-  @media (max-width: 900px) { .src-box { justify-items: start; text-align: left; } }
-  .strip { margin-top: 16px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
-  .strip .h3 { max-width: 760px; }
-  @media (max-width: 760px) { .strip { flex-direction: column; align-items: flex-start; } }
-
-  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: f; }
-  .flow li { position: relative; background: var(--card); border-radius: var(--r-card); padding: 26px; display: grid; gap: 10px; align-content: start; }
-  .flow li:not(:last-child)::after { content: ''; position: absolute; right: -14px; top: 40px; z-index: 1; width: 12px; height: 12px; border-top: 2px solid var(--blue); border-right: 2px solid var(--blue); transform: rotate(45deg); }
-  .flow b { font-size: 20px; letter-spacing: -.03em; }
-  .flow span:last-child { color: var(--mute); font-size: 15px; }
-  @media (max-width: 1024px) { .flow { grid-template-columns: 1fr 1fr; } .flow li::after { display: none; } }
-  @media (max-width: 560px) { .flow { grid-template-columns: 1fr; } }
-
-  .whence { font-size: 14px; color: var(--mute); }
-  .whence summary { cursor: pointer; font-weight: 600; color: var(--ink); }
-  .whence p { margin-top: 8px; }
-  .vs { display: grid; gap: 20px; max-width: 980px; }
-  .proof { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .proof .card { gap: 12px; }
-  .proof-shot { aspect-ratio: 16 / 9; margin: 0 0 6px; border-radius: 18px; }
-  .proof-shot img { object-position: top; }
-  .kick { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
-  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .stats div { background: var(--sheet); border-radius: 16px; padding: 14px; display: grid; gap: 4px; align-content: start; }
-  .stats b { font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -.04em; line-height: 1.1; }
-  .stats span { font-size: 12.5px; line-height: 1.35; color: var(--mute); }
-  @media (max-width: 1024px) { .proof { grid-template-columns: 1fr; } }
-  @media (max-width: 560px) { .stats { grid-template-columns: 1fr; } }
-
-  .price-faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 16px; align-items: start; }
-  .price-faq .card.dark { gap: 22px; }
-  .dots.on-d li { color: rgba(255, 255, 255, .75); }
-  .entry { display: flex; align-items: baseline; gap: 12px; }
-  .entry span { font-size: 14px; color: rgba(255, 255, 255, .6); }
-  .entry b { font-size: clamp(32px, 3vw, 44px); letter-spacing: -.05em; color: #5b9bff; }
-  .price-faq .btn { align-self: flex-start; }
-  .faq { background: var(--sheet); border-radius: var(--r-sheet); padding: clamp(22px, 3vw, 40px); display: grid; gap: 4px; }
-  .faq .h2 { margin-bottom: 16px; }
-  .faq details { border-top: 1px solid var(--line); }
-  .faq summary { list-style: none; cursor: pointer; padding: 18px 40px 18px 0; position: relative; font-weight: 600; font-size: 17px; letter-spacing: -.02em; }
-  .faq summary::-webkit-details-marker { display: none; }
-  .faq summary::after { content: '+'; position: absolute; right: 0; top: 12px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--card); color: var(--blue); font-size: 20px; transition: transform .3s; }
-  .faq details[open] summary::after { transform: rotate(45deg); }
-  .faq details p { padding: 0 0 18px; color: var(--mute); }
-  @media (max-width: 900px) { .price-faq { grid-template-columns: 1fr; } }
-
-  .lead-box { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 4vw, 64px); align-items: start; background: var(--sheet); border-radius: var(--r-sheet); padding: clamp(24px, 4vw, 64px); }
-  .lead-l { display: grid; gap: 20px; }
-  .lead-box .form { background: var(--card); }
-  .lead-box .form .btn { width: 100%; margin-top: 4px; }
-  @media (max-width: 900px) { .lead-box { grid-template-columns: minmax(0, 1fr); padding: 20px; } }
 </style>
