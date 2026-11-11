@@ -42,6 +42,7 @@ p { margin: 0; }
 h1, h2, h3, h4 { margin: 0; font-weight: 600; text-wrap: balance; }
 button, input, select, textarea { font: inherit; color: inherit; }
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+[hidden] { display: none !important; }
 .sr { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 .wrap { max-width: calc(var(--wrap) + var(--gut) * 2); margin: 0 auto; padding-inline: var(--gut); }

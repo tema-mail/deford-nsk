@@ -28,6 +28,11 @@ shutil.copytree(root / 'razbor', out / 'razbor')
 # Дизайн (Astro, web/) → site/design/ – до оглавления, чтобы попал в /karta/
 import os
 env = dict(os.environ, PATH=str(pathlib.Path.home() / '.local/node/bin') + os.pathsep + os.environ.get('PATH', ''))
+# Данные и расчёт калькулятора потерь – один источник: deford-poteri/site. Есть папка рядом – берём свежее, нет – остаются копии из репо.
+poteri = pathlib.Path.home() / 'Sites/deford-poteri/site'
+for name in ('data.js', 'calc.js', 'city.js'):
+    if (poteri / name).exists():
+        shutil.copy(poteri / name, root / 'web/public/poteri' / name)
 if subprocess.run(['npm', 'run', 'build'], cwd=root / 'web', env=env).returncode:
     sys.exit('сборка дизайна упала')
 design = []

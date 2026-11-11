@@ -1,0 +1,78 @@
+---
+// «Все услуги и поиск» – дизайн прототипа deford-poteri/avtoservis/uslugi (v1, 11.11.2026).
+// Таблицу и поиск ведёт public/poteri/uslugi.js; расчёты – calc.js, город – city.js.
+import Site from '../../../../../layouts/Site.astro';
+import { B } from '../../../../../data/contacts';
+import '../../../../../styles/poteri.css';
+---
+<Site title="Сколько клиентов вы теряете на своей услуге – поиск по автоуслугам | Дефорд" description="Вбейте свою услугу: покажем, сколько раз её ищут в вашем городе и сколько клиентов и выручки уходит мимо без сайта в поиске.">
+  <a slot="cta" class="btn" href="../#form">Получить расчёт</a>
+  <span slot="sheet-cta">Получить расчёт</span>
+
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap">
+      <a class="back rv" href="../">← Потери по нишам</a>
+      <h1 class="h1 rv" style="--d:.05s">Вбейте свою услугу – покажем, <span class="b">сколько клиентов вы на ней теряете</span></h1>
+      <div class="find rv" style="--d:.1s">
+        <input class="p-search" id="q" type="search" placeholder="Керамика, ГРМ, русификация…" aria-label="Поиск услуги" autocomplete="off">
+        <button class="btn" id="find" type="button">Найти</button>
+      </div>
+      <div class="opts rv" style="--d:.15s">
+        <button class="city-btn js-city-btn" type="button">Новосибирск ▾</button>
+        <label class="state">Что у вас сейчас
+          <select id="state"><option value="none">Сайта нет</option><option value="landing">Есть лендинг на одну страницу</option><option value="weak">Сайт есть, но не продвигается</option></select>
+        </label>
+      </div>
+    </div>
+  </section>
+
+  <section class="sheet" id="cases">
+    <div class="wrap">
+      <div class="p-sum" id="sum">…</div>
+      <div class="tbl-wrap">
+        <table class="svc-tbl" id="tbl">
+          <thead><tr><th>Услуга</th><th class="n">Ищут<span class="w-hide-m"> в месяц</span></th><th class="n w-hide-m">Клиентов мимо</th><th class="n">Мимо вас<span class="w-hide-m"> в месяц</span></th><th class="n"><span class="w-hide-m">Ваш </span>чек, <span class="js-cur">₽</span></th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <button class="btn ghost p-more" id="more" type="button">Показать все услуги</button>
+      <div class="p-empty" id="empty" hidden>
+        <p><b>Такой услуги в списке пока нет.</b> Оставьте заявку – снимем спрос по ней в вашем городе и пришлём расчёт.</p>
+        <a class="btn" href="../#form">Снять спрос по моей услуге</a>
+      </div>
+      <p class="small js-src" style="margin-top:20px"></p>
+      <div class="card dark strip rv">
+        <h3 class="h3">Пришлём расчёт по всем вашим услугам сразу – и покажем, кто из конкурентов забирает этих клиентов</h3>
+        <div class="btns"><a class="btn" href="../#form">Получить расчёт</a><a class="btn white" href="../#nishi">Потери по нишам</a></div>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline src={`${B}poteri/data.js`}></script>
+  <script is:inline src={`${B}poteri/calc.js`}></script>
+  <script is:inline src={`${B}poteri/city.js`}></script>
+  <script is:inline src={`${B}poteri/uslugi.js`}></script>
+</Site>
+
+<style>
+  .hero { position: relative; overflow: hidden; background: #111214; color: #fff; border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 140px 0 56px; }
+  .hero-glow { position: absolute; inset: auto -10% -60% 35%; height: 130%; background: radial-gradient(closest-side, rgba(15, 104, 255, .5), rgba(15, 104, 255, 0) 70%); pointer-events: none; }
+  .hero .wrap { position: relative; }
+  .back { display: inline-block; font-size: 14px; font-weight: 500; color: rgba(255, 255, 255, .6); }
+  .back:hover { color: #fff; }
+  .hero .h1 { margin-top: 18px; color: #fff; font-size: clamp(34px, 4.6vw, 68px); max-width: 1100px; }
+  .hero .h1 .b { color: #5b9bff; }
+  .find { margin-top: 32px; display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 10px; max-width: 760px; }
+  .find .p-search { height: 64px; border: 0; background: #fff; color: #141414; font-size: 18px; border-radius: 16px; }
+  .find .btn { min-height: 64px; padding: 0 32px; border-radius: 16px; }
+  .opts { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 12px 20px; align-items: center; }
+  .state { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: rgba(255, 255, 255, .6); }
+  .state select { height: 40px; padding: 0 12px; border-radius: 99px; border: 0; background: rgba(255, 255, 255, .12); color: #fff; font-size: 14px; font-weight: 600; max-width: 100%; }
+  .state select option { color: #141414; }
+  .tbl-wrap { overflow-x: auto; }
+  .strip { margin-top: 40px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  .strip .h3 { max-width: 640px; }
+  @media (max-width: 900px) { .strip { flex-direction: column; align-items: flex-start; } }
+  @media (max-width: 767px) { .hero { padding: 100px 0 32px; } .find { grid-template-columns: minmax(0, 1fr); } .state { flex-wrap: wrap; } }
+</style>
