@@ -1,0 +1,301 @@
+---
+// «Сколько клиентов теряет автосервис без сайта» – дизайн прототипа deford-poteri/avtoservis (v3, 11.11.2026).
+// Цифры считают data.js + calc.js + city.js из deford-poteri (build.py копирует их в public/poteri при каждой сборке).
+// Доказательства – Метрика EV Sibir и TEYES Sibir (docs/keysy/metrika-ev-teyes-2026-11-11.md). Меток «запросить» нет: чего нет – не ставим.
+import Site from '../../../../layouts/Site.astro';
+import VideoReviews from '../../../../components/VideoReviews.astro';
+import { C, B } from '../../../../data/contacts';
+import '../../../../styles/poteri.css';
+const img = (n: string) => `${B}img/${n}.webp`;
+const why = [
+  ['Сайта нет', 'Клиент видит вас только на картах, рядом с десятком соседей. Кто ищет «керамика на авто цена» или «ремонт вариатора ниссан», попадает на сайты, где есть такая страница.'],
+  ['Лендинг на одну страницу', 'Одна страница – один запрос. Поиск показывает страницу, которая отвечает ровно на вопрос. «Полировка», «оклейка плёнкой», «русификация Zeekr» – это разные страницы, а у лендинга их нет.'],
+  ['Сайт без продвижения', 'Страницы есть, но стоят на третьей странице выдачи. Туда доходит 1 человек из 100. Сайт есть – клиентов с него нет.'],
+];
+const steps = [
+  ['Человек ищет', 'свою задачу: «перетяжка руля», «чип-тюнинг», «ремонт акпп»'],
+  ['Видит вашу страницу', 'под эту услугу – цена, сроки, гарантия, фото работ'],
+  ['Звонит или пишет', 'кнопка звонка, Telegram, Макс, запись'],
+  ['Вы видите в кабинете', 'откуда пришёл клиент и с какой страницы'],
+];
+const faq = [
+  ['У меня и так запись на неделю вперёд, зачем мне сайт?', 'Запись сегодня – не запись в межсезонье. Сайт даёт поток на дорогие работы вашей ниши, а не только на то, что и так идёт по сарафану.'],
+  ['Когда пойдут клиенты из поиска?', 'Первые позиции – это месяцы, а не дни. У нашего EV Sibir поиск пошёл через неделю после переезда на новый сайт, но это Google и узкая ниша. До топа заявки дают карты и контекстная реклама.'],
+  ['Моего города нет в списке', 'Снимем спрос по вашему городу и нише по заявке и пришлём расчёт. Нажмите на город вверху страницы и выберите «Другой город».'],
+  ['Откуда цифры?', 'Статистика поисковых запросов по вашему городу за прошлый месяц. Мы убираем «своими руками» и прочие не-покупательские запросы.'],
+];
+---
+<Site title="Сайт для автосервиса с продвижением – клиенты из поиска | Дефорд" description="Покажем, сколько клиентов в вашем городе ищут ваши услуги каждый день и сколько из них уходит к конкурентам. Сайт со страницей под каждую услугу и марку.">
+  <a slot="cta" class="btn" href="#kalkulyator">Посчитать потери</a>
+  <span slot="sheet-cta">Получить расчёт</span>
+
+  <!-- 1. Первый экран: живой счётчик по спросу в городе -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+      <div class="hero-txt">
+        <button class="city-btn js-city-btn rv" type="button">Новосибирск ▾</button>
+        <h1 class="h1 rv" style="--d:.05s">Каждый день ваш автосервис <span class="b">теряет клиентов</span>, которые уже ищут ваши услуги</h1>
+        <p class="hero-lead rv" style="--d:.1s">В <b class="js-city-in">Новосибирске</b> ваши услуги ищут <b class="js-month">…</b> раз в месяц: от замены масла и кузовного до керамики, русификации и перетяжки салона. Это люди с задачей и деньгами. Нет сайта со страницей под их услугу – звонят не вам.</p>
+        <div class="btns rv" style="--d:.15s">
+          <a class="btn" href="#nishi">Сколько теряет моя ниша</a>
+          <a class="btn white" href="services/">Найти свою услугу</a>
+        </div>
+        <p class="hero-hint rv" style="--d:.2s">Расчёт – на статистике поиска по вашему городу, без звонка и регистрации</p>
+      </div>
+      <div class="hero-side">
+        <div class="counter rv" style="--d:.2s">
+          <span class="counter-l"><span id="today-l">Сегодня с 8:00</span> в <span class="js-city-in">Новосибирске</span> автобизнес без сайта в поиске упустил</span>
+          <b id="today">…</b>
+          <span class="counter-s">горячих поисков автоуслуг</span>
+          <span class="counter-live"><i></i>Счётчик идёт в течение дня</span>
+        </div>
+        <div class="trio">
+          <div class="badge rv" style="--d:.3s"><b>Горячие</b><span>ищут, кто сделает, а не «как своими руками»</span></div>
+          <div class="badge rv" style="--d:.36s"><b>Бесплатные</b><span>клиент из поиска не стоит денег за клик</span></div>
+          <div class="badge rv" style="--d:.42s"><b>Каждый день</b><span>спрос не кончается, его забирают конкуренты</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Потери по нишам: карточки рисует скрипт -->
+  <section class="sheet" id="nishi">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div>
+          <h2 class="h2">Сколько клиентов и денег <span class="m">проходит мимо – по нишам</span></h2>
+          <p class="lead">Найдите свою нишу. В карточке – три самые искомые услуги, «Смотреть все» покажет до десяти. Сумма – сколько в месяц уходит тем, у кого сайт в топе, если у вас сайта нет.</p>
+        </div>
+        <div class="src-box"><button class="city-btn light js-city-btn" type="button">Новосибирск ▾</button><span class="small js-src"></span></div>
+      </div>
+      <div class="niches" id="niches"></div>
+      <div class="card dark strip rv">
+        <h3 class="h3">Не нашли свою услугу? Вбейте её в поиск – покажем, сколько клиентов вы теряете именно на ней</h3>
+        <a class="btn" href="services/">Все услуги и поиск</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Калькулятор: своя ниша, свои услуги и свой чек -->
+  <section class="sec" id="kalkulyator">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="h2">Посчитайте <span class="b">по своим услугам</span> <span class="m">и своему чеку</span></h2></div>
+      <div class="calc">
+        <div class="calc-in rv">
+          <div class="calc-row">
+            <label class="calc-step">1. Ниша<select id="niche"></select></label>
+            <label class="calc-step">2. Что у вас сейчас<select id="state"><option value="none">Сайта нет</option><option value="landing">Есть лендинг на одну страницу</option><option value="weak">Сайт есть, но не продвигается</option></select></label>
+          </div>
+          <div class="calc-step">3. Ваши услуги <small>Снимите лишние; <span id="chk-src">чек – оценка по рынку, впишите свой</span></small></div>
+          <div class="p-chips" id="chips"></div>
+          <p class="small" id="est" hidden>* – оценка: цен на эту услугу в прайсах города не нашли</p>
+          <p class="small" id="weak" hidden>° – цена по одному прайсу или «от»: скорее нижняя граница</p>
+        </div>
+        <div class="calc-out rv" style="--d:.08s">
+          <div class="p-res">
+            <div><b id="r-m">…</b><span><span class="js-cur">₽</span> в месяц выручки проходит мимо вас</span></div>
+            <div><b id="r-cl">…</b><span>клиентов в месяц уходят к другим</span></div>
+            <div><b id="r-d">…</b><span><span class="js-cur">₽</span> в день</span></div>
+            <div style="grid-column:1/-1"><b id="r-y">…</b><span><span class="js-cur">₽</span> за год</span></div>
+          </div>
+          <details><summary>Как считаем</summary>
+            <p class="p-formula">Горячие поиски × 50% переходят на сайты (остальные – карты и агрегаторы; для «автосервис», «шиномонтаж», «автоэлектрик» – 25%) × 20% достаются сайту в топ-3 × 8% звонят или пишут × 60% доезжают × средний чек. Лендинг забирает около 15% этого, сайт без продвижения около 10%, без сайта – 0.</p>
+          </details>
+          <a class="btn" href="#form">Получить точный расчёт</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4–5. Почему не работает то, что есть, и как сайт забирает этих клиентов -->
+  <section class="sheet">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="h2">Карты, лендинг и «просто сайт» <span class="m">не ловят поиск по услугам</span></h2></div>
+      <div class="grid" style="--c:3">
+        {why.map(([t, d], i) => <article class={`card rv${i === 2 ? ' dark' : ''}`} style={`--d:${i * .06}s`}><span class="num">0{i + 1}</span><h3 class="h3">{t}</h3><p>{d}</p></article>)}
+      </div>
+      <div class="sec-head rv" style="margin-top:clamp(56px,6vw,96px)"><h2 class="h2">Страница под каждую услугу и марку – <span class="b">каждая ловит свой запрос</span></h2></div>
+      <ol class="flow">
+        {steps.map(([t, d], i) => <li class="rv" style={`--d:${i * .06}s`}><span class="num">0{i + 1}</span><b>{t}</b><span>{d}</span></li>)}
+      </ol>
+    </div>
+  </section>
+
+  <!-- 6. Поиск против рекламы -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="vs rv">
+        <h2 class="h2">В рекламе за этого клиента <span class="m">платите каждый раз.</span> <span class="b">Из поиска он приходит бесплатно</span></h2>
+        <p class="lead">Реклама нужна для быстрого старта, пока сайт растёт: заявки с первой недели. Но каждый клик в ней оплачивается снова. Сайт в топе приводит тех же людей без оплаты за клик – месяц за месяцем.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. Доказательства: свои автосервисы, цифры Метрики -->
+  <section class="sheet" id="cases">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div>
+          <h2 class="h2">Мы сами держим автосервисы <span class="m">и проверили это на себе</span></h2>
+          <p class="lead">EV Sibir и TEYES Sibir в Новосибирске – бизнесы основателя Дефорда. Цифры – из Яндекс Метрики, снято 11.11.2026.</p>
+        </div>
+      </div>
+      <div class="proof">
+        <article class="card rv">
+          <figure class="shot proof-shot" data-zoom={img('ev-home')} data-alt="EV Sibir – сайт"><img src={img('ev-home')} alt="Сайт EV Sibir – сервис китайских электромобилей и гибридов" width="1600" height="1000" loading="lazy"></figure>
+          <small class="kick">Сервис электро и гибридов · новый сайт с 09.10.2026</small>
+          <h3 class="h3">EV Sibir</h3>
+          <div class="stats">
+            <div><b>15 → 222</b><span>визита из поиска: сентябрь → октябрь</span></div>
+            <div><b>1 → 15</b><span>заявок с сайта в месяц</span></div>
+            <div><b>1,2% → 2,8%</b><span>конверсия в заявку</span></div>
+          </div>
+          <p>Рост пошёл через неделю после переезда на новый сайт, в основном из Google.</p>
+        </article>
+        <article class="card rv" style="--d:.08s">
+          <figure class="shot proof-shot" data-zoom={img('teyes-home')} data-alt="TEYES Sibir – сайт"><img src={img('teyes-home')} alt="Сайт TEYES Sibir – установочный центр в Новосибирске" width="1600" height="1000" loading="lazy"></figure>
+          <small class="kick">Установочный центр · страницы услуг</small>
+          <h3 class="h3">TEYES Sibir</h3>
+          <div class="stats">
+            <div><b>534 → 1 055</b><span>визитов из поиска: декабрь 2025 → октябрь 2026</span></div>
+            <div><b>1 454</b><span>страницы сайта в поиске Яндекса</span></div>
+            <div><b>12 599 → 19 282</b><span>показов в Яндексе за 4 недели, август → октябрь</span></div>
+          </div>
+          <p>Октябрь – лучший поиск за год при том, что рекламы стало вчетверо меньше.</p>
+        </article>
+      </div>
+      <div class="card blue strip rv">
+        <h3 class="h3">Разберём ваш сайт или карточку на картах: каких страниц не хватает и кто из конкурентов забирает ваших клиентов</h3>
+        <a class="btn white" href="#form">Получить разбор</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8–9. Цена и вопросы -->
+  <section class="sec">
+    <div class="wrap price-faq">
+      <div class="card dark rv">
+        <h2 class="h2" style="font-size:clamp(28px,3vw,42px)">Сайт с продвижением окупается одним-двумя заказами в месяц</h2>
+        <ul class="dots on-d">
+          <li>Страницы под ваши услуги и марки по спросу вашего города</li>
+          <li>Кабинет заявок: откуда пришёл клиент</li>
+          <li>Карты и реклама – заявки с первых недель</li>
+          <li>Ведение и рост позиций</li>
+        </ul>
+        <div class="entry"><span>Вход</span><b>от 35 000 ₽</b></div>
+        <a class="btn" href="#form">Получить расчёт</a>
+      </div>
+      <div class="faq rv" style="--d:.08s">
+        <h2 class="h2" style="font-size:clamp(28px,3vw,42px)">Что спрашивают владельцы</h2>
+        {faq.map(([q, a]) => <details><summary>{q}</summary><p>{a}</p></details>)}
+      </div>
+    </div>
+  </section>
+
+  <VideoReviews count={4} />
+
+  <!-- 10. Заявка -->
+  <section class="sec" id="form">
+    <div class="wrap">
+      <div class="lead-box">
+        <div class="lead-l rv">
+          <h2 class="h2">Получите расчёт: <span class="b">сколько клиентов уходит от вас</span></h2>
+          <p class="lead">Ваши услуги, марки и район – и кто из конкурентов забирает этих клиентов. Пришлём в Telegram или Макс.</p>
+          <ul class="dots"><li>Подготовьте: список услуг, марки, средний чек</li><li>Срочно – <a class="link" href={`tel:${C.tel}`}>{C.telText}</a></li></ul>
+        </div>
+        <form class="form card rv" data-lead style="--d:.08s">
+          <label class="field">Имя<input name="name" autocomplete="name"></label>
+          <label class="field">Телефон<input name="phone" inputmode="tel" autocomplete="tel" required placeholder="+7 900 000-00-00"></label>
+          <label class="field">Ниша<select id="f-niche" name="niche"></select></label>
+          <label class="field">Сайт или название<input name="site"></label>
+          <label class="check"><input type="checkbox" data-agree> <span>Согласен на обработку <a href="/deford-nsk/contacts/">персональных данных</a></span></label>
+          <button class="btn" type="submit" disabled>Получить расчёт</button>
+          <div class="ok"><h3 class="h3">Заявка принята</h3><p>Пришлём расчёт в Telegram или Макс. Срочно – <a class="link" href={`tel:${C.tel}`}>позвонить</a> или <a class="link" href={C.tg} target="_blank" rel="noopener">написать в Telegram</a>.</p></div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <script is:inline src={`${B}poteri/data.js`}></script>
+  <script is:inline src={`${B}poteri/calc.js`}></script>
+  <script is:inline src={`${B}poteri/city.js`}></script>
+  <script is:inline src={`${B}poteri/avtoservis.js`}></script>
+</Site>
+
+<style>
+  .hero { position: relative; overflow: hidden; background: #111214; color: #fff; border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 150px 0 72px; }
+  .hero-glow { position: absolute; inset: auto -10% -45% 35%; height: 120%; background: radial-gradient(closest-side, rgba(15, 104, 255, .55), rgba(15, 104, 255, 0) 70%); pointer-events: none; }
+  .hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, .9fr); gap: 48px; align-items: end; }
+  .hero .h1 { margin-top: 22px; color: #fff; font-size: clamp(38px, 5vw, 76px); }
+  .hero .h1 .b { color: #5b9bff; }
+  .hero-lead { margin-top: 24px; font-size: clamp(16px, 1.3vw, 19px); line-height: 1.55; color: rgba(255, 255, 255, .72); max-width: 600px; }
+  .hero-lead b { color: #fff; }
+  .hero .btns { margin-top: 32px; }
+  .hero-hint { margin-top: 14px; font-size: 13px; color: rgba(255, 255, 255, .5); }
+  .hero-side { display: grid; gap: 10px; }
+  .counter { background: rgba(255, 255, 255, .96); color: #141414; border-radius: 28px; padding: 26px; display: grid; gap: 6px; box-shadow: 0 20px 50px rgba(0, 0, 0, .35); }
+  .counter-l { font-size: 14px; color: #6b6b6b; }
+  .counter b { font-size: clamp(56px, 6vw, 92px); font-weight: 600; letter-spacing: -.06em; line-height: 1; color: var(--blue); font-variant-numeric: tabular-nums; }
+  .counter-s { font-size: 15px; font-weight: 600; }
+  .counter-live { display: inline-flex; align-items: center; gap: 8px; margin-top: 6px; font-size: 13px; color: #6b6b6b; }
+  .counter-live i { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 0 rgba(34, 197, 94, .6); animation: pulse 1.8s infinite; }
+  @keyframes pulse { 70% { box-shadow: 0 0 0 10px rgba(34, 197, 94, 0); } 100% { box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); } }
+  .trio { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .badge { background: rgba(255, 255, 255, .08); border: 1px solid rgba(255, 255, 255, .1); border-radius: 20px; padding: 14px; display: grid; gap: 4px; }
+  .badge b { font-size: 15px; letter-spacing: -.02em; }
+  .badge span { font-size: 12.5px; line-height: 1.4; color: rgba(255, 255, 255, .6); }
+  @media (max-width: 1024px) { .hero-in { grid-template-columns: 1fr; } }
+  @media (max-width: 767px) { .hero { padding: 104px 0 32px; } .trio { grid-template-columns: 1fr; } .counter { padding: 20px; } }
+  @media (prefers-reduced-motion: reduce) { .counter-live i { animation: none; } }
+
+  .src-box { display: grid; gap: 8px; justify-items: end; text-align: right; max-width: 320px; }
+  @media (max-width: 900px) { .src-box { justify-items: start; text-align: left; } }
+  .strip { margin-top: 16px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  .strip .h3 { max-width: 760px; }
+  @media (max-width: 760px) { .strip { flex-direction: column; align-items: flex-start; } }
+
+  .flow { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; counter-reset: f; }
+  .flow li { position: relative; background: var(--card); border-radius: var(--r-card); padding: 26px; display: grid; gap: 10px; align-content: start; }
+  .flow li:not(:last-child)::after { content: ''; position: absolute; right: -14px; top: 40px; z-index: 1; width: 12px; height: 12px; border-top: 2px solid var(--blue); border-right: 2px solid var(--blue); transform: rotate(45deg); }
+  .flow b { font-size: 20px; letter-spacing: -.03em; }
+  .flow span:last-child { color: var(--mute); font-size: 15px; }
+  @media (max-width: 1024px) { .flow { grid-template-columns: 1fr 1fr; } .flow li::after { display: none; } }
+  @media (max-width: 560px) { .flow { grid-template-columns: 1fr; } }
+
+  .vs { display: grid; gap: 20px; max-width: 980px; }
+  .proof { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .proof .card { gap: 12px; }
+  .proof-shot { aspect-ratio: 16 / 9; margin: 0 0 6px; border-radius: 18px; }
+  .proof-shot img { object-position: top; }
+  .kick { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .stats div { background: var(--sheet); border-radius: 16px; padding: 14px; display: grid; gap: 4px; align-content: start; }
+  .stats b { font-size: clamp(18px, 1.6vw, 24px); letter-spacing: -.04em; line-height: 1.1; }
+  .stats span { font-size: 12.5px; line-height: 1.35; color: var(--mute); }
+  @media (max-width: 1024px) { .proof { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .stats { grid-template-columns: 1fr; } }
+
+  .price-faq { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: 16px; align-items: start; }
+  .price-faq .card.dark { gap: 22px; }
+  .dots.on-d li { color: rgba(255, 255, 255, .75); }
+  .entry { display: flex; align-items: baseline; gap: 12px; }
+  .entry span { font-size: 14px; color: rgba(255, 255, 255, .6); }
+  .entry b { font-size: clamp(32px, 3vw, 44px); letter-spacing: -.05em; color: #5b9bff; }
+  .price-faq .btn { align-self: flex-start; }
+  .faq { background: var(--sheet); border-radius: var(--r-sheet); padding: clamp(22px, 3vw, 40px); display: grid; gap: 4px; }
+  .faq .h2 { margin-bottom: 16px; }
+  .faq details { border-top: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; padding: 18px 40px 18px 0; position: relative; font-weight: 600; font-size: 17px; letter-spacing: -.02em; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary::after { content: '+'; position: absolute; right: 0; top: 12px; width: 32px; height: 32px; border-radius: 50%; display: grid; place-items: center; background: var(--card); color: var(--blue); font-size: 20px; transition: transform .3s; }
+  .faq details[open] summary::after { transform: rotate(45deg); }
+  .faq details p { padding: 0 0 18px; color: var(--mute); }
+  @media (max-width: 900px) { .price-faq { grid-template-columns: 1fr; } }
+
+  .lead-box { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 4vw, 64px); align-items: start; background: var(--sheet); border-radius: var(--r-sheet); padding: clamp(24px, 4vw, 64px); }
+  .lead-l { display: grid; gap: 20px; }
+  .lead-box .form { background: var(--card); }
+  .lead-box .form .btn { width: 100%; margin-top: 4px; }
+  @media (max-width: 900px) { .lead-box { grid-template-columns: minmax(0, 1fr); padding: 20px; } }
+</style>
