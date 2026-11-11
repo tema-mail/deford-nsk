@@ -1,0 +1,152 @@
+---
+// Общий каркас страниц Дефорда: шапка, подвал, таб-бар на телефоне с окном «Связаться», окно для фото, появление блоков,
+// тёмная тема (вечером 19–7 и при тёмной теме системы сама, кнопка в шапке переключает и запоминает – правило 10.11.2026).
+// Стенд закрыт от поиска (noindex). Счётчиков нет – их ставим только в бою (правило 10.11.2026).
+import '@fontsource-variable/inter';
+import '../styles/site.css';
+import { C, B, P } from '../data/contacts';
+
+interface Props { title: string; description: string }
+const { title, description } = Astro.props;
+const nav = [
+  ['Услуги', `${P}services/`], ['Сайты', `${P}services/websites/`], ['Реклама', `${P}services/ads/`],
+  ['Цены', `${P}prices/`], ['Отзывы', `${P}reviews/`], ['О нас', `${P}about/`],
+];
+---
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="robots" content="noindex,nofollow">
+  <title>{title}</title>
+  <meta name="description" content={description}>
+  <meta property="og:title" content={title}>
+  <meta property="og:description" content={description}>
+  <meta property="og:image" content={`${B}img/artem-ava.webp`}>
+  <meta name="theme-color" content="#0f68ff">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%230f68ff'/%3E%3Ctext x='7' y='23' font-family='Arial' font-weight='700' font-size='20' fill='white'%3Ed%3C/text%3E%3C/svg%3E">
+  <style data-tema-v1>/* тема – токены в site.css */</style>
+  <script is:inline data-tema-v1>(function(){var t;try{t=localStorage.getItem('tema')}catch(e){}
+if(!t){var h=new Date().getHours();t=(h>=19||h<7||(window.matchMedia&&matchMedia('(prefers-color-scheme: dark)').matches))?'dark':'light'}
+document.documentElement.setAttribute('data-theme',t)})();</script>
+</head>
+<body>
+  <header class="hdr">
+    <div class="wrap">
+      <div class="hdr-bar">
+        <a class="logo" href={`${P}`} aria-label="Дефорд – на главную">deford<i></i><small>Новосибирск</small></a>
+        <nav class="nav" aria-label="Разделы">{nav.map(([t, h]) => <a href={h}>{t}</a>)}</nav>
+        <div class="hdr-r">
+          <a class="hdr-tel" href={`tel:${C.tel}`}>{C.telText}</a>
+          <button class="ic-btn" type="button" id="tema-btn" aria-label="Тёмная тема">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>
+          </button>
+          <a class="ic-btn" href={C.tg} target="_blank" rel="noopener" aria-label="Написать в Telegram">
+            <svg viewBox="0 -2 24 24" aria-hidden="true"><path fill="currentColor" d="M23.04.7L19.4 19.08s-.51 1.27-1.91.66l-8.45-6.47c1.14-1.02 9.94-8.94 10.33-9.3.6-.55.22-.88-.47-.47L5.89 11.77.87 10.08S.08 9.8 0 9.19c-.08-.61.9-.94.9-.94L21.36.22s1.68-.74 1.68.48z"/></svg>
+          </a>
+          <slot name="cta"><a class="btn" href="#form">Оставить заявку</a></slot>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main><slot /></main>
+
+  <footer class="ftr">
+    <div class="wrap">
+      <div class="ftr-grid">
+        <div>
+          <a class="logo" href={`${P}`}>deford<i></i></a>
+          <p class="small" style="margin-top:14px;max-width:280px">Сайты, реклама и продвижение, которые приводят заявки. Новосибирск и вся Россия.</p>
+        </div>
+        <div><h4>Услуги</h4><ul>
+          <li><a href={`${P}services/websites/`}>Сайты</a></li>
+          <li><a href={`${P}services/websites/online-store/`}>Интернет-магазины</a></li>
+          <li><a href={`${P}services/seo/`}>SEO-продвижение</a></li>
+          <li><a href={`${P}services/ads/`}>Реклама</a></li>
+          <li><a href={`${P}services/maps/`}>Карты</a></li>
+        </ul></div>
+        <div><h4>Дефорд</h4><ul>
+          <li><a href={`${P}about/`}>О нас</a></li>
+          <li><a href={`${P}reviews/`}>Отзывы</a></li>
+          <li><a href={`${P}prices/`}>Цены</a></li>
+          <li><a href={`${P}contacts/`}>Контакты</a></li>
+        </ul></div>
+        <div>
+          <a class="ftr-tel" href={`tel:${C.tel}`}>{C.telText}</a>
+          <p class="small" style="margin-top:6px">Отвечает Артём Галимов</p>
+          <div class="soc">
+            <a href={C.tg} target="_blank" rel="noopener" aria-label="Telegram"><svg viewBox="0 -2 24 24"><path fill="currentColor" d="M23.04.7L19.4 19.08s-.51 1.27-1.91.66l-8.45-6.47c1.14-1.02 9.94-8.94 10.33-9.3.6-.55.22-.88-.47-.47L5.89 11.77.87 10.08S.08 9.8 0 9.19c-.08-.61.9-.94.9-.94L21.36.22s1.68-.74 1.68.48z"/></svg></a>
+            <a href={C.max} target="_blank" rel="noopener" aria-label="Макс"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.5C6.2 1.5 1.5 6 1.5 11.6c0 1.9.5 3.6 1.4 5.2L1.8 21.9l5.2-1.4c1.5.8 3.2 1.2 5 1.2 5.8 0 10.5-4.5 10.5-10.1S17.8 1.5 12 1.5zm0 15.6a5.5 5.5 0 110-11 5.5 5.5 0 010 11z"/></svg></a>
+            <a href={C.vk} target="_blank" rel="noopener" aria-label="ВКонтакте"><svg viewBox="0 -4.5 24 24"><path fill="currentColor" d="M13.07 14.98C4.87 14.98.2 9.35 0 0h4.1c.14 6.87 3.17 9.77 5.57 10.37V0h3.87v5.92C15.9 5.67 18.4 2.97 19.23 0h3.87c-.64 3.66-3.34 6.36-5.26 7.47 1.92.9 5 3.25 6.16 7.51h-4.26c-.91-2.85-3.19-5.05-6.2-5.35v5.35h-.47z"/></svg></a>
+          </div>
+        </div>
+      </div>
+      <div class="ftr-low">
+        <span>© Дефорд, 2026</span>
+        <a href={`${P}contacts/`}>Политика обработки данных</a>
+        <a href={`${P}contacts/`}>Согласие на обработку данных</a>
+      </div>
+    </div>
+  </footer>
+
+  <nav class="mnav" aria-label="Быстрое меню">
+    <a href={`${P}services/`}><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M4 4h7v7H4zm9 0h7v7h-7zM4 13h7v7H4zm9 0h7v7h-7z"/></svg>Услуги</a>
+    <a href="#cases"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M5 3h14a2 2 0 012 2v14a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2zm0 13.5V19h14v-4.2l-3.6-3.6-4.4 4.4-2.5-2.5L5 16.5zM8.5 6.5a2 2 0 100 4 2 2 0 000-4z"/></svg>Работы</a>
+    <a href="#reviews"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 2.5l2.9 6.2 6.6.7-5 4.5 1.4 6.6L12 17.2l-5.9 3.3 1.4-6.6-5-4.5 6.6-.7L12 2.5z"/></svg>Отзывы</a>
+    <button type="button" data-sheet-open><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M24 11.3V24H12A12 12 0 1124 11.2zM13 7H7v2h6zm4 4H7v2h10zm0 4H7v2h10z"/></svg>Связаться</button>
+  </nav>
+  <div class="msheet" id="msheet" aria-hidden="true">
+    <div class="msheet-bg" data-sheet-close></div>
+    <div class="msheet-box" role="dialog" aria-modal="true" aria-labelledby="msheet-h">
+      <span class="msheet-grab"></span>
+      <button class="msheet-x" type="button" data-sheet-close aria-label="Закрыть">×</button>
+      <b class="msheet-h" id="msheet-h">Связаться</b>
+      <a class="msheet-row" href={`tel:${C.tel}`}><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M6.6 10.8a15.1 15.1 0 006.6 6.6l2.2-2.2a1 1 0 011-.25 11.4 11.4 0 003.6.57 1 1 0 011 1V20a1 1 0 01-1 1A17 17 0 013 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.6a1 1 0 01-.25 1l-2.2 2.2z"/></svg><span><b>{C.telText}</b><small>Отвечает Артём Галимов</small></span></a>
+      <div class="msheet-soc">
+        <a href={C.tg} target="_blank" rel="noopener"><svg viewBox="0 -2 24 24"><path fill="currentColor" d="M23.04.7L19.4 19.08s-.51 1.27-1.91.66l-8.45-6.47c1.14-1.02 9.94-8.94 10.33-9.3.6-.55.22-.88-.47-.47L5.89 11.77.87 10.08S.08 9.8 0 9.19c-.08-.61.9-.94.9-.94L21.36.22s1.68-.74 1.68.48z"/></svg>Telegram</a>
+        <a href={C.max} target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M12 1.5C6.2 1.5 1.5 6 1.5 11.6c0 1.9.5 3.6 1.4 5.2L1.8 21.9l5.2-1.4c1.5.8 3.2 1.2 5 1.2 5.8 0 10.5-4.5 10.5-10.1S17.8 1.5 12 1.5zm0 15.6a5.5 5.5 0 110-11 5.5 5.5 0 010 11z"/></svg>Макс</a>
+        <a href={C.vk} target="_blank" rel="noopener"><svg viewBox="0 -4.5 24 24"><path fill="currentColor" d="M13.07 14.98C4.87 14.98.2 9.35 0 0h4.1c.14 6.87 3.17 9.77 5.57 10.37V0h3.87v5.92C15.9 5.67 18.4 2.97 19.23 0h3.87c-.64 3.66-3.34 6.36-5.26 7.47 1.92.9 5 3.25 6.16 7.51h-4.26c-.91-2.85-3.19-5.05-6.2-5.35v5.35h-.47z"/></svg>ВКонтакте</a>
+      </div>
+      <a class="btn" href="#form" data-sheet-close><slot name="sheet-cta">Оставить заявку</slot></a>
+    </div>
+  </div>
+
+  <div class="lb" id="lb" role="dialog" aria-modal="true" aria-label="Фото"><button class="lb-x" type="button" aria-label="Закрыть">×</button><img alt=""></div>
+
+  <script is:inline data-tema-v1>(function(){var b=document.getElementById('tema-btn');if(!b)return;
+function upd(){var d=document.documentElement.getAttribute('data-theme')==='dark';b.setAttribute('aria-label',d?'Светлая тема':'Тёмная тема');b.title=b.getAttribute('aria-label');b.innerHTML=d?'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 7a5 5 0 100 10 5 5 0 000-10zm0-5l1.5 3h-3zm0 20l-1.5-3h3zM2 12l3-1.5v3zm20 0l-3 1.5v-3z"/></svg>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M12 3a9 9 0 109 9 7 7 0 01-9-9z"/></svg>'}
+b.onclick=function(){var n=document.documentElement.getAttribute('data-theme')==='dark'?'light':'dark';document.documentElement.setAttribute('data-theme',n);try{localStorage.setItem('tema',n)}catch(e){}upd()};upd()})();</script>
+  <script is:inline>
+    (function () {
+      // появление блоков
+      var io = 'IntersectionObserver' in window ? new IntersectionObserver(function (es) {
+        es.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } });
+      }, { rootMargin: '0px 0px -8% 0px' }) : null;
+      document.querySelectorAll('.rv').forEach(function (el) { io ? io.observe(el) : el.classList.add('in'); });
+      // окно для фото: крестик и Esc
+      var lb = document.getElementById('lb'), im = lb.querySelector('img');
+      function shut() { lb.classList.remove('open'); document.body.classList.remove('locked'); }
+      document.addEventListener('click', function (e) {
+        var z = e.target.closest('[data-zoom]');
+        if (z) { im.src = z.getAttribute('data-zoom'); im.alt = z.getAttribute('data-alt') || ''; lb.classList.add('open'); return; }
+        if (e.target === lb || e.target.closest('.lb-x')) shut();
+      });
+      // окно «Связаться» на телефоне
+      var sh = document.getElementById('msheet');
+      document.addEventListener('click', function (e) {
+        if (e.target.closest('[data-sheet-open]')) { sh.classList.add('open'); sh.setAttribute('aria-hidden', 'false'); document.body.classList.add('locked'); }
+        else if (e.target.closest('[data-sheet-close]') && sh.contains(e.target)) { sh.classList.remove('open'); sh.setAttribute('aria-hidden', 'true'); document.body.classList.remove('locked'); }
+      });
+      document.addEventListener('keydown', function (e) { if (e.key === 'Escape') { shut(); sh.classList.remove('open'); document.body.classList.remove('locked'); } });
+      // формы: кнопка активна только с галочкой согласия (галочка пустая по умолчанию); на стенде заявка не уходит
+      document.querySelectorAll('form[data-lead]').forEach(function (f) {
+        var agree = f.querySelector('[data-agree]'), btn = f.querySelector('[type=submit]');
+        agree.addEventListener('change', function () { btn.disabled = !agree.checked; });
+        f.addEventListener('submit', function (e) { e.preventDefault(); if (!agree.checked) return; f.classList.add('sent'); });
+      });
+    })();
+  </script>
+</body>
+</html>

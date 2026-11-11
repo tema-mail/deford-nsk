@@ -1,0 +1,50 @@
+---
+// Видеоотзывы клиентов Дефорда из группы vk.ru/deford_studio (29 роликов, сняты 11.11.2026).
+// Обложка ведёт на ролик ВКонтакте – обложки видео окном не открываем (правило 11.11.2026).
+import reviews from '../data/reviews.json';
+import { C, B } from '../data/contacts';
+interface Props { count?: number; title?: string }
+const { count = 8, title = 'Клиенты Дефорда – о работе с нами' } = Astro.props;
+const list = reviews.slice(0, count);
+---
+<section class="sheet" id="reviews">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div>
+        <h2 class="h2">{title} <span class="m">на видео, без сценария</span></h2>
+        <p class="lead">Записали сами владельцы бизнеса. Всего в группе {reviews.length} видеоотзывов.</p>
+      </div>
+      <a class="btn ghost" href={`${C.vk}`} target="_blank" rel="noopener">Все отзывы ВКонтакте</a>
+    </div>
+    <div class="vr">
+      {list.map((r, i) => (
+        <a class="vr-card rv" style={`--d:${(i % 4) * 0.06}s`} href={C.vkVideo(r.id)} target="_blank" rel="noopener">
+          <span class="vr-img">
+            <img src={`${B}img/rev/${r.id}.webp`} alt={`Видеоотзыв: ${r.name}`} width="320" height="180" loading="lazy" decoding="async">
+            <span class="vr-play" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg></span>
+          </span>
+          <b>{r.name}</b>
+          {r.role && <small>{r.role}</small>}
+        </a>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .vr { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+  .vr-card { display: grid; gap: 6px; align-content: start; }
+  .vr-img { position: relative; display: block; border-radius: 20px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--card); }
+  .vr-img img { width: 100%; height: 100%; object-fit: cover; transition: transform .5s; }
+  .vr-card:hover .vr-img img { transform: scale(1.04); }
+  .vr-play { position: absolute; right: 14px; bottom: 14px; width: 46px; height: 46px; border-radius: 50%; display: grid; place-items: center; background: var(--blue); color: #fff; box-shadow: 0 6px 20px rgba(15, 104, 255, .45); }
+  .vr-play svg { width: 20px; height: 20px; margin-left: 2px; }
+  .vr-card b { margin-top: 8px; font-size: 16px; font-weight: 600; letter-spacing: -.02em; }
+  .vr-card small { font-size: 13px; color: var(--mute); }
+  @media (max-width: 1024px) { .vr { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (max-width: 680px) {
+    .vr { display: flex; overflow-x: auto; scroll-snap-type: x mandatory; margin-inline: calc(var(--gut) * -1); padding-inline: var(--gut); scrollbar-width: none; }
+    .vr::-webkit-scrollbar { display: none; }
+    .vr-card { flex: 0 0 78%; scroll-snap-align: start; }
+  }
+</style>

@@ -4,6 +4,7 @@
 - Стадия: чёрно-белый прототип главной + разбор донора. Вёрстка (Astro + Preact) – только после «да» владельца на прототип.
 - Исходники: прототип `src/glavnaya.html` (комплект ~/.claude/skills/marketolog/prototip/), разбор `razbor/`. Сборка `python3 -I build.py` → `site/` (последним шагом tema.py – тёмная тема, падает без неё). Пуш в main – выкладка на Pages.
 - Проверка прототипа: `node ~/.claude/skills/marketolog/prototip/proverka.mjs site/index.html _snimki/glavnaya`.
+- Дизайн (Артём 11.11.2026: «всё надо сделать дизайн», концепция plastcor.ru, цвета deford-studio.ru, фото и отзывы – vk.ru/deford_studio, кейсы трафика – Target Factory; чего нет – не ставим): Astro + Preact в `web/`, сборка в `site/design/` из `build.py`. Картинки: исходники `web/assets/raw` → `npm run img` → WebP в `web/public/img`. Каркас – `web/src/layouts/Site.astro`, токены и тёмная тема – `web/src/styles/site.css`, контакты – `web/src/data/contacts.ts`. Разделы, ещё не в дизайне, ссылаются на прототипы.
 - Маркетинг: `docs/marketing/` (план блоков, карта сайта), SEO: `docs/seo/` (задание, Wordstat Новосибирска).
 - Цифры только подтверждённые; нет данных – метка «[запросить: …]». Кейсы платного трафика – Target Factory (Денис Коротаев, разрешено Артёмом), SEO-кейсы и видео даст Артём.
 - Правила владельца: вход от 35 000 ₽; связь – телефон, заявка, Telegram, Макс (WhatsApp нет); кнопка называет, что человек получит; тире только «–».

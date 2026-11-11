@@ -1,0 +1,378 @@
+---
+// Нишевая страница «Сайт для цветочного магазина» – дизайн по прототипу v2
+// (sayty-agent/prototipy/deford/industry-cvety-v2.html, оффер владельца 04.11.2026). Порядок блоков – цепочка вопросов прототипа.
+// Чего нет в подтверждённых данных – не ставим (слово Артёма 11.11.2026): таблица спроса без чисел, замер нагрузки, срок ответа.
+import Site from '../../layouts/Site.astro';
+import VideoReviews from '../../components/VideoReviews.astro';
+import { C, B, P } from '../../data/contacts';
+
+const img = (n: string) => `${B}img/${n}.webp`;
+const starts = [
+  ['Продаёте в группе ВК или на Авито', 'Заказы живут в переписке, базы покупателей нет. Собираем магазин, а заказы приходят туда, где вы уже привыкли работать.'],
+  ['Сайт есть, но это один каталог', 'Нет главной, у букетов нет описаний, бонусы обещаны, а копить негде. Переносим каталог на код и достраиваем всё, что продаёт.'],
+  ['Заказы идут через агрегатор', 'Покупатель остаётся у площадки, и каждый новый заказ вы оплачиваете снова. Делаем свой канал и свою базу, чтобы второй заказ приходил к вам.'],
+  ['К датам заказов меньше, чем могло быть', 'К 8 марта и 1 сентября покупатели ищут готовое, а страниц под даты нет. Ставим подборки заранее, а на старте даём рекламу.'],
+];
+const occasions = ['Цветы с доставкой', 'Букет на 8 марта', 'Цветы на 1 сентября', 'День матери', '14 февраля', 'Свадебная флористика', 'Букет на день рождения', 'Выпускной'];
+const shop = [
+  ['M4 5h16M7 12h10M10 19h4', 'Каталог с фильтрами', 'По поводу, цвету, цене и составу. На телефоне две карточки в ряд: букет видно сразу.'],
+  ['M12 3l2.6 5.3 5.9.9-4.3 4.1 1 5.8L12 16.4 6.8 19.1l1-5.8L3.5 9.2l5.9-.9z', 'Карточка букета', 'Состав по стеблям и высота, фото именно вашей сборки и что заменим, если цветка не осталось. Так не звонят, а заказывают.'],
+  ['M4 7h16v12H4zM8 3v4m8-4v4M4 11h16', 'Подборки по поводам', '8 марта, День матери, выпускной, свадьба, извинения. Ответ тому, кто не знает, что выбрать, и страницы под спрос.'],
+  ['M3 7h11v9H3zm11 3h4l3 3v3h-7zM7 19a2 2 0 100-4 2 2 0 000 4zm10 0a2 2 0 100-4 2 2 0 000 4z', 'Доставка по дате', 'Дата и интервал в корзине, цена по районам и по сумме заказа. Яндекс Доставка, своя доставка и самовывоз.'],
+  ['M3 6h18v12H3zM3 10h18', 'Оформление и оплата', 'Эквайринг любого банка и оплата частями: Долями, Сплит, Подели. Открытка, анонимная доставка, получатель отдельно.'],
+  ['M4 12a8 8 0 0113.7-5.7L20 9M20 4v5h-5M20 12a8 8 0 01-13.7 5.7L4 15m0 5v-5h5', 'Кабинет и повторный заказ', 'Прошлый букет и адрес в два касания, свои даты и бонусы: второй заказ уже не надо оплачивать рекламой.'],
+];
+const ads = [
+  ['61363837-3', 'Реклама ВКонтакте', 'Обращение – 251 ₽ вместо 2 500–3 000 ₽', '209 тёплых обращений: реклама по району, чат-бот, рассылка, ретаргетинг.', 'https://vc.ru/id3572167/3150153-effektivnaya-reklama-tsvetochnogo-magazina-vkontakte'],
+  ['35613666-2', 'Без сайта, только ВКонтакте', '215 обращений по 245 ₽', 'Сайта у магазина не было – две связки с чат-ботом во ВКонтакте.', 'https://vc.ru/id3572167/3150182-kak-privelch-klientov-v-tsvetochnyj-magazin-cherez-vkontakte'],
+  ['63336436-1', 'Перенастройка рекламы', 'Заявка – 400 ₽ вместо 1 500–2 000 ₽', 'Разобрали группу, настроили чат-бота и воронку, протестировали аудитории.', 'https://vc.ru/marketing/3150040-reklama-vkontakte-dlya-tsvetochnogo-magazina'],
+];
+const tiers = [
+  ['Базовый', '70 000', 'Каталог с фильтрами, карточки, корзина, доставка по дате, заказы и админка.', false],
+  ['Оптимальный', '90 000', 'Плюс страницы поводов, доставки и о магазине, настройка рекламы, Метрика с целями.', true],
+  ['Расширенный', '150 000', 'Плюс личный кабинет покупателя, бонусы и повторный заказ.', false],
+];
+---
+<Site title="Сайт для цветочного магазина – интернет-магазин, который продаёт | Дефорд" description="Делаем интернет-магазины для цветочных: каталог, доставка по дате, оплата частями, кабинет и повторный заказ. Заказы с первого дня запуска. От 35 000 ₽.">
+  <a slot="cta" class="btn" href="#form">Показать спрос</a>
+  <span slot="sheet-cta">Показать спрос в моём городе</span>
+
+  <!-- 1. Первый экран: оффер владельца, доказательство – наши каталоги на телефоне -->
+  <section class="hero">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="wrap hero-in">
+      <div class="hero-txt">
+        <span class="eyebrow on-dark rv">Сайты для цветочных магазинов</span>
+        <h1 class="h1 rv" style="--d:.05s">Делаем сайты, которые <span class="b">продают цветы</span></h1>
+        <p class="hero-lead rv" style="--d:.1s">А не просто витрины, которые висят в интернете. Продажи – с первого дня запуска интернет-магазина.</p>
+        <div class="btns rv" style="--d:.15s">
+          <a class="btn" href="#form">Показать спрос в вашем городе</a>
+          <a class="btn white" href={C.tg} target="_blank" rel="noopener">Написать в Telegram</a>
+        </div>
+        <p class="hero-hint rv" style="--d:.2s">Пришлём таблицу: что ищут в вашем городе и сколько раз в месяц. Без звонка.</p>
+      </div>
+      <div class="hero-vis" aria-label="Каталоги наших цветочных магазинов на телефоне">
+        <div class="phone ph1 rv" style="--d:.15s"><img src={img('milovini-catalog-m')} alt="Каталог Milovini Flowers на телефоне: две карточки букетов в ряд" width="780" height="1600" fetchpriority="high"></div>
+        <div class="phone ph2 rv" style="--d:.3s"><img src={img('elite-catalog-m')} alt="Каталог Elite Rose на телефоне" width="780" height="1600"></div>
+        <div class="badges">
+          <div class="badge rv" style="--d:.35s"><small>Сделали</small><b>больше 10 сайтов</b><span>для цветочных магазинов</span></div>
+          <div class="badge rv" style="--d:.45s"><small>Можно начать</small><b>от 35 000 ₽</b><span>остальное частями</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. Ситуации: человек узнаёт себя -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="h2">С чего вы стартуете – <span class="m">с того и начнём</span></h2></div>
+      <div class="grid on-bg" style="--c:4">
+        {starts.map(([t, d], i) => (
+          <article class={`card rv${i === 0 ? ' dark' : ''}`} style={`--d:${i * .06}s`}>
+            <span class="num">0{i + 1}</span>
+            <h3 class="h3">{t}</h3>
+            <p>{d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. Спрос по поводам: чисел по городу клиента нет – вместо пустой таблицы предлагаем снять её бесплатно -->
+  <section class="sheet">
+    <div class="wrap demand">
+      <div class="rv">
+        <h2 class="h2">Люди ищут цветы <span class="m">к поводу. Есть ли у вас такая страница?</span></h2>
+        <p class="lead" style="margin-top:20px">Каждый повод – отдельный запрос в поиске. Нет страницы под повод – покупатель ищет ваш букет и не доходит до вас. Спрос скачет по датам, поэтому страницу под 8 марта ставим в январе, а не 7 марта вечером.</p>
+        <div class="chips occ">{occasions.map((o, i) => <span class="chip"><b>{String(i + 1).padStart(2, '0')}</b>{o}</span>)}</div>
+      </div>
+      <div class="card dark demand-cta rv" style="--d:.1s">
+        <h3 class="h3">Спрос по вашему городу и по датам снимем бесплатно</h3>
+        <p>До любого разговора о магазине: сколько раз в месяц ищут каждый повод и для каких у вас нет страницы.</p>
+        <a class="btn" href="#form">Прислать таблицу спроса</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Магазин: шесть узлов, которые видит покупатель, рядом – живой каталог -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="h2">Сайт, который работает <span class="b">как второй магазин</span></h2></div>
+      <div class="shop">
+        <div class="shop-panel">
+          {shop.map(([d, t, p], i) => (
+            <article class="card rv" style={`--d:${(i % 2) * .06}s`}>
+              <div class="card-top"><h3 class="h3">{t}</h3><span class="icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d={d} fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
+              <p>{p}</p>
+            </article>
+          ))}
+        </div>
+        <figure class="shop-shot rv">
+          <img class="ss-desk" src={img('milovini-home')} alt="Главная интернет-магазина Milovini Flowers, Самара" width="1600" height="1000" loading="lazy" data-zoom={img('milovini-home')} data-alt="Milovini Flowers – главная">
+          <div class="phone ss-phone"><img src={img('milovini-catalog-m')} alt="Каталог Milovini Flowers на телефоне" width="780" height="1600" loading="lazy"></div>
+          <figcaption><b>Milovini Flowers, Самара</b><span>Магазин на нашем коде: каталог, корзина, бонусы, кабинет</span></figcaption>
+        </figure>
+      </div>
+    </div>
+  </section>
+
+  <!-- 5. Магазин ваш: ответ на «чьё всё, если уйду» -->
+  <section class="sheet">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="h2">Магазин ваш, <span class="m">и вести его можете сами</span></h2></div>
+      <div class="grid" style="--c:3">
+        <article class="card blue rv"><h3 class="h3">Это не подписка</h3><p>Домен, заявки, аналитика, тексты и фото ваши с первого дня. После последнего платежа сайт полностью ваш.</p></article>
+        <article class="card rv" style="--d:.06s"><h3 class="h3">Букеты и цены без программиста</h3><p>Сами меняете цену, фото, состав и наличие, ставите метки, загружаете таблицей. Заявки на доске: новые, в работе, выполнены, откуда пришёл покупатель.</p></article>
+        <article class="card rv" style="--d:.12s"><h3 class="h3">Переезд без потерь</h3><p>Каталог, фото и адреса переносим сами, со старых страниц ставим 301. Цветочный магазин в Самаре так переехал с конструктора: 255 карточек товаров.</p></article>
+      </div>
+      <p class="note rv">Накануне 8 марта случайно удалить букет нельзя: удаление только внутри записи и через архив.</p>
+    </div>
+  </section>
+
+  <!-- 6. Заказы сразу: реклама в день запуска, доказательства – кейсы трафика именно цветочных -->
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div>
+          <h2 class="h2">Сайт, который <span class="b">начинает продавать сразу</span></h2>
+          <p class="lead">Поиску нужно время: первые позиции – это месяцы. Поэтому мы не сажаем вас ждать. В день запуска включаем рекламу, и заказы идут сразу, пока поиск раскачивается. Через несколько месяцев поиск забирает часть трафика на себя, и реклама становится дешевле.</p>
+        </div>
+      </div>
+      <div class="grid on-bg" style="--c:3">
+        <article class="card rv"><span class="num">01</span><h3 class="h3">Яндекс Бизнес</h3><p>Карточка в Картах и Поиске: звонки, маршрут, витрина букетов. Самый быстрый канал для магазина с адресом.</p></article>
+        <article class="card rv" style="--d:.06s"><span class="num">02</span><h3 class="h3">Яндекс Директ</h3><p>Объявления по запросам «доставка цветов» и «букет на день рождения» в вашем городе. Включается в день запуска.</p></article>
+        <article class="card dark rv" style="--d:.12s"><span class="num">03</span><h3 class="h3">Всё вместе к дате</h3><p>Нужен поток к 8 марта или 1 сентября – ставим и Бизнес, и Директ, и отдельные страницы заранее.</p></article>
+      </div>
+      <h3 class="h3 ads-h rv">Реклама цветочных магазинов – <span class="b">цифры из кабинетов</span></h3>
+      <div class="grid on-bg" style="--c:3">
+        {ads.map(([im, k, t, p, u], i) => (
+          <article class="card ad rv" style={`--d:${i * .06}s`}>
+            <figure class="shot ad-shot" data-zoom={img(im)} data-alt={t}><img src={img(im)} alt={`Кабинет рекламы: ${t}`} width="1270" height="640" loading="lazy"></figure>
+            <small class="kick">{k}</small>
+            <h3 class="h3">{t}</h3>
+            <p>{p}</p>
+            <a class="link" href={u} target="_blank" rel="noopener">Разбор кейса на vc.ru →</a>
+          </article>
+        ))}
+      </div>
+      <p class="small src rv">Кейсы команды трафика Target Factory, с которой мы запускаем рекламу цветочных магазинов.</p>
+      <div class="btns rv" style="margin-top:24px"><a class="btn" href="#form">Посчитать бюджет на старт</a></div>
+    </div>
+  </section>
+
+  <!-- 7. Работы: живые магазины крупно, снимки открываются окном -->
+  <section class="sheet" id="cases">
+    <div class="wrap">
+      <div class="sec-head rv">
+        <div>
+          <h2 class="h2">Больше десяти сайтов <span class="m">для цветочных магазинов</span></h2>
+          <p class="lead">Поэтому мы спорим с вами о составе карточки букета и о датах сезона, а не узнаём нишу по ходу проекта.</p>
+        </div>
+      </div>
+      <div class="cases">
+        <article class="case rv">
+          <figure class="shot case-shot" data-zoom={img('milovini-home')} data-alt="Milovini Flowers"><img src={img('milovini-home')} alt="Milovini Flowers – главная" width="1600" height="1000" loading="lazy"></figure>
+          <div class="case-txt"><small class="kick">Самара · перенос с конструктора</small><h3 class="h3">Milovini Flowers</h3><p>Перенесли 255 карточек с конструктора на свой код, добавили кабинет владельца. Новый цветочный собираем по этому эталону, а не с нуля.</p></div>
+        </article>
+        <article class="case rv" style="--d:.08s">
+          <figure class="shot case-shot" data-zoom={img('elite-home')} data-alt="Elite Rose"><img src={img('elite-home')} alt="Elite Rose – главная" width="1600" height="1000" loading="lazy"></figure>
+          <div class="case-txt"><small class="kick">Новосибирск · продавали только через ВК</small><h3 class="h3">Elite Rose</h3><p>Сайта не было вообще. Собрали магазин с каталогом, заказы уходят в ВК, как продавец уже привык.</p></div>
+        </article>
+      </div>
+      <div class="card dark show rv">
+        <h3 class="h3">Покажем эталонный цветочный магазин живьём и разберём ваш каталог</h3>
+        <a class="btn" href="#form">Записаться на показ</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Цена: сборки, рассрочка, что платите потом -->
+  <section class="sec" id="prices">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="h2">Сколько стоит цветочный магазин, <span class="m">и что вы платите потом</span></h2></div>
+      <div class="grid on-bg tiers" style="--c:3">
+        {tiers.map(([n, p, d, hit], i) => (
+          <article class={`card tier rv${hit ? ' dark' : ''}`} style={`--d:${i * .06}s`}>
+            {hit && <span class="tag">Чаще выбирают</span>}
+            <h3 class="h3">{n}</h3>
+            <div class="price">{p} <span>₽</span></div>
+            <p>{d}</p>
+          </article>
+        ))}
+      </div>
+      <div class="pay">
+        <div class="card blue rv">
+          <h3 class="h3">Можно начать от 35 000 ₽</h3>
+          <p>Дальше 10 000–15 000 ₽ в месяц без процентов и банка, поддержка уже внутри платежа.</p>
+          <a class="btn white" href="/sayty-agent/prototipy/deford/installment.html">Как работает рассрочка</a>
+        </div>
+        <div class="card rv" style="--d:.08s">
+          <h3 class="h3">Что платите потом</h3>
+          <table class="tbl">
+            <thead><tr><th>Что</th><th>Сколько</th><th>Кому</th></tr></thead>
+            <tbody>
+              <tr><td>Домен и сервер</td><td>по тарифу</td><td>не нам</td></tr>
+              <tr><td>Бюджет рекламы</td><td>от 1 000 ₽ в день, держите сами</td><td>Яндексу</td></tr>
+              <tr><td>Ведение и подготовка к датам</td><td>10 000 ₽ в месяц, по желанию</td><td>нам</td></tr>
+            </tbody>
+          </table>
+          <p class="small">От чего зависит цена: сколько букетов и поводов, нужен ли кабинет с бонусами, отдельный опт, какие службы доставки подключаем.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Кто делает и что после запуска -->
+  <section class="sheet">
+    <div class="wrap who">
+      <figure class="who-ph rv"><img src={img('artem-ava')} alt="Артём Галимов, основатель Дефорда" width="900" height="900" loading="lazy"></figure>
+      <div class="who-txt">
+        <h2 class="h2 rv">Кто делает ваш магазин <span class="m">и кто готовит его к 8 марта</span></h2>
+        <div class="who-card card rv">
+          <b class="who-name">Артём Галимов, основатель Дефорда</b>
+          <p>15 лет в маркетинге, сайты делаю с 2015 года. Разговариваете вы со мной: я снимаю спрос, раскладываю каталог и отвечаю за результат. Если спроса на ваши букеты в городе мало, скажу это сразу и магазин продавать не буду.</p>
+        </div>
+        <div class="who-card card rv">
+          <b class="who-name">После запуска</b>
+          <p>Добавляем страницы под спрос и заранее готовим даты: под 8 марта – в январе, под 1 сентября – в июле. Смотрим, откуда приходят заказы, и правим то, что не приносит.</p>
+          <a class="link" href={`${P}services/seo/`}>Что входит в ведение →</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <VideoReviews count={8} />
+
+  <!-- 10. Заявка: три поля, что прислать – что получите, где кончается бесплатное -->
+  <section class="sec" id="form">
+    <div class="wrap">
+      <div class="lead-box">
+        <div class="lead-l rv">
+          <h2 class="h2">Пришлите город и ссылку – <span class="b">покажем спрос на ваши букеты</span></h2>
+          <p class="lead">Можно прислать сайт, группу ВК, Авито или просто город. Получите таблицу спроса, какие страницы вам нужны и календарь дат.</p>
+          <ul class="dots">
+            <li>Таблица бесплатно и без звонка, если сами не попросите</li>
+            <li>Платная работа начинается с договора после карты магазина</li>
+            <li>Отвечает Артём: <a class="link" href={`tel:${C.tel}`}>{C.telText}</a></li>
+          </ul>
+        </div>
+        <form class="form card rv" data-lead style="--d:.08s">
+          <label class="field">Телефон или Telegram<input name="contact" autocomplete="tel" inputmode="tel" required placeholder="+7 900 000-00-00 или @ник"></label>
+          <label class="field">Город<input name="city" autocomplete="address-level2" required placeholder="Новосибирск"></label>
+          <label class="field">Сайт или группа, если есть<input name="site" placeholder="vk.ru/… или сайт"></label>
+          <label class="check"><input type="checkbox" data-agree> <span>Согласен на <a href={`${P}contacts/`}>обработку персональных данных</a></span></label>
+          <button class="btn" type="submit" disabled>Прислать спрос по моему городу</button>
+          <div class="ok">
+            <h3 class="h3">Заявка принята</h3>
+            <p>Спрос снимет Артём Галимов и пришлёт таблицу. Чтобы замер был точным, пришлите ссылку на каталог или прайс.</p>
+            <p>Срочно – <a class="link" href={C.tg} target="_blank" rel="noopener">написать в Telegram</a> или <a class="link" href={C.max} target="_blank" rel="noopener">в Макс</a>.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+</Site>
+
+<style>
+  .hero { position: relative; overflow: hidden; background: #111214; color: #fff; border-radius: 0 0 var(--r-sheet) var(--r-sheet); padding: 150px 0 72px; }
+  .hero-glow { position: absolute; inset: auto -10% -40% 30%; height: 120%; background: radial-gradient(closest-side, rgba(15, 104, 255, .55), rgba(15, 104, 255, 0) 70%); pointer-events: none; }
+  .hero-in { position: relative; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 48px; align-items: center; }
+  .hero .eyebrow.on-dark { background: rgba(255, 255, 255, .1); color: #fff; }
+  .hero .h1 { margin-top: 22px; color: #fff; }
+  .hero .h1 .b { color: #5b9bff; }
+  .hero-lead { margin-top: 24px; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.5; color: rgba(255, 255, 255, .72); max-width: 560px; }
+  .hero .btns { margin-top: 36px; }
+  .hero-hint { margin-top: 14px; font-size: 13px; color: rgba(255, 255, 255, .5); }
+  .hero-vis { position: relative; min-height: 600px; }
+  .hero-vis .phone { position: absolute; max-width: 270px; }
+  .ph1 { left: 4%; top: 0; transform: rotate(-5deg); }
+  .ph2 { left: 40%; top: 70px; transform: rotate(5deg); }
+  .ph1.rv { transform: rotate(-5deg) translateY(40px); }
+  .ph2.rv { transform: rotate(5deg) translateY(40px); }
+  .ph1.rv.in { transform: rotate(-5deg); }
+  .ph2.rv.in { transform: rotate(5deg); }
+  .badges { position: absolute; right: 0; top: 24px; display: grid; gap: 10px; width: 210px; }
+  .badge { background: rgba(255, 255, 255, .94); color: #141414; border-radius: 20px; padding: 16px 18px; box-shadow: 0 10px 30px rgba(0, 0, 0, .25); display: grid; gap: 2px; }
+  .badge small { font-size: 12px; color: #6b6b6b; }
+  .badge b { font-size: 22px; letter-spacing: -.04em; line-height: 1.1; color: var(--blue); }
+  .badge span { font-size: 13px; color: #2f2f2f; }
+  @media (max-width: 1100px) { .badges { top: auto; bottom: 0; } }
+  @media (max-width: 900px) {
+    .hero { padding: 112px 0 40px; }
+    .hero-in { grid-template-columns: 1fr; gap: 24px; }
+    .hero-vis { min-height: 0; display: flex; gap: 12px; justify-content: center; padding-top: 12px; }
+    .hero-vis .phone { position: relative; left: auto; top: auto; max-width: 46%; border-radius: 30px; padding: 6px; }
+    .hero-vis .phone img { border-radius: 25px; }
+    .hero-vis .phone::before { top: 12px; width: 48px; height: 13px; margin-left: -24px; }
+    .ph2 { margin-top: 36px; }
+    .badges { position: absolute; left: 0; right: 0; bottom: -4px; width: auto; grid-template-columns: 1fr 1fr; }
+    .badge { padding: 12px 14px; }
+    .badge b { font-size: 18px; }
+  }
+
+  .demand { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); gap: 32px; align-items: end; }
+  .occ { margin-top: 28px; }
+  .occ .chip { background: var(--card); }
+  .demand-cta { gap: 18px; }
+  .demand-cta .btn { align-self: flex-start; margin-top: 8px; }
+  @media (max-width: 900px) { .demand { grid-template-columns: 1fr; } }
+
+  .shop { display: grid; grid-template-columns: minmax(0, 1.45fr) minmax(0, 1fr); gap: 16px; }
+  .shop-panel { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; background: var(--sheet); border-radius: var(--r-sheet); padding: 16px; }
+  .shop-panel .card { background: var(--card); }
+  .shop-shot { position: relative; margin: 0; border-radius: var(--r-sheet); overflow: hidden; background: #111214; padding: 28px 28px 0; display: flex; flex-direction: column; min-height: 520px; }
+  .shop-shot::before { content: ''; position: absolute; inset: auto -30% -30% -10%; height: 70%; background: radial-gradient(closest-side, rgba(15, 104, 255, .5), transparent 70%); }
+  .ss-desk { position: relative; width: 100%; border-radius: 14px; box-shadow: 0 20px 40px rgba(0, 0, 0, .35); }
+  .ss-phone { position: absolute; right: 24px; bottom: -70px; width: 46%; max-width: 230px; border-radius: 34px; padding: 7px; }
+  .ss-phone img { border-radius: 28px; }
+  .shop-shot figcaption { position: relative; margin-top: auto; padding: 24px 52% 28px 0; color: #fff; display: grid; gap: 4px; }
+  .shop-shot figcaption b { font-size: 18px; letter-spacing: -.02em; }
+  .shop-shot figcaption span { font-size: 14px; color: rgba(255, 255, 255, .6); }
+  @media (max-width: 1024px) { .shop { grid-template-columns: 1fr; } .shop-shot { min-height: 460px; } }
+  @media (max-width: 680px) { .shop-shot { padding: 16px 16px 0; min-height: 400px; } .ss-phone { right: 12px; width: 42%; } .shop-shot figcaption { padding-right: 48%; } }
+  @media (max-width: 680px) { .shop-panel { grid-template-columns: 1fr; padding: 10px; } }
+
+  .note { margin-top: 20px; font-size: 14px; color: var(--mute); }
+  .ads-h { margin: clamp(48px, 5vw, 72px) 0 20px; font-size: clamp(22px, 2vw, 30px); }
+  .ad { gap: 10px; }
+  .ad-shot { aspect-ratio: 16 / 9; margin: 0 0 8px; border-radius: 16px; }
+  .ad-shot img { object-position: left top; }
+  .kick { font-size: 12px; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--blue); }
+  .ad .link { margin-top: auto; font-size: 14px; }
+  .src { margin-top: 16px; }
+
+  .cases { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .case { display: grid; gap: 18px; }
+  .case-shot { aspect-ratio: 16 / 10; margin: 0; }
+  .case-shot img { object-position: top; transition: transform .6s; }
+  .case:hover .case-shot img { transform: scale(1.03); }
+  .case-txt { display: grid; gap: 8px; }
+  .case-txt p { color: var(--mute); }
+  .show { margin-top: 16px; flex-direction: row; align-items: center; justify-content: space-between; gap: 24px; }
+  @media (max-width: 760px) { .cases { grid-template-columns: 1fr; } .show { flex-direction: column; align-items: flex-start; } }
+
+  .tier { gap: 12px; }
+  .tag { position: absolute; top: 24px; right: 24px; padding: 6px 12px; border-radius: 99px; background: var(--blue); color: #fff; font-size: 12px; font-weight: 600; }
+  .price { font-size: clamp(36px, 3.6vw, 52px); font-weight: 600; letter-spacing: -.05em; line-height: 1; }
+  .price span { color: var(--mute-2); }
+  .card.dark .price span { color: rgba(255, 255, 255, .5); }
+  .pay { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.6fr); gap: 16px; margin-top: 16px; }
+  .pay .card.blue .btn { align-self: flex-start; margin-top: auto; }
+  .pay .tbl td:first-child { color: var(--ink); font-weight: 500; }
+  .pay .tbl td { color: var(--mute); }
+  @media (max-width: 900px) { .pay { grid-template-columns: 1fr; } .tbl { font-size: 14px; } }
+
+  .who { display: grid; grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); gap: clamp(24px, 4vw, 64px); align-items: center; }
+  .who-ph { margin: 0; border-radius: var(--r-sheet); overflow: hidden; aspect-ratio: 1; }
+  .who-ph img { width: 100%; height: 100%; object-fit: cover; }
+  .who-txt { display: grid; gap: 16px; }
+  .who-txt .h2 { margin-bottom: 12px; }
+  .who-name { font-size: 18px; letter-spacing: -.02em; }
+  @media (max-width: 900px) { .who { grid-template-columns: 1fr; } .who-ph { max-width: 420px; } }
+
+  .lead-box { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: clamp(24px, 4vw, 64px); align-items: start; background: var(--sheet); border-radius: var(--r-sheet); padding: clamp(24px, 4vw, 64px); }
+  .lead-l { display: grid; gap: 20px; }
+  .lead-box .form { background: var(--card); }
+  .lead-box .form .btn { width: 100%; margin-top: 4px; }
+  @media (max-width: 900px) { .lead-box { grid-template-columns: 1fr; padding: 20px; } }
+</style>
